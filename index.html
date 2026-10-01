@@ -328,8 +328,8 @@
     @media (min-width: 900px) {
       .design-story-panel {
         position: absolute;
-        right: calc(100% + 38px);
-        top: 50%;
+        right: calc(50% + 208px);
+        top: calc(340px * var(--card-ratio) * 0.5);
         transform: translateY(-50%);
         width: 250px;
         padding-right: 22px;
@@ -339,7 +339,7 @@
 
     @media (min-width: 1100px) {
       .design-story-panel {
-        right: calc(100% + 54px);
+        right: calc(50% + 224px);
         width: 275px;
         padding-right: 26px;
       }
@@ -348,10 +348,22 @@
     /* En pantallas móviles y tablets (< 900px) se adapta abajo de forma no invasiva */
     @media (max-width: 899px) {
       .card-scene-wrapper {
-        flex-direction: column;
+        order: 1;
+        margin-bottom: 0;
+      }
+      .hint-pill {
+        order: 2;
+        margin-top: 10px;
+      }
+      .controls-wrapper {
+        order: 3;
+        margin-top: 12px;
+        width: 100%;
       }
       .design-story-panel {
-        order: 3;
+        order: 4;
+        position: static;
+        transform: none;
         width: min(340px, 86vw);
         margin: 16px auto 4px;
         padding: 12px 18px;
@@ -443,8 +455,8 @@
     @media (min-width: 900px) {
       .design-price-panel {
         position: absolute;
-        left: calc(100% + 38px);
-        top: 50%;
+        left: calc(50% + 208px);
+        top: calc(340px * var(--card-ratio) * 0.5);
         transform: translateY(-50%);
         width: 230px;
         padding-left: 24px;
@@ -454,7 +466,7 @@
 
     @media (min-width: 1100px) {
       .design-price-panel {
-        left: calc(100% + 54px);
+        left: calc(50% + 224px);
         width: 260px;
         padding-left: 28px;
       }
@@ -463,7 +475,9 @@
     /* En pantallas móviles y tablets (< 900px): píldora elegante, sutil y no invasiva */
     @media (max-width: 899px) {
       .design-price-panel {
-        order: 4;
+        order: 5;
+        position: static;
+        transform: none;
         width: fit-content;
         max-width: min(340px, 88vw);
         margin: 10px auto 4px;
@@ -1995,18 +2009,6 @@
   <!-- Main interactive 3D Card -->
   <main>
     <div class="card-scene-wrapper">
-      <!-- Storytelling Persuasivo Minimalista -->
-      <aside class="design-story-panel" id="designStoryPanel" aria-live="polite">
-        <div class="story-tag">
-          <span class="story-dot"></span>
-          <span class="story-category" id="storyCategory">Maravilla &amp; Energía Eterna</span>
-        </div>
-        <h3 class="story-title" id="storyTitle">Machu Picchu</h3>
-        <p class="story-text" id="storyText">
-          <span class="story-typewriter-text" id="storyTypewriter"></span><span class="typewriter-cursor" id="typewriterCursor">|</span>
-        </p>
-      </aside>
-
       <canvas id="sparkleCanvas" class="sparkle-canvas"></canvas>
       <div class="card-scene" id="cardScene" title="Haz clic para girar la tarjeta">
         <div class="card-flipper" id="cardFlipper">
@@ -2088,6 +2090,137 @@
         </div>
       </div>
     </div>
+    </div>
+
+    <!-- Indicador contextual -->
+    <div class="hint-pill" id="hintPill">
+      <span id="hintPillText">Tip: Haz clic en la tarjeta o presiona</span>
+      <kbd id="hintPillKbd">F</kbd>
+      <span id="hintPillTail">para girar</span>
+    </div>
+
+    <!-- Controles y Botones -->
+    <div class="controls-wrapper">
+      <!-- Grupo de botones principales -->
+      <div class="button-group">
+        <!-- Botón principal para girar (Amarillo oro, compacto) -->
+        <button class="btn-action" id="btnFlip" aria-label="Girar tarjeta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
+          </svg>
+          <span id="btnFlipText">Girar tarjeta</span>
+        </button>
+
+        <!-- Botón Principal Prominente: Crear Solicitud de Compra -->
+        <button class="btn-action btn-order-cta" id="btnOpenOrderModal" type="button" aria-label="Crear solicitud de compra">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span>Crear Solicitud de Compra</span>
+        </button>
+
+        <!-- Botón para descargar plantilla Word (oculto para flujo oficial con formulario) -->
+        <button class="btn-secondary btn-word-download" id="btnDownloadWord" style="display: none !important;" title="Descargar plantilla Word oficial">
+          <span id="btnDownloadWordText">Descargar Plantilla Word</span>
+        </button>
+      </div>
+
+      <!-- Controles específicos para el modo personalizado con foto -->
+      <div id="photoControlsGroup" class="photo-controls-group">
+        <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;" />
+        
+        <button class="btn-photo-action btn-photo-primary" id="btnUploadPhoto" type="button" title="Seleccionar foto de tus archivos (máx. 10 MB)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span id="btnUploadText">Subir foto</span>
+        </button>
+
+        <!-- Botón para alternar marco al tocar -->
+        <button class="btn-photo-action" id="btnToggleFrame" type="button" title="Tocar para alternar entre marco Estándar y Ovalado">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="12" rx="9" ry="6"></ellipse>
+          </svg>
+          <span>Marco: <b id="btnFrameName">Estándar</b></span>
+        </button>
+
+        <!-- Botón para alternar color de fondo al tocar -->
+        <button class="btn-photo-action" id="btnToggleBg" type="button" title="Tocar para alternar entre fondo Azul y Amarillo">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9V3z" fill="currentColor"></path>
+          </svg>
+          <span>Fondo: <b id="btnBgName">Azul</b></span>
+        </button>
+
+        <button class="btn-photo-action" id="btnZoomOut" type="button" title="Alejar foto (-)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+        </button>
+
+        <button class="btn-photo-action" id="btnZoomIn" type="button" title="Acercar foto (+)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <line x1="11" y1="8" x2="11" y2="14"></line>
+            <line x1="8" y1="11" x2="14" y2="11"></line>
+          </svg>
+        </button>
+
+        <button class="btn-photo-action" id="btnResetPhoto" type="button" title="Centrar encuadre">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          <span>Centrar</span>
+        </button>
+
+        <!-- Input de texto personalizado curvado (máx 12 caracteres) -->
+        <div class="photo-text-input-container" title="Escribe un texto personalizado para la parte superior de la foto (máx 12 letras)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </svg>
+          <input 
+            type="text" 
+            id="customPhotoTextInput" 
+            class="photo-text-input" 
+            placeholder="Texto aquí..." 
+            maxlength="12" 
+            value="Texto Aquí" 
+            autocomplete="off" 
+            spellcheck="false"
+          />
+          <span class="char-limit-badge" id="charLimitBadge">10/12</span>
+        </div>
+      </div>
+
+      <!-- Detalle de serial verificado -->
+      <div class="serial-display">
+        <span>Código Único:</span>
+        <span class="serial-tag" id="serialTag">1N3112606.xx</span>
+      </div>
+    </div>
+
+    <!-- Storytelling Persuasivo Minimalista -->
+    <aside class="design-story-panel" id="designStoryPanel" aria-live="polite">
+      <div class="story-tag">
+        <span class="story-dot"></span>
+        <span class="story-category" id="storyCategory">Maravilla &amp; Energía Eterna</span>
+      </div>
+      <h3 class="story-title" id="storyTitle">Machu Picchu</h3>
+      <p class="story-text" id="storyText">
+        <span class="story-typewriter-text" id="storyTypewriter"></span><span class="typewriter-cursor" id="typewriterCursor">|</span>
+      </p>
+    </aside>
 
     <!-- Bloque de Precio Minimalista (A la derecha en PC, compacto en móvil) -->
     <aside class="design-price-panel" id="designPricePanel" aria-label="Precio oficial del lingote">
@@ -2114,126 +2247,7 @@
         </div>
       </div>
     </aside>
-    </div>
-
-    <!-- Indicador contextual -->
-    <div class="hint-pill" id="hintPill">
-      <span id="hintPillText">Tip: Haz clic en la tarjeta o presiona</span>
-      <kbd id="hintPillKbd">F</kbd>
-      <span id="hintPillTail">para girar</span>
-    </div>
   </main>
-
-  <!-- Controles y Botones -->
-  <div class="controls-wrapper">
-    <!-- Grupo de botones principales -->
-    <div class="button-group">
-      <!-- Botón principal para girar (Amarillo oro, compacto) -->
-      <button class="btn-action" id="btnFlip" aria-label="Girar tarjeta">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
-        </svg>
-        <span id="btnFlipText">Girar tarjeta</span>
-      </button>
-
-      <!-- Botón Principal Prominente: Crear Solicitud de Compra -->
-      <button class="btn-action btn-order-cta" id="btnOpenOrderModal" type="button" aria-label="Crear solicitud de compra">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <path d="M16 10a4 4 0 0 1-8 0"></path>
-        </svg>
-        <span>Crear Solicitud de Compra</span>
-      </button>
-
-      <!-- Botón para descargar plantilla Word (oculto para flujo oficial con formulario) -->
-      <button class="btn-secondary btn-word-download" id="btnDownloadWord" style="display: none !important;" title="Descargar plantilla Word oficial">
-        <span id="btnDownloadWordText">Descargar Plantilla Word</span>
-      </button>
-    </div>
-
-    <!-- Controles específicos para el modo personalizado con foto -->
-    <div id="photoControlsGroup" class="photo-controls-group">
-      <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;" />
-      
-      <button class="btn-photo-action btn-photo-primary" id="btnUploadPhoto" type="button" title="Seleccionar foto de tus archivos (máx. 10 MB)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="17 8 12 3 7 8"></polyline>
-          <line x1="12" y1="3" x2="12" y2="15"></line>
-        </svg>
-        <span id="btnUploadText">Subir foto</span>
-      </button>
-
-      <!-- Botón para alternar marco al tocar -->
-      <button class="btn-photo-action" id="btnToggleFrame" type="button" title="Tocar para alternar entre marco Estándar y Ovalado">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <ellipse cx="12" cy="12" rx="9" ry="6"></ellipse>
-        </svg>
-        <span>Marco: <b id="btnFrameName">Estándar</b></span>
-      </button>
-
-      <!-- Botón para alternar color de fondo al tocar -->
-      <button class="btn-photo-action" id="btnToggleBg" type="button" title="Tocar para alternar entre fondo Azul y Amarillo">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9V3z" fill="currentColor"></path>
-        </svg>
-        <span>Fondo: <b id="btnBgName">Azul</b></span>
-      </button>
-
-      <button class="btn-photo-action" id="btnZoomOut" type="button" title="Alejar foto (-)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
-        </svg>
-      </button>
-
-      <button class="btn-photo-action" id="btnZoomIn" type="button" title="Acercar foto (+)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="11" y1="8" x2="11" y2="14"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
-        </svg>
-      </button>
-
-      <button class="btn-photo-action" id="btnResetPhoto" type="button" title="Centrar encuadre">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-          <path d="M3 3v5h5"></path>
-        </svg>
-        <span>Centrar</span>
-      </button>
-
-      <!-- Input de texto personalizado curvado (máx 12 caracteres) -->
-      <div class="photo-text-input-container" title="Escribe un texto personalizado para la parte superior de la foto (máx 12 letras)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="4 7 4 4 20 4 20 7"></polyline>
-          <line x1="9" y1="20" x2="15" y2="20"></line>
-          <line x1="12" y1="4" x2="12" y2="20"></line>
-        </svg>
-        <input 
-          type="text" 
-          id="customPhotoTextInput" 
-          class="photo-text-input" 
-          placeholder="Texto aquí..." 
-          maxlength="12" 
-          value="Texto Aquí" 
-          autocomplete="off" 
-          spellcheck="false"
-        />
-        <span class="char-limit-badge" id="charLimitBadge">10/12</span>
-      </div>
-    </div>
-
-    <!-- Detalle de serial verificado -->
-    <div class="serial-display">
-      <span>Código Único:</span>
-      <span class="serial-tag" id="serialTag">1N3112606.xx</span>
-    </div>
-  </div>
 
   <!-- Modal de Solicitud de Compra (Datos de Contacto del Cliente) -->
   <div id="orderModal" class="order-modal-backdrop" style="display: none;" aria-hidden="true" role="dialog" aria-labelledby="modalOrderBadge">

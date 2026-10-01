@@ -315,6 +315,261 @@
       justify-content: center;
     }
 
+    /* Panel de Significado Persuasivo Minimalista */
+    .design-story-panel {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      z-index: 20;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* En PC (>= 900px) se ubica a la izquierda de la tarjeta de forma muy minimalista */
+    @media (min-width: 900px) {
+      .design-story-panel {
+        position: absolute;
+        right: calc(100% + 38px);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 250px;
+        padding-right: 22px;
+        border-right: 1px solid rgba(237, 197, 0, 0.28);
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .design-story-panel {
+        right: calc(100% + 54px);
+        width: 275px;
+        padding-right: 26px;
+      }
+    }
+
+    /* En pantallas móviles y tablets (< 900px) se adapta abajo de forma no invasiva */
+    @media (max-width: 899px) {
+      .card-scene-wrapper {
+        flex-direction: column;
+      }
+      .design-story-panel {
+        order: 3;
+        width: min(340px, 86vw);
+        margin: 16px auto 4px;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(237, 197, 0, 0.2);
+        border-radius: 12px;
+        box-shadow: 0 4px 18px -4px rgba(1, 18, 46, 0.05);
+        text-align: center;
+        align-items: center;
+      }
+      .card-scene {
+        order: 1;
+      }
+    }
+
+    .story-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .story-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: inline-block;
+    }
+
+    .story-category {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .story-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #0b1220;
+      letter-spacing: 0.03em;
+      margin: 2px 0 6px 0;
+      line-height: 1.25;
+    }
+
+    .story-text {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: #475569;
+      font-weight: 400;
+      min-height: 4.8em;
+      margin: 0;
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      color: var(--gold);
+      font-weight: 700;
+      margin-left: 2px;
+      animation: cursorBlink 0.75s infinite;
+      user-select: none;
+    }
+
+    .typewriter-cursor.is-hidden {
+      opacity: 0;
+      animation: none;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Panel de Precio Minimalista (A la derecha en PC, compacto en móvil) */
+    .design-price-panel {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      z-index: 20;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* En PC (>= 900px): ubicado a la derecha de la tarjeta, simétrico al panel de la izquierda */
+    @media (min-width: 900px) {
+      .design-price-panel {
+        position: absolute;
+        left: calc(100% + 38px);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 230px;
+        padding-left: 24px;
+        border-left: 1px solid rgba(237, 197, 0, 0.28);
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .design-price-panel {
+        left: calc(100% + 54px);
+        width: 260px;
+        padding-left: 28px;
+      }
+    }
+
+    /* En pantallas móviles y tablets (< 900px): píldora elegante, sutil y no invasiva */
+    @media (max-width: 899px) {
+      .design-price-panel {
+        order: 4;
+        width: fit-content;
+        max-width: min(340px, 88vw);
+        margin: 10px auto 4px;
+        padding: 10px 18px;
+        background: rgba(255, 255, 255, 0.88);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(237, 197, 0, 0.22);
+        border-radius: 16px;
+        box-shadow: 0 4px 16px -4px rgba(1, 18, 46, 0.05);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        text-align: center;
+      }
+    }
+
+    .price-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 2px;
+    }
+
+    .price-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      display: inline-block;
+    }
+
+    .price-main {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin: 2px 0 6px 0;
+    }
+
+    .price-currency {
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #334155;
+      letter-spacing: 0.02em;
+    }
+
+    .price-amount {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0b1220;
+      letter-spacing: -0.01em;
+      line-height: 1;
+    }
+
+    .price-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 2px;
+    }
+
+    .price-feature {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: #64748b;
+      letter-spacing: 0.01em;
+    }
+
+    .price-feature svg {
+      color: var(--gold-dark);
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 899px) {
+      .price-main {
+        margin: 0;
+      }
+      .price-amount {
+        font-size: 1.75rem;
+      }
+      .price-currency {
+        font-size: 1.05rem;
+      }
+      .price-details {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4px 12px;
+        margin-top: 2px;
+      }
+      .price-feature {
+        font-size: 0.68rem;
+      }
+    }
+
     .sparkle-canvas {
       position: absolute;
       top: -70px;
@@ -463,8 +718,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
-      background: radial-gradient(circle, #FFF8B5 0%, #EDC500 100%);
-      box-shadow: 0 0 10px #EDC500, 0 0 16px rgba(237, 197, 0, 0.8);
+      background: var(--gold);
       animation: goldGemPulse 1.4s ease-in-out infinite alternate;
     }
 
@@ -949,24 +1203,24 @@
       letter-spacing: 0.02em;
       padding: 8px 18px;
       border-radius: 999px;
-      border: none;
+      border: 1px solid rgba(0, 0, 0, 0.06);
       display: inline-flex;
       align-items: center;
       gap: 7px;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(237, 197, 0, 0.25);
-      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      transition: all 0.2s ease;
     }
 
     .btn-action:hover {
       background: #ffd31a;
       transform: translateY(-1px);
-      box-shadow: 0 4px 14px rgba(237, 197, 0, 0.45);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09);
     }
 
     .btn-action:active {
-      transform: translateY(1px);
-      box-shadow: 0 1px 4px rgba(237, 197, 0, 0.2);
+      transform: translateY(0);
+      box-shadow: none;
     }
 
     .btn-action svg {
@@ -1047,6 +1301,340 @@
       cursor: wait;
     }
 
+    /* Botón Principal: Crear Solicitud de Compra (Minimalista y Limpio) */
+    .btn-order-cta {
+      background: var(--gold) !important;
+      color: #0b1220 !important;
+      font-weight: 600 !important;
+      font-size: 0.78rem !important;
+      padding: 8px 18px !important;
+      border-radius: 999px !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+      border: 1px solid rgba(0, 0, 0, 0.06) !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-order-cta:hover {
+      background: #ffd31a !important;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09) !important;
+    }
+
+    .btn-order-cta:active {
+      transform: translateY(0);
+      box-shadow: none !important;
+    }
+
+    .btn-order-cta svg {
+      color: #0b1220 !important;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-order-cta:hover svg {
+      transform: scale(1.08);
+    }
+
+    /* Modal de Solicitud de Compra */
+    .order-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(2, 7, 20, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 99999999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .order-modal-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .order-modal-dialog {
+      background: #ffffff;
+      width: min(450px, 94vw);
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.22);
+      border: 1px solid #e2e8f0;
+      padding: 22px 24px;
+      transform: scale(0.96) translateY(8px);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .order-modal-backdrop.is-open .order-modal-dialog {
+      transform: scale(1) translateY(0);
+    }
+
+    .order-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .modal-badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+    }
+
+    .btn-close-modal {
+      background: rgba(0, 0, 0, 0.04);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-close-modal:hover {
+      background: rgba(0, 0, 0, 0.08);
+      color: #0f172a;
+      transform: rotate(90deg);
+    }
+
+    .order-product-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 16px;
+    }
+
+    .order-product-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+
+    .order-product-subtitle {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0b1220;
+    }
+
+    .order-product-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .order-product-price {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0b1220;
+    }
+
+    .order-product-specs {
+      font-size: 0.72rem;
+      color: var(--gold-dark);
+      font-weight: 600;
+    }
+
+    .order-product-pill {
+      font-size: 0.66rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(237, 197, 0, 0.16);
+      color: #856f00;
+    }
+
+    .order-form {
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .form-row.form-row-doc {
+      grid-template-columns: 100px 1fr;
+    }
+
+    .form-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #334155;
+      letter-spacing: 0.01em;
+    }
+
+    .form-required {
+      color: #e11d48;
+    }
+
+    .form-input, .form-select {
+      font-family: inherit;
+      font-size: 0.82rem;
+      color: #0f172a;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 8px 12px;
+      outline: none;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .form-input:focus, .form-select:focus {
+      border-color: #EDC500;
+      box-shadow: 0 0 0 3px rgba(237, 197, 0, 0.22);
+    }
+
+    .input-with-prefix {
+      display: flex;
+      align-items: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .input-with-prefix:focus-within {
+      border-color: #EDC500;
+      box-shadow: 0 0 0 3px rgba(237, 197, 0, 0.22);
+    }
+
+    .phone-prefix {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748b;
+      padding: 0 10px;
+      background: #f1f5f9;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-right: 1px solid #cbd5e1;
+    }
+
+    .input-with-prefix .form-input {
+      border: none;
+      border-radius: 0;
+      padding: 8px 10px;
+    }
+
+    .btn-submit-order {
+      margin-top: 6px;
+      background: var(--gold);
+      color: #0b1220;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit-order:hover {
+      background: #ffd31a;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09);
+    }
+
+    .btn-submit-order:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .btn-submit-order.is-loading {
+      opacity: 0.85;
+      pointer-events: none;
+      cursor: wait;
+    }
+
+    .btn-submit-order.is-ready {
+      background: #10b981 !important;
+      color: #ffffff !important;
+      border-color: #059669 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .btn-submit-spinner {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid rgba(11, 18, 32, 0.25);
+      border-top-color: #0b1220;
+      animation: spinOrder 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spinOrder {
+      to { transform: rotate(360deg); }
+    }
+
+    .order-status-msg {
+      font-size: 0.78rem;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin-top: 4px;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .order-status-msg.is-error {
+      background: #ffe4e6;
+      color: #be123c;
+      border: 1px solid #fecdd3;
+    }
+
+    .order-status-msg.is-success {
+      background: #f0fdf4;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
     /* Code & Serial Badge Details - Compact */
     .serial-display {
       display: flex;
@@ -1066,6 +1654,164 @@
       border: none;
       padding: 3px 8px;
       border-radius: 5px;
+    }
+
+    /* Overlay Onboarding Spotlight */
+    .welcome-spotlight-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 999999;
+      pointer-events: auto;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .welcome-spotlight-overlay.is-visible {
+      opacity: 1;
+    }
+
+    /* Cutout iluminador orgánico y suave: CERO contornos lineales, pura luminiscencia difusa */
+    .spotlight-cutout {
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+      /* Difuminado suave sin borde ni trazo duro */
+      box-shadow: 
+        0 0 35px 10px rgba(237, 197, 0, 0.38),
+        0 0 75px 25px rgba(237, 197, 0, 0.15),
+        0 0 0 9999px rgba(2, 9, 24, 0.82);
+      transition: all 0.95s cubic-bezier(0.25, 1, 0.35, 1);
+      will-change: top, left, width, height;
+    }
+
+    /* Tarjeta flotante minimalista: CERO bordes lineales, efecto cristal puro */
+    .spotlight-tooltip-card {
+      position: absolute;
+      width: min(340px, 92vw);
+      background: rgba(8, 17, 34, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      padding: 16px 20px 14px;
+      box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.65), 0 0 35px rgba(237, 197, 0, 0.12);
+      color: #ffffff;
+      transform: translateX(-50%);
+      transition: all 0.95s cubic-bezier(0.25, 1, 0.35, 1);
+      z-index: 1000000;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: default;
+    }
+
+    /* Flecha indicadora animada que apunta directamente a la zona activa */
+    .spotlight-arrow-indicator {
+      position: absolute;
+      top: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.95s cubic-bezier(0.25, 1, 0.35, 1);
+      filter: drop-shadow(0 0 8px rgba(237, 197, 0, 0.85));
+      animation: arrowFloatPulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes arrowFloatPulse {
+      0%, 100% {
+        transform: translateX(calc(-50% + var(--arrow-shift, 0px))) translateY(0);
+      }
+      50% {
+        transform: translateX(calc(-50% + var(--arrow-shift, 0px))) translateY(-7px);
+      }
+    }
+
+    .spotlight-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .spotlight-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px #edc500;
+      animation: goldGemPulse 1.2s infinite alternate;
+    }
+
+    .spotlight-message {
+      font-size: 0.84rem;
+      line-height: 1.5;
+      color: #f1f5f9;
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .spotlight-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 6px;
+      border: none;
+    }
+
+    .spotlight-steps-indicator {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .spotlight-step-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .spotlight-step-dot.is-active {
+      width: 16px;
+      border-radius: 999px;
+      background: var(--gold);
+      box-shadow: 0 0 8px rgba(237, 197, 0, 0.6);
+    }
+
+    .btn-spotlight-dismiss {
+      background: var(--gold);
+      color: #0b1220;
+      border: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      letter-spacing: 0.03em;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(237, 197, 0, 0.3);
+    }
+
+    .btn-spotlight-dismiss:hover {
+      background: #ffe247;
+      transform: translateY(-1px);
     }
 
 
@@ -1107,6 +1853,36 @@
   </style>
 </head>
 <body>
+
+  <!-- Overlay Onboarding Spotlight Elegante -->
+  <div id="welcomeSpotlightOverlay" class="welcome-spotlight-overlay" style="display: none;" title="Haz clic en cualquier parte para continuar">
+    <div class="spotlight-cutout" id="spotlightCutout"></div>
+    <div class="spotlight-tooltip-card" id="spotlightTooltipCard">
+      <div class="spotlight-arrow-indicator" id="spotlightArrowIndicator">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#EDC500" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+      </div>
+      <div class="spotlight-badge" id="spotlightBadge">
+        <span class="spotlight-badge-dot"></span>
+        <span id="spotlightBadgeText">1. COLECCIONES EXCLUSIVAS</span>
+      </div>
+      <p class="spotlight-message" id="spotlightMessage">
+        Elige entre nuestra variedad de diseños, fauna, cultura y zodiaco...
+      </p>
+      <div class="spotlight-actions">
+        <div class="spotlight-steps-indicator">
+          <span class="spotlight-step-dot is-active" id="stepDot1"></span>
+          <span class="spotlight-step-dot" id="stepDot2"></span>
+        </div>
+        <button type="button" class="btn-spotlight-dismiss" id="btnSpotlightDismiss">
+          <span>Entendido</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Background minimalism elements -->
   <div class="bg-grid"></div>
@@ -1219,6 +1995,18 @@
   <!-- Main interactive 3D Card -->
   <main>
     <div class="card-scene-wrapper">
+      <!-- Storytelling Persuasivo Minimalista -->
+      <aside class="design-story-panel" id="designStoryPanel" aria-live="polite">
+        <div class="story-tag">
+          <span class="story-dot"></span>
+          <span class="story-category" id="storyCategory">Maravilla &amp; Energía Eterna</span>
+        </div>
+        <h3 class="story-title" id="storyTitle">Machu Picchu</h3>
+        <p class="story-text" id="storyText">
+          <span class="story-typewriter-text" id="storyTypewriter"></span><span class="typewriter-cursor" id="typewriterCursor">|</span>
+        </p>
+      </aside>
+
       <canvas id="sparkleCanvas" class="sparkle-canvas"></canvas>
       <div class="card-scene" id="cardScene" title="Haz clic para girar la tarjeta">
         <div class="card-flipper" id="cardFlipper">
@@ -1300,6 +2088,32 @@
         </div>
       </div>
     </div>
+
+    <!-- Bloque de Precio Minimalista (A la derecha en PC, compacto en móvil) -->
+    <aside class="design-price-panel" id="designPricePanel" aria-label="Precio oficial del lingote">
+      <div class="price-badge">
+        <span class="price-dot"></span>
+        <span>Edición 24K • 1g</span>
+      </div>
+      <div class="price-main">
+        <span class="price-currency">S/</span>
+        <span class="price-amount">599</span>
+      </div>
+      <div class="price-details">
+        <div class="price-feature">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Tarjeta de garantía</span>
+        </div>
+        <div class="price-feature">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Certificado de autenticidad</span>
+        </div>
+        <div class="price-feature">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Boleta o Factura electrónica</span>
+        </div>
+      </div>
+    </aside>
     </div>
 
     <!-- Indicador contextual -->
@@ -1322,14 +2136,18 @@
         <span id="btnFlipText">Girar tarjeta</span>
       </button>
 
-      <!-- Botón para descargar plantilla Word lista para imprimir -->
-      <button class="btn-secondary btn-word-download" id="btnDownloadWord" title="Descargar plantilla Word oficial con 4 tarjetas de 8.5 x 5.4 cm listas para imprimir">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="12" y1="18" x2="12" y2="12"></line>
-          <polyline points="9 15 12 18 15 15"></polyline>
+      <!-- Botón Principal Prominente: Crear Solicitud de Compra -->
+      <button class="btn-action btn-order-cta" id="btnOpenOrderModal" type="button" aria-label="Crear solicitud de compra">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
         </svg>
+        <span>Crear Solicitud de Compra</span>
+      </button>
+
+      <!-- Botón para descargar plantilla Word (oculto para flujo oficial con formulario) -->
+      <button class="btn-secondary btn-word-download" id="btnDownloadWord" style="display: none !important;" title="Descargar plantilla Word oficial">
         <span id="btnDownloadWordText">Descargar Plantilla Word</span>
       </button>
     </div>
@@ -1417,6 +2235,96 @@
     </div>
   </div>
 
+  <!-- Modal de Solicitud de Compra (Datos de Contacto del Cliente) -->
+  <div id="orderModal" class="order-modal-backdrop" style="display: none;" aria-hidden="true" role="dialog" aria-labelledby="modalOrderBadge">
+    <div class="order-modal-dialog">
+      <!-- Encabezado del Modal -->
+      <div class="order-modal-header">
+        <div class="modal-badge-status" id="modalOrderBadge">
+          <span class="dot-gold"></span>
+          <span>SOLICITUD DE COMPRA • ORO 24K</span>
+        </div>
+        <button type="button" class="btn-close-modal" id="btnCloseOrderModal" aria-label="Cerrar ventana">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Resumen del lingote activo -->
+      <div class="order-product-card">
+        <div class="order-product-info">
+          <span class="order-product-subtitle" id="orderModalDesignName">Diseño: Machu Picchu</span>
+          <div class="order-product-meta">
+            <span class="order-product-price">S/ 599</span>
+            <span class="order-product-specs">• Oro Puro 24K (1g)</span>
+          </div>
+        </div>
+        <div class="order-product-pill">Personalizado</div>
+      </div>
+
+      <!-- Formulario de contacto -->
+      <form id="orderForm" class="order-form" onsubmit="return false;" novalidate>
+        <!-- Campo Honeypot invisible para protección anti-bots -->
+        <input type="text" name="hp_website" id="hpWebsite" style="display: none !important;" tabindex="-1" autocomplete="off" />
+
+        <!-- Nombres -->
+        <div class="form-group">
+          <label for="orderNames" class="form-label">Nombres <span class="form-required">*</span></label>
+          <input type="text" id="orderNames" class="form-input" placeholder="Ej: Carlos Eduardo" required autocomplete="given-name" />
+        </div>
+
+        <!-- Apellido paterno y materno -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="orderPaternalSurname" class="form-label">Apellido paterno <span class="form-required">*</span></label>
+            <input type="text" id="orderPaternalSurname" class="form-input" placeholder="Ej: Mendoza" required autocomplete="family-name" />
+          </div>
+          <div class="form-group">
+            <label for="orderMaternalSurname" class="form-label">Apellido materno <span class="form-required">*</span></label>
+            <input type="text" id="orderMaternalSurname" class="form-input" placeholder="Ej: Quispe" required />
+          </div>
+        </div>
+
+        <!-- Tipo y número de documento -->
+        <div class="form-row form-row-doc">
+          <div class="form-group">
+            <label for="orderDocType" class="form-label">Tipo <span class="form-required">*</span></label>
+            <select id="orderDocType" class="form-select" required>
+              <option value="DNI" selected>DNI</option>
+              <option value="CE">C.E.</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="orderDocNumber" class="form-label">N° de documento <span class="form-required">*</span></label>
+            <input type="text" id="orderDocNumber" class="form-input" placeholder="8 dígitos para DNI" maxlength="12" required />
+          </div>
+        </div>
+
+        <!-- Número de celular / WhatsApp -->
+        <div class="form-group">
+          <label for="orderPhone" class="form-label">Número de celular (WhatsApp) <span class="form-required">*</span></label>
+          <div class="input-with-prefix">
+            <span class="phone-prefix">+51</span>
+            <input type="tel" id="orderPhone" class="form-input" placeholder="999 999 999" maxlength="12" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <!-- Mensajes de estado / alerta -->
+        <div id="orderStatusMsg" class="order-status-msg" style="display: none;"></div>
+
+        <!-- Botón de Envío -->
+        <button type="submit" id="btnSubmitOrder" class="btn-submit-order">
+          <span class="btn-submit-spinner" id="btnSubmitSpinner" style="display: none;"></span>
+          <span id="btnSubmitOrderText">Finalizar y Enviar Solicitud</span>
+          <svg class="btn-submit-arrow" id="btnSubmitArrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Scripts generadores (Soporte local y CDN en la nube) -->
   <script src="assets/qrcode.min.js"></script>
@@ -1783,6 +2691,167 @@
         isZodiac: true
       }
     };
+
+    // Textos persuasivos y significados exclusivos para cada diseño (máximo 30 palabras)
+    const DESIGN_STORIES = {
+      machupicchu: {
+        category: "Maravilla & Energía Eterna",
+        text: "Símbolo sagrado de grandeza e inmortalidad andina. Portar este lingote es conectar con la energía eterna y el triunfo de una civilización que desafió las alturas del tiempo."
+      },
+      vicuna: {
+        category: "Realeza de los Andes",
+        text: "Elegancia suprema de las cumbres y riqueza natural peruana. Representa libertad, sofisticación y el valor incalculable de lo auténtico y noble en tu vida."
+      },
+      llama: {
+        category: "Fortaleza & Prosperidad",
+        text: "Espíritu noble de lealtad, fortaleza y prosperidad incaica. Guía tus pasos hacia metas firmes llevando la serenidad y perseverancia de la cordillera en oro puro."
+      },
+      santarosa: {
+        category: "Protección & Gracia",
+        text: "Protección celestial, bondad inquebrantable y paz espiritual. Un amuleto bendecido que ilumina tu hogar con gracia, serenidad y bendiciones infinitas en cada desafío."
+      },
+      senordelosmilagros: {
+        category: "Fe & Esperanza Divina",
+        text: "Fe inquebrantable, devoción y esperanza divina. El Cristo Moreno acompaña tus días con protección milagrosa, gratitud y la certeza de que ningún obstáculo es imposible."
+      },
+      cuy: {
+        category: "Abundancia & Hogar",
+        text: "Ícono milenario de abundancia, fertilidad y bendición en el hogar. Atrae la prosperidad constante y celebra la calidez familiar con el brillo del oro puro."
+      },
+      pinguino: {
+        category: "Fidelidad & Resiliencia",
+        text: "Símbolo de fidelidad eterna, adaptabilidad y resiliencia marina. Celebra la devoción incondicional y el amor verdadero que supera cualquier corriente con fuerza y ternura."
+      },
+      puma: {
+        category: "Poder & Determinación",
+        text: "Poder ancestral, liderazgo y visión estratégica del mundo terrenal. Te otorga valentía, astucia y determinación para conquistar cualquier cima con presencia indomable."
+      },
+      tumi: {
+        category: "Corte de Energías & Renacer",
+        text: "Cuchillo ceremonial de sanación, corte de negatividad y renacimiento. Abre caminos victoriosos disipando obstáculos con la fuerza protectora del sol lambayecano."
+      },
+      diosinti: {
+        category: "Luz Solar & Éxito Supremo",
+        text: "La máxima fuente de vida, luz y poder cósmico inca. Irradia energía inagotable, claridad mental y un éxito resplandeciente en todos tus emprendimientos."
+      },
+      gallitodelasrocas: {
+        category: "Pasión & Distinción Nacional",
+        text: "Ave nacional del Perú; emblema de pasión, belleza exótica y distinción. Destaca con elegancia única y magnetismo, celebrando tu esencia vibrante y auténtica."
+      },
+      ojoturcorojo: {
+        category: "Coraje & Fuerza Interior",
+        text: "Energía ardiente de coraje, vitalidad y determinación. Protege tus pasiones, despierta tu fuerza interior y te blinda contra temores con la llama del éxito."
+      },
+      ojoturcoazul: {
+        category: "Escudo Protector & Paz",
+        text: "El escudo protector tradicional por excelencia. Neutraliza el mal de ojo y las envidias, atrayendo calma, buena fortuna y equilibrio espiritual a tu destino."
+      },
+      ojoturcorosa: {
+        category: "Amor Propio & Armonía",
+        text: "Guardián de la pureza emocional, el amor propio y la armonía relacional. Suaviza tensiones y atrae vínculos sinceros cobijados por la ternura dorada."
+      },
+      ojoturcoverde: {
+        category: "Renovación, Salud & Esperanza",
+        text: "Amuleto supremo de renovación, salud próspera y bienestar integral. Impulsa nuevos comienzos fértiles y armonía natural en cada área de tu vida."
+      },
+      leo: {
+        category: "Signo Zodiacal • Fuego",
+        text: "Magnetismo regio, generosidad dorada y corazón invencible. Naces para brillar con luz propia; este lingote corona tu grandeza, valentía y orgullo triunfante."
+      },
+      aries: {
+        category: "Signo Zodiacal • Fuego",
+        text: "Fuego pionero, audacia implacable e iniciativa indomable. Este oro refleja tu liderazgo nato y la fuerza de quien jamás teme abrir su propio sendero hacia la victoria."
+      },
+      tauro: {
+        category: "Signo Zodiacal • Tierra",
+        text: "Tierra firme de perseverancia, abundancia material y lealtad inquebrantable. Tu constancia forja imperios; este lingote sella tu valor y prosperidad eterna."
+      },
+      geminis: {
+        category: "Signo Zodiacal • Aire",
+        text: "Chispa brillante de elocuencia, ingenio y curiosidad infinita. Celebra tu mente ágil y la versatilidad de quien transforma cualquier idea en oro puro."
+      },
+      cancer: {
+        category: "Signo Zodiacal • Agua",
+        text: "Protección del alma, intuición profunda y devoción por tus raíces. Un tesoro que resguarda tus afectos más valiosos con la calidez del oro 24K."
+      },
+      virgo: {
+        category: "Signo Zodiacal • Tierra",
+        text: "Pureza, precisión admirable y excelencia en cada detalle. Honra tu sabiduría práctica y la maestría con la que construyes tu destino perfecto día tras día."
+      },
+      libra: {
+        category: "Signo Zodiacal • Aire",
+        text: "Armonía sublime, encanto diplomático y justicia estética. Equilibra tus energías con el magnetismo del oro fino y atrae paz, belleza y relaciones virtuosas."
+      },
+      escorpio: {
+        category: "Signo Zodiacal • Agua",
+        text: "Fuerza magnética de renacimiento, poder oculto y pasión incondicional. Transformas cualquier adversidad en poder puro; un talismán a la altura de tu intensidad."
+      },
+      sagitario: {
+        category: "Signo Zodiacal • Fuego",
+        text: "Espíritu libre, optimismo expansivo y sed de grandeza. Flecha dorada que guía tus aventuras hacia horizontes ilimitados con sabiduría y buena fortuna constante."
+      },
+      capricornio: {
+        category: "Signo Zodiacal • Tierra",
+        text: "Ambición señorial, disciplina implacable y éxito forjado en roca firme. La cumbre pertenece a los perseverantes; sella tu legado con la solidez del oro."
+      },
+      acuario: {
+        category: "Signo Zodiacal • Aire",
+        text: "Visión vanguardista, genialidad rebelde y amor por la libertad humana. Inspiras el futuro con originalidad luminosa que rompe moldes y crea historia."
+      },
+      piscis: {
+        category: "Signo Zodiacal • Agua",
+        text: "Intuición mística, sensibilidad infinita y empatía celestial. Conecta con la magia del universo y convierte tus sueños más nobles en realidades doradas."
+      },
+      custom: {
+        category: "Personalización Única",
+        text: "Tus memorias más preciadas, afectos eternos o logros queridos inmortalizados en oro puro 24K. Una joya invaluable que trasciende generaciones con amor y distinción."
+      }
+    };
+
+    // Animación máquina de escribir para el significado persuasivo
+    let storyTypewriterTimer = null;
+    let storyTypewriterTargetText = '';
+
+    function triggerStoryTypewriter(designKey) {
+      const storyInfo = DESIGN_STORIES[designKey] || DESIGN_STORIES.machupicchu;
+      const titleElem = document.getElementById('storyTitle');
+      const catElem = document.getElementById('storyCategory');
+      const textElem = document.getElementById('storyTypewriter');
+      const cursorElem = document.getElementById('typewriterCursor');
+
+      if (!textElem) return;
+
+      const designName = (DESIGNS[designKey] && DESIGNS[designKey].name) || (designKey === 'custom' ? 'Con Foto' : 'Edición Especial');
+      if (titleElem) titleElem.textContent = designName;
+      if (catElem) catElem.textContent = storyInfo.category;
+
+      if (storyTypewriterTimer) {
+        clearTimeout(storyTypewriterTimer);
+        storyTypewriterTimer = null;
+      }
+
+      if (cursorElem) cursorElem.classList.remove('is-hidden');
+
+      const fullText = storyInfo.text;
+      storyTypewriterTargetText = fullText;
+      textElem.textContent = '';
+
+      let idx = 0;
+      const speed = 18;
+
+      function step() {
+        if (storyTypewriterTargetText !== fullText) return;
+        if (idx < fullText.length) {
+          textElem.textContent += fullText.charAt(idx);
+          idx++;
+          storyTypewriterTimer = setTimeout(step, speed);
+        } else {
+          storyTypewriterTimer = null;
+        }
+      }
+
+      step();
+    }
 
     // Toggle Flip Function
     function toggleCardFlip() {
@@ -2382,6 +3451,7 @@
           hintPillTail.textContent = 'para ajustar';
         }
 
+        triggerStoryTypewriter('custom');
         triggerSparkles();
         return;
       }
@@ -2390,6 +3460,9 @@
 
       currentDesign = designKey;
       const data = DESIGNS[designKey];
+
+      // Disparar animación de máquina de escribir con significado persuasivo
+      triggerStoryTypewriter(designKey);
 
       // Mostrar siempre el lingote en los diseños estándar
       if (goldBarOverlay) goldBarOverlay.style.display = 'block';
@@ -3291,8 +4364,536 @@
       });
     }
 
+    // ============================================================================
+    // GESTIÓN DEL MODAL DE SOLICITUD DE COMPRA Y PREPARACIÓN DE ARCHIVOS
+    // ============================================================================
+    const orderModal = document.getElementById('orderModal');
+    const btnOpenOrderModal = document.getElementById('btnOpenOrderModal');
+    const btnCloseOrderModal = document.getElementById('btnCloseOrderModal');
+    const orderModalDesignName = document.getElementById('orderModalDesignName');
+    const orderForm = document.getElementById('orderForm');
+    const orderNames = document.getElementById('orderNames');
+    const orderPaternalSurname = document.getElementById('orderPaternalSurname');
+    const orderMaternalSurname = document.getElementById('orderMaternalSurname');
+    const orderDocType = document.getElementById('orderDocType');
+    const orderDocNumber = document.getElementById('orderDocNumber');
+    const orderPhone = document.getElementById('orderPhone');
+    const hpWebsite = document.getElementById('hpWebsite');
+    const orderStatusMsg = document.getElementById('orderStatusMsg');
+    const btnSubmitOrder = document.getElementById('btnSubmitOrder');
+    const btnSubmitSpinner = document.getElementById('btnSubmitSpinner');
+    const btnSubmitOrderText = document.getElementById('btnSubmitOrderText');
+    const btnSubmitArrow = document.getElementById('btnSubmitArrow');
+
+    // Abre el modal y actualiza el nombre del diseño seleccionado
+    function openOrderModal() {
+      if (!orderModal) return;
+
+      // Cancelar y ocultar inmediatamente cualquier tour de bienvenida o reflector spotlight
+      if (typeof window.dismissWelcomeTour === 'function') {
+        window.dismissWelcomeTour();
+      }
+      const welcomeOverlay = document.getElementById('welcomeSpotlightOverlay');
+      if (welcomeOverlay) {
+        welcomeOverlay.classList.remove('is-visible');
+        welcomeOverlay.style.display = 'none';
+      }
+      sessionStorage.setItem('inticash_spotlight_seen', 'true');
+
+      const activeName = currentDesign === 'custom'
+        ? (hasCustomPhoto ? 'Personalizado con Foto' : 'Personalizado')
+        : (DESIGNS[currentDesign] ? DESIGNS[currentDesign].name : currentDesign);
+
+      if (orderModalDesignName) {
+        orderModalDesignName.textContent = `Diseño: ${activeName}`;
+      }
+
+      // Restablecer estados previos del botón y avisos
+      if (btnSubmitOrder) {
+        btnSubmitOrder.disabled = false;
+        btnSubmitOrder.classList.remove('is-loading');
+        btnSubmitOrder.classList.remove('is-ready');
+        if (btnSubmitSpinner) btnSubmitSpinner.style.display = 'none';
+        if (btnSubmitOrderText) btnSubmitOrderText.textContent = 'Finalizar y Enviar Solicitud';
+        if (btnSubmitArrow) btnSubmitArrow.style.display = 'inline-block';
+      }
+
+      if (orderStatusMsg) {
+        orderStatusMsg.style.display = 'none';
+        orderStatusMsg.className = 'order-status-msg';
+        orderStatusMsg.innerHTML = '';
+      }
+
+      orderModal.style.display = 'flex';
+      orderModal.offsetHeight; // Forzar reflujo de renderizado
+      orderModal.classList.add('is-open');
+      orderModal.setAttribute('aria-hidden', 'false');
+
+      setTimeout(() => {
+        if (orderNames) orderNames.focus();
+      }, 150);
+    }
+
+    // Cierra el modal con animación suave
+    function closeOrderModal() {
+      if (!orderModal) return;
+      orderModal.classList.remove('is-open');
+      orderModal.setAttribute('aria-hidden', 'true');
+      setTimeout(() => {
+        orderModal.style.display = 'none';
+      }, 280);
+    }
+
+    // Listeners de apertura y cierre
+    if (btnOpenOrderModal) {
+      btnOpenOrderModal.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openOrderModal();
+      });
+    }
+
+    if (btnCloseOrderModal) {
+      btnCloseOrderModal.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeOrderModal();
+      });
+    }
+
+    if (orderModal) {
+      orderModal.addEventListener('click', (e) => {
+        if (e.target === orderModal) {
+          closeOrderModal();
+        }
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && orderModal && orderModal.classList.contains('is-open')) {
+        closeOrderModal();
+      }
+    });
+
+    // Formateo y validación reactiva de inputs
+    if (orderDocType && orderDocNumber) {
+      orderDocType.addEventListener('change', () => {
+        if (orderDocType.value === 'DNI') {
+          orderDocNumber.placeholder = '8 dígitos para DNI';
+          orderDocNumber.maxLength = 8;
+          orderDocNumber.value = orderDocNumber.value.replace(/\D/g, '').slice(0, 8);
+        } else {
+          orderDocNumber.placeholder = 'N° Carné de Extranjería';
+          orderDocNumber.maxLength = 12;
+          orderDocNumber.value = orderDocNumber.value.replace(/[^a-zA-Z0-9]/g, '').slice(0, 12);
+        }
+      });
+
+      orderDocNumber.addEventListener('input', (e) => {
+        if (orderDocType.value === 'DNI') {
+          e.target.value = e.target.value.replace(/\D/g, '').slice(0, 8);
+        } else {
+          e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '').slice(0, 12);
+        }
+      });
+    }
+
+    if (orderPhone) {
+      orderPhone.addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
+      });
+    }
+
+    function showOrderAlert(message, isError = true) {
+      if (!orderStatusMsg) return;
+      orderStatusMsg.className = isError ? 'order-status-msg is-error' : 'order-status-msg is-success';
+      orderStatusMsg.innerHTML = message;
+      orderStatusMsg.style.display = 'block';
+    }
+
+    // Procesamiento y Generación de la Solicitud (Word + Imágenes en Base64)
+    async function processOrderSubmission() {
+      // 1. Control anti-bots (Honeypot)
+      if (hpWebsite && hpWebsite.value.trim() !== '') {
+        console.warn('Bot detectado.');
+        return;
+      }
+
+      // 2. Validación de campos requeridos
+      const names = orderNames ? orderNames.value.trim() : '';
+      const paternal = orderPaternalSurname ? orderPaternalSurname.value.trim() : '';
+      const maternal = orderMaternalSurname ? orderMaternalSurname.value.trim() : '';
+      const docType = orderDocType ? orderDocType.value.trim() : 'DNI';
+      const docNumber = orderDocNumber ? orderDocNumber.value.trim() : '';
+      const phone = orderPhone ? orderPhone.value.trim().replace(/\D/g, '') : '';
+
+      if (!names || names.length < 2) {
+        showOrderAlert('Por favor, ingresa tus nombres completos.');
+        if (orderNames) orderNames.focus();
+        return;
+      }
+
+      if (!paternal || paternal.length < 2) {
+        showOrderAlert('Por favor, ingresa tu apellido paterno.');
+        if (orderPaternalSurname) orderPaternalSurname.focus();
+        return;
+      }
+
+      if (!maternal || maternal.length < 2) {
+        showOrderAlert('Por favor, ingresa tu apellido materno.');
+        if (orderMaternalSurname) orderMaternalSurname.focus();
+        return;
+      }
+
+      if (docType === 'DNI') {
+        if (!/^\d{8}$/.test(docNumber)) {
+          showOrderAlert('El DNI debe contener exactamente 8 dígitos numéricos.');
+          if (orderDocNumber) orderDocNumber.focus();
+          return;
+        }
+      } else {
+        if (docNumber.length < 4 || docNumber.length > 12) {
+          showOrderAlert('El Carné de Extranjería debe contener entre 4 y 12 caracteres.');
+          if (orderDocNumber) orderDocNumber.focus();
+          return;
+        }
+      }
+
+      if (!/^9\d{8}$/.test(phone)) {
+        showOrderAlert('Por favor, ingresa un número de celular peruano válido (9 dígitos, comenzando con 9).');
+        if (orderPhone) orderPhone.focus();
+        return;
+      }
+
+      // 3. Activar indicador de carga
+      if (btnSubmitOrder) {
+        btnSubmitOrder.disabled = true;
+        btnSubmitOrder.classList.add('is-loading');
+      }
+      if (btnSubmitSpinner) btnSubmitSpinner.style.display = 'inline-block';
+      if (btnSubmitArrow) btnSubmitArrow.style.display = 'none';
+      if (btnSubmitOrderText) btnSubmitOrderText.textContent = 'Procesando solicitud...';
+      if (orderStatusMsg) orderStatusMsg.style.display = 'none';
+
+      try {
+        // A. Renderizar frente y reverso únicos en alta resolución
+        const frontBase64 = await renderFrontCardBase64();
+        const currentSerial = (qrCodeText && qrCodeText.textContent.trim()) || '1N3112606.xx';
+        const backBase64 = await renderBackCardBase64(currentSerial);
+
+        // B. Extraer foto original subida por el cliente si está en modo personalizado
+        let originalPhotoBase64 = null;
+        if (currentDesign === 'custom' && userCustomPhoto && userCustomPhoto.src && userCustomPhoto.src.startsWith('data:')) {
+          const parts = userCustomPhoto.src.split(',');
+          if (parts.length > 1) {
+            originalPhotoBase64 = parts[1];
+          }
+        }
+
+        // C. Compilar la plantilla Word (.docx) oficial con frente y dorso inyectados
+        if (!window.DOCX_TEMPLATE_BASE64) {
+          throw new Error('La plantilla base de Word no se ha cargado.');
+        }
+        if (typeof JSZip === 'undefined') {
+          throw new Error('La biblioteca JSZip no está disponible.');
+        }
+
+        const zip = await JSZip.loadAsync(window.DOCX_TEMPLATE_BASE64, { base64: true });
+        zip.file('word/media/image2.jpeg', frontBase64, { base64: true });
+        zip.file('word/media/image5.png', backBase64, { base64: true });
+
+        const docxBase64 = await zip.generateAsync({
+          type: 'base64',
+          mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        });
+
+        // D. Crear ID único de orden y empaquetar estructura completa
+        const now = new Date();
+        const orderId = 'ORD-' + now.getFullYear() +
+          String(now.getMonth() + 1).padStart(2, '0') +
+          String(now.getDate()).padStart(2, '0') + '-' +
+          Math.floor(1000 + Math.random() * 9000);
+
+        const activeDesignName = currentDesign === 'custom'
+          ? (hasCustomPhoto ? 'Personalizado con Foto' : 'Personalizado')
+          : (DESIGNS[currentDesign] ? DESIGNS[currentDesign].name : currentDesign);
+
+        // Objeto unificado listo para enviar al backend de Google Apps Script / Drive
+        window.preparedOrderData = {
+          customer: {
+            names: names,
+            paternalSurname: paternal,
+            maternalSurname: maternal,
+            fullName: `${names} ${paternal} ${maternal}`,
+            docType: docType,
+            docNumber: docNumber,
+            phone: `+51 ${phone}`
+          },
+          order: {
+            orderId: orderId,
+            timestamp: now.toISOString(),
+            formattedDate: now.toLocaleString('es-PE'),
+            designKey: currentDesign,
+            designName: activeDesignName,
+            pricePEN: 599,
+            currency: 'PEN',
+            weight: '1 gramo',
+            purity: 'Oro Puro 24K (999.9)',
+            serialCode: currentSerial,
+            isCustomPhoto: currentDesign === 'custom' && !!originalPhotoBase64
+          },
+          customization: {
+            customText: (currentDesign === 'custom' && customPhotoTextInput) ? (customPhotoTextInput.value || '') : '',
+            backgroundColor: (currentDesign === 'custom') ? (currentCustomBg || 'azul') : 'predeterminado',
+            frame: (currentDesign === 'custom') ? (currentCustomFrame === 'marco2' ? 'Ovalado' : 'Estándar') : 'predeterminado',
+            textColor: (currentDesign === 'custom' && currentCustomBg === 'amarillo') ? '#01122e' : '#ffffff',
+            borderColor: '#f5d77f'
+          },
+          files: {
+            docxFileName: `SOLICITUD_${orderId}_LINGOTE_${(currentDesign || 'DISENO').toUpperCase()}.docx`,
+            docxBase64: docxBase64,
+            frontImageFileName: `FRENTE_${orderId}.png`,
+            frontBase64: frontBase64,
+            backImageFileName: `REVERSO_${orderId}.png`,
+            backBase64: backBase64,
+            originalPhotoFileName: originalPhotoBase64 ? `FOTO_CLIENTE_${orderId}.png` : null,
+            originalPhotoBase64: originalPhotoBase64
+          }
+        };
+
+        // E. Enviar solicitud a Google Apps Script y Google Drive
+        if (btnSubmitOrderText) btnSubmitOrderText.textContent = 'Enviando solicitud...';
+
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJR27ZmlEEA5rV2r6sLSJn5_S8E7CULeeVvTvZmCNJmEuRJceE5Fho3dnEtGUb8Jat/exec';
+
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(window.preparedOrderData)
+        });
+
+        const result = await response.json();
+
+        if (result.status !== 'success') {
+          throw new Error(result.message || 'Error al guardar en el servidor');
+        }
+
+        // F. Feedback visual de éxito
+        if (btnSubmitSpinner) btnSubmitSpinner.style.display = 'none';
+        if (btnSubmitArrow) btnSubmitArrow.style.display = 'none';
+        if (btnSubmitOrderText) btnSubmitOrderText.textContent = '✓ Solicitud Enviada con Éxito';
+        if (btnSubmitOrder) {
+          btnSubmitOrder.classList.remove('is-loading');
+          btnSubmitOrder.classList.add('is-ready');
+        }
+
+        showOrderAlert(
+          '<strong>¡Solicitud enviada con éxito!</strong><br>' +
+          `Tu orden <b>#${orderId}</b> ha sido registrada correctamente.<br>` +
+          `Nos comunicaremos contigo vía WhatsApp al <b>+51 ${phone}</b> para coordinar los detalles.`,
+          false
+        );
+
+        triggerSparkles();
+        console.log('✅ [IntiCash] Pedido registrado en Google Drive con éxito:', result);
+
+      } catch (err) {
+        console.error('Error al generar la solicitud:', err);
+        if (btnSubmitSpinner) btnSubmitSpinner.style.display = 'none';
+        if (btnSubmitArrow) btnSubmitArrow.style.display = 'inline-block';
+        if (btnSubmitOrderText) btnSubmitOrderText.textContent = 'Finalizar y Enviar Solicitud';
+        if (btnSubmitOrder) {
+          btnSubmitOrder.disabled = false;
+          btnSubmitOrder.classList.remove('is-loading');
+        }
+        showOrderAlert('Error al enviar la solicitud: ' + err.message, true);
+      }
+    }
+
+    if (orderForm) {
+      orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        processOrderSubmission();
+      });
+    }
+
+    if (btnSubmitOrder) {
+      btnSubmitOrder.addEventListener('click', (e) => {
+        e.preventDefault();
+        processOrderSubmission();
+      });
+    }
+
     // Initialize QR code with SKU: 1N3112606.xx
     generateNewQRCode("1N3112606.xx");
+
+    // Iniciar animación de máquina de escribir con el significado persuasivo del diseño inicial
+    triggerStoryTypewriter(currentDesign || 'machupicchu');
+
+    // ============================================================================
+    // TOUR ONBOARDING CON ILUMINACIÓN SPOTLIGHT Y TRANSICIÓN ELEGANTE
+    // ============================================================================
+    function getPresetTabsBox() {
+      const t1 = document.getElementById('tab-machupicchu');
+      const t2 = document.getElementById('zodiacDropdownWrapper') || document.getElementById('tab-zodiac');
+      if (!t1 || !t2) return null;
+      const r1 = t1.getBoundingClientRect();
+      const r2 = t2.getBoundingClientRect();
+      const top = Math.min(r1.top, r2.top) - 5;
+      const left = Math.min(r1.left, r2.left) - 7;
+      const bottom = Math.max(r1.bottom, r2.bottom) + 5;
+      const right = Math.max(r1.right, r2.right) + 7;
+      return {
+        top: top,
+        left: left,
+        width: right - left,
+        height: bottom - top,
+        centerX: left + (right - left) / 2
+      };
+    }
+
+    function getCustomTabBox() {
+      const tc = document.getElementById('tab-custom');
+      if (!tc) return null;
+      const r = tc.getBoundingClientRect();
+      return {
+        top: r.top - 5,
+        left: r.left - 7,
+        width: r.width + 14,
+        height: r.height + 10,
+        centerX: r.left + r.width / 2
+      };
+    }
+
+    function positionSpotlight(box, badgeText, messageText, stepNum) {
+      const cutout = document.getElementById('spotlightCutout');
+      const card = document.getElementById('spotlightTooltipCard');
+      const badge = document.getElementById('spotlightBadgeText');
+      const msg = document.getElementById('spotlightMessage');
+      const dot1 = document.getElementById('stepDot1');
+      const dot2 = document.getElementById('stepDot2');
+
+      if (!cutout || !card || !box) return;
+
+      cutout.style.top = `${Math.round(box.top)}px`;
+      cutout.style.left = `${Math.round(box.left)}px`;
+      cutout.style.width = `${Math.round(box.width)}px`;
+      cutout.style.height = `${Math.round(box.height)}px`;
+
+      if (badge) badge.textContent = badgeText;
+      if (msg) msg.textContent = messageText;
+      if (dot1 && dot2) {
+        dot1.classList.toggle('is-active', stepNum === 1);
+        dot2.classList.toggle('is-active', stepNum === 2);
+      }
+
+      // Posicionar tooltip debajo del spotlight con margen cómodo
+      const tooltipTop = box.top + box.height + 24;
+      const cardWidth = card.offsetWidth || 330;
+      let targetLeft = box.centerX;
+
+      // Mantener dentro de los bordes del viewport
+      const minLeft = (cardWidth / 2) + 14;
+      const maxLeft = window.innerWidth - (cardWidth / 2) - 14;
+      targetLeft = Math.max(minLeft, Math.min(maxLeft, targetLeft));
+
+      card.style.top = `${Math.round(tooltipTop)}px`;
+      card.style.left = `${Math.round(targetLeft)}px`;
+
+      // Orientar la flecha indicadora directamente al centro del spotlight
+      const arrow = card.querySelector('.spotlight-arrow-indicator');
+      if (arrow) {
+        const arrowOffset = Math.round(box.centerX - targetLeft);
+        arrow.style.setProperty('--arrow-shift', `${arrowOffset}px`);
+        arrow.style.transform = `translateX(calc(-50% + ${arrowOffset}px))`;
+      }
+    }
+
+    function initOnboardingSpotlight(force = false) {
+      const overlay = document.getElementById('welcomeSpotlightOverlay');
+      if (!overlay) return;
+
+      // Si el modal de compra está abierto, no iniciar el tour
+      const orderModal = document.getElementById('orderModal');
+      if (orderModal && (orderModal.classList.contains('is-open') || orderModal.style.display === 'flex')) {
+        return;
+      }
+
+      // Mostrar únicamente en la primera visita por sesión (o si se fuerza)
+      if (!force && sessionStorage.getItem('inticash_spotlight_seen')) {
+        return;
+      }
+
+      let tourTimer = null;
+      let isDismissed = false;
+
+      function dismissTour() {
+        if (isDismissed) return;
+        isDismissed = true;
+        if (tourTimer) clearTimeout(tourTimer);
+        overlay.classList.remove('is-visible');
+        sessionStorage.setItem('inticash_spotlight_seen', 'true');
+        setTimeout(() => {
+          overlay.style.display = 'none';
+        }, 550);
+      }
+
+      window.dismissWelcomeTour = dismissTour;
+
+      const btnDismiss = document.getElementById('btnSpotlightDismiss');
+      if (btnDismiss) {
+        btnDismiss.onclick = (e) => {
+          e.stopPropagation();
+          dismissTour();
+        };
+      }
+
+      overlay.onclick = (e) => {
+        dismissTour();
+      };
+
+      // Exponer función de repetición en consola
+      window.replayWelcomeTour = () => {
+        initOnboardingSpotlight(true);
+      };
+
+      overlay.style.display = 'block';
+      overlay.offsetHeight; // Forzar reflujo
+      overlay.classList.add('is-visible');
+
+      // Paso 1: Iluminar con cadencia pausada el selector de variedad de colecciones
+      const box1 = getPresetTabsBox();
+      if (box1) {
+        positionSpotlight(
+          box1,
+          '1. VARIEDAD DE DISEÑOS',
+          'Elige entre nuestra variedad de diseños, fauna, cultura y signos zodiacales...',
+          1
+        );
+      }
+
+      // Paso 2: Deslizar el reflector de forma pausada y ultrasuave hacia "Con Foto" tras 3.2s
+      tourTimer = setTimeout(() => {
+        if (isDismissed) return;
+        const box2 = getCustomTabBox();
+        if (box2) {
+          positionSpotlight(
+            box2,
+            '2. PERSONALIZA CON TU FOTO',
+            '...o carga una foto tuya y crea tu lingote modificando colores, marcos y textos.',
+            2
+          );
+        }
+
+        // Cierre suave tras 3.8s adicionales de lectura tranquila
+        tourTimer = setTimeout(() => {
+          if (!isDismissed) dismissTour();
+        }, 3800);
+      }, 3200);
+    }
+
+    // Iniciar tour de bienvenida tras breve espera de montaje
+    setTimeout(initOnboardingSpotlight, 420);
   </script>
 </body>
 </html>

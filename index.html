@@ -2154,9 +2154,9 @@
 
     <!-- Controles específicos para el modo personalizado con foto -->
     <div id="photoControlsGroup" class="photo-controls-group">
-      <input type="file" id="photoFileInput" accept="image/*" style="display: none;" />
+      <input type="file" id="photoFileInput" accept="image/png, image/jpeg, image/jpg, image/webp" style="display: none;" />
       
-      <button class="btn-photo-action btn-photo-primary" id="btnUploadPhoto" type="button" title="Seleccionar foto de tus archivos">
+      <button class="btn-photo-action btn-photo-primary" id="btnUploadPhoto" type="button" title="Seleccionar foto de tus archivos (máx. 10 MB)">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="17 8 12 3 7 8"></polyline>
@@ -3044,13 +3044,82 @@
       userCustomPhoto.style.transform = `translate(${photoPanX}px, ${photoPanY}px) scale(${photoZoom})`;
     }
 
-    // Cargar y procesar la foto seleccionada
-    function handlePhotoFile(file) {
-      if (!file || !file.type.startsWith('image/')) return;
+    const MAX_PHOTO_SIZE_BYTES = 10 * 1024 * 1024; // Límite máximo: 10 MB
 
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        userCustomPhoto.src = e.target.result;
+    // Redimensiona y optimiza suavemente fotos de resolución gigantesca sin perder nitidez
+    function optimizeImageFile(file, maxDimension = 2048, quality = 0.92) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('No se pudo leer el archivo'));
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onerror = () => reject(new Error('No se pudo decodificar la imagen'));
+          img.onload = () => {
+            let w = img.naturalWidth || img.width;
+            let h = img.naturalHeight || img.height;
+
+            // Si ya tiene dimensiones estándar y es ligera (menor a 2MB), conservar original
+            if (w <= maxDimension && h <= maxDimension && file.size <= 2 * 1024 * 1024) {
+              resolve(e.target.result);
+              return;
+            }
+
+            // Escalar proporcionalmente al límite máximo de 2048px (excelente para 300+ DPI)
+            if (w > h) {
+              if (w > maxDimension) {
+                h = Math.round((h * maxDimension) / w);
+                w = maxDimension;
+              }
+            } else {
+              if (h > maxDimension) {
+                w = Math.round((w * maxDimension) / h);
+                h = maxDimension;
+              }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(img, 0, 0, w, h);
+
+            const mime = (file.type === 'image/png') ? 'image/png' : 'image/jpeg';
+            resolve(canvas.toDataURL(mime, quality));
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // Cargar y procesar la foto seleccionada con validación de peso y formato
+    async function handlePhotoFile(file) {
+      if (!file) return;
+
+      // 1. Validar que sea un archivo de imagen compatible
+      if (!file.type || !file.type.startsWith('image/')) {
+        alert('Por favor selecciona un archivo de imagen válido (JPG, PNG o WebP).');
+        if (photoFileInput) photoFileInput.value = '';
+        return;
+      }
+
+      // 2. Validar tamaño máximo permitido (10 MB)
+      if (file.size > MAX_PHOTO_SIZE_BYTES) {
+        const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+        alert(`La foto seleccionada pesa ${sizeMb} MB y supera el límite máximo permitido de 10 MB.\n\nPor favor, elige una imagen de menor tamaño o más ligera.`);
+        if (photoFileInput) photoFileInput.value = '';
+        return;
+      }
+
+      try {
+        if (btnUploadText) btnUploadText.textContent = 'Cargando...';
+
+        // 3. Optimización automática de dimensiones para velocidad y calidad ultra nítida
+        const optimizedDataUrl = await optimizeImageFile(file, 2048, 0.92);
+
+        userCustomPhoto.src = optimizedDataUrl;
         userCustomPhoto.style.display = 'block';
         if (customMarcoImg) customMarcoImg.style.display = 'none';
         if (photoPlaceholder) photoPlaceholder.style.display = 'none';
@@ -3063,8 +3132,13 @@
         setCustomFrame(currentCustomFrame || 'marco1');
         if (btnUploadText) btnUploadText.textContent = 'Cambiar foto';
         triggerSparkles();
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error('Error al procesar la foto:', err);
+        alert('Hubo un error al cargar la imagen seleccionada. Por favor intenta con otra foto.');
+        if (btnUploadText) btnUploadText.textContent = hasCustomPhoto ? 'Cambiar foto' : 'Subir foto';
+      } finally {
+        if (photoFileInput) photoFileInput.value = '';
+      }
     }
 
     // Eventos para subir archivo
@@ -4509,7 +4583,128 @@
       orderStatusMsg.style.display = 'block';
     }
 
-    // Procesamiento y Generación de la Solicitud (Word + Imágenes en Base64)
+    // Genera el bloque XML de Word (OpenXML) con la tabla de datos de la solicitud
+    function buildOrderDetailsTableXml(orderData) {
+      function escapeXml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&apos;');
+      }
+
+      const c = orderData.customer;
+      const o = orderData.order;
+      const custom = orderData.customization || {};
+
+      const rows = [
+        { label: 'N° de Solicitud:', value: o.orderId, bold: true },
+        { label: 'Fecha y Hora:', value: o.formattedDate },
+        { label: 'Cliente:', value: c.fullName, bold: true },
+        { label: 'Documento:', value: `${c.docType}: ${c.docNumber}` },
+        { label: 'WhatsApp / Celular:', value: c.phone },
+        { label: 'Diseño del Lingote:', value: o.designName, bold: true },
+        { label: 'Especificaciones:', value: `${o.purity || 'Oro Puro 24K (999.9)'} • ${o.weight || '1g'}` },
+        { label: 'Precio Total:', value: `S/ ${o.pricePEN}.00 PEN`, bold: true },
+        { label: 'Código de Serie / SKU:', value: o.serialCode }
+      ];
+
+      if (o.isCustomPhoto || o.designKey === 'custom') {
+        const customParts = [];
+        if (custom.customText) customParts.push(`Texto: "${custom.customText}"`);
+        if (custom.frame) customParts.push(`Marco: ${custom.frame}`);
+        if (custom.backgroundColor) customParts.push(`Fondo: ${custom.backgroundColor}`);
+        if (customParts.length > 0) {
+          rows.push({ label: 'Personalización:', value: customParts.join(' • ') });
+        }
+      }
+
+      const rowsXml = rows.map(r => `
+        <w:tr>
+          <w:tc>
+            <w:tcPr>
+              <w:tcW w:w="2800" w:type="dxa"/>
+              <w:tcMar>
+                <w:top w:w="100" w:type="dxa"/>
+                <w:bottom w:w="100" w:type="dxa"/>
+                <w:left w:w="140" w:type="dxa"/>
+                <w:right w:w="140" w:type="dxa"/>
+              </w:tcMar>
+            </w:tcPr>
+            <w:p>
+              <w:pPr><w:spacing w:before="40" w:after="40"/></w:pPr>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arimo" w:hAnsi="Arimo"/>
+                  <w:b/>
+                  <w:sz w:val="20"/>
+                  <w:color w:val="475569"/>
+                </w:rPr>
+                <w:t>${escapeXml(r.label)}</w:t>
+              </w:r>
+            </w:p>
+          </w:tc>
+          <w:tc>
+            <w:tcPr>
+              <w:tcW w:w="5700" w:type="dxa"/>
+              <w:tcMar>
+                <w:top w:w="100" w:type="dxa"/>
+                <w:bottom w:w="100" w:type="dxa"/>
+                <w:left w:w="140" w:type="dxa"/>
+                <w:right w:w="140" w:type="dxa"/>
+              </w:tcMar>
+            </w:tcPr>
+            <w:p>
+              <w:pPr><w:spacing w:before="40" w:after="40"/></w:pPr>
+              <w:r>
+                <w:rPr>
+                  <w:rFonts w:ascii="Arimo" w:hAnsi="Arimo"/>
+                  ${r.bold ? '<w:b/>' : ''}
+                  <w:sz w:val="20"/>
+                  <w:color w:val="${r.bold ? '0F172A' : '334155'}"/>
+                </w:rPr>
+                <w:t>${escapeXml(r.value)}</w:t>
+              </w:r>
+            </w:p>
+          </w:tc>
+        </w:tr>
+      `).join('');
+
+      return `
+        <w:p>
+          <w:pPr>
+            <w:spacing w:before="360" w:after="120"/>
+          </w:pPr>
+          <w:r>
+            <w:rPr>
+              <w:rFonts w:ascii="Arimo" w:hAnsi="Arimo"/>
+              <w:b/>
+              <w:sz w:val="24"/>
+              <w:color w:val="0B1220"/>
+            </w:rPr>
+            <w:t>DATOS DE LA SOLICITUD DE COMPRA</w:t>
+          </w:r>
+        </w:p>
+        <w:tbl>
+          <w:tblPr>
+            <w:tblW w:w="8500" w:type="dxa"/>
+            <w:tblBorders>
+              <w:top w:val="single" w:sz="6" w:space="0" w:color="EDC500"/>
+              <w:left w:val="none"/>
+              <w:bottom w:val="single" w:sz="6" w:space="0" w:color="EDC500"/>
+              <w:right w:val="none"/>
+              <w:insideH w:val="single" w:sz="4" w:space="0" w:color="F1F5F9"/>
+              <w:insideV w:val="none"/>
+            </w:tblBorders>
+          </w:tblPr>
+          ${rowsXml}
+        </w:tbl>
+      `;
+    }
+
+    // Procesamiento y Generación de la Solicitud (Word con datos + Imágenes en Base64)
     async function processOrderSubmission() {
       // 1. Control anti-bots (Honeypot)
       if (hpWebsite && hpWebsite.value.trim() !== '') {
@@ -4574,38 +4769,7 @@
       if (orderStatusMsg) orderStatusMsg.style.display = 'none';
 
       try {
-        // A. Renderizar frente y reverso únicos en alta resolución
-        const frontBase64 = await renderFrontCardBase64();
-        const currentSerial = (qrCodeText && qrCodeText.textContent.trim()) || '1N3112606.xx';
-        const backBase64 = await renderBackCardBase64(currentSerial);
-
-        // B. Extraer foto original subida por el cliente si está en modo personalizado
-        let originalPhotoBase64 = null;
-        if (currentDesign === 'custom' && userCustomPhoto && userCustomPhoto.src && userCustomPhoto.src.startsWith('data:')) {
-          const parts = userCustomPhoto.src.split(',');
-          if (parts.length > 1) {
-            originalPhotoBase64 = parts[1];
-          }
-        }
-
-        // C. Compilar la plantilla Word (.docx) oficial con frente y dorso inyectados
-        if (!window.DOCX_TEMPLATE_BASE64) {
-          throw new Error('La plantilla base de Word no se ha cargado.');
-        }
-        if (typeof JSZip === 'undefined') {
-          throw new Error('La biblioteca JSZip no está disponible.');
-        }
-
-        const zip = await JSZip.loadAsync(window.DOCX_TEMPLATE_BASE64, { base64: true });
-        zip.file('word/media/image2.jpeg', frontBase64, { base64: true });
-        zip.file('word/media/image5.png', backBase64, { base64: true });
-
-        const docxBase64 = await zip.generateAsync({
-          type: 'base64',
-          mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        });
-
-        // D. Crear ID único de orden y empaquetar estructura completa
+        // A. Preparar identificadores y metadatos de la orden
         const now = new Date();
         const orderId = 'ORD-' + now.getFullYear() +
           String(now.getMonth() + 1).padStart(2, '0') +
@@ -4616,8 +4780,23 @@
           ? (hasCustomPhoto ? 'Personalizado con Foto' : 'Personalizado')
           : (DESIGNS[currentDesign] ? DESIGNS[currentDesign].name : currentDesign);
 
-        // Objeto unificado listo para enviar al backend de Google Apps Script / Drive
-        window.preparedOrderData = {
+        const currentSerial = (qrCodeText && qrCodeText.textContent.trim()) || '1N3112606.xx';
+
+        // B. Renderizar frente y reverso únicos en alta resolución
+        const frontBase64 = await renderFrontCardBase64();
+        const backBase64 = await renderBackCardBase64(currentSerial);
+
+        // C. Extraer foto original subida por el cliente si está en modo personalizado
+        let originalPhotoBase64 = null;
+        if (currentDesign === 'custom' && userCustomPhoto && userCustomPhoto.src && userCustomPhoto.src.startsWith('data:')) {
+          const parts = userCustomPhoto.src.split(',');
+          if (parts.length > 1) {
+            originalPhotoBase64 = parts[1];
+          }
+        }
+
+        // Estructura de información completa del pedido
+        const orderInfo = {
           customer: {
             names: names,
             paternalSurname: paternal,
@@ -4646,7 +4825,38 @@
             frame: (currentDesign === 'custom') ? (currentCustomFrame === 'marco2' ? 'Ovalado' : 'Estándar') : 'predeterminado',
             textColor: (currentDesign === 'custom' && currentCustomBg === 'amarillo') ? '#01122e' : '#ffffff',
             borderColor: '#f5d77f'
-          },
+          }
+        };
+
+        // D. Compilar la plantilla Word (.docx) oficial con fotos E inyección de datos
+        if (!window.DOCX_TEMPLATE_BASE64) {
+          throw new Error('La plantilla base de Word no se ha cargado.');
+        }
+        if (typeof JSZip === 'undefined') {
+          throw new Error('La biblioteca JSZip no está disponible.');
+        }
+
+        const zip = await JSZip.loadAsync(window.DOCX_TEMPLATE_BASE64, { base64: true });
+        zip.file('word/media/image2.jpeg', frontBase64, { base64: true });
+        zip.file('word/media/image5.png', backBase64, { base64: true });
+
+        // Inyectar tabla con los datos del pedido en el cuerpo del documento Word
+        let docXml = await zip.file('word/document.xml').async('text');
+        const sectIndex = docXml.indexOf('<w:sectPr');
+        if (sectIndex !== -1) {
+          const tableXml = buildOrderDetailsTableXml(orderInfo);
+          docXml = docXml.substring(0, sectIndex) + tableXml + docXml.substring(sectIndex);
+          zip.file('word/document.xml', docXml);
+        }
+
+        const docxBase64 = await zip.generateAsync({
+          type: 'base64',
+          mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        });
+
+        // Objeto unificado listo para enviar al backend de Google Apps Script / Drive
+        window.preparedOrderData = {
+          ...orderInfo,
           files: {
             docxFileName: `SOLICITUD_${orderId}_LINGOTE_${(currentDesign || 'DISENO').toUpperCase()}.docx`,
             docxBase64: docxBase64,

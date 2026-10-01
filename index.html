@@ -1,0 +1,3002 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personaliza tu Lingote 24K - Inticash | Colección Vicuña</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Cinzel:wght@500;600;700&family=Unkempt:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/custom_mask.css">
+  <style>
+    :root {
+      --bg-bone: #fbfbfb;
+      --bg-bone-soft: #ffffff;
+      --gold: #edc500;
+      --gold-dark: #c9a600;
+      --gold-glow: rgba(237, 197, 0, 0.28);
+      --gold-subtle: rgba(237, 197, 0, 0.12);
+      --navy-card: #01122e;
+      --text-main: #14171d;
+      --text-muted: #64748b;
+      --card-ratio: calc(1024 / 650);
+      --card-radius: 10px;
+      --shadow-soft: 0 10px 30px -10px rgba(1, 18, 46, 0.12);
+      --shadow-card: 0 20px 45px -12px rgba(1, 18, 46, 0.22);
+      --shadow-hover: 0 28px 60px -15px rgba(1, 18, 46, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #fbfbfb;
+      background-image: 
+        radial-gradient(circle at 50% 15%, rgba(237, 197, 0, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(1, 18, 46, 0.02) 0%, transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(1, 18, 46, 0.02) 0%, transparent 40%);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+      padding: 24px 16px 36px;
+      position: relative;
+    }
+
+    /* Minimalist luxury background grid lines & corner accents */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+      z-index: 0;
+    }
+
+    .corner-mark {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .corner-mark::before,
+    .corner-mark::after {
+      content: '';
+      position: absolute;
+      background: var(--gold);
+      opacity: 0.65;
+    }
+    .corner-top-left { top: 24px; left: 24px; }
+    .corner-top-left::before { top: 0; left: 0; width: 14px; height: 1.5px; }
+    .corner-top-left::after { top: 0; left: 0; width: 1.5px; height: 14px; }
+
+    .corner-top-right { top: 24px; right: 24px; }
+    .corner-top-right::before { top: 0; right: 0; width: 14px; height: 1.5px; }
+    .corner-top-right::after { top: 0; right: 0; width: 1.5px; height: 14px; }
+
+    .corner-bottom-left { bottom: 24px; left: 24px; }
+    .corner-bottom-left::before { bottom: 0; left: 0; width: 14px; height: 1.5px; }
+    .corner-bottom-left::after { bottom: 0; left: 0; width: 1.5px; height: 14px; }
+
+    .corner-bottom-right { bottom: 24px; right: 24px; }
+    .corner-bottom-right::before { bottom: 0; right: 0; width: 14px; height: 1.5px; }
+    .corner-bottom-right::after { bottom: 0; right: 0; width: 1.5px; height: 14px; }
+
+    /* Header */
+    header {
+      position: relative;
+      z-index: 100;
+      text-align: center;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.73rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #3d3b32;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .dot-gold {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
+      animation: pulse-gold 2.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse-gold {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.35); opacity: 0.65; }
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #0c172a;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+      max-width: 420px;
+    }
+
+    /* Segmented Design Selector - Ultra Minimalist */
+    .design-tabs {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      background: #ffffff;
+      padding: 4px;
+      border-radius: 999px;
+      border: none;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+      margin-top: 6px;
+      max-width: 95vw;
+    }
+
+    .design-tab {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.77rem;
+      font-weight: 500;
+      color: #535a68;
+      padding: 6px 15px;
+      border-radius: 999px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .design-tab:hover {
+      color: #0c172a;
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .design-tab.is-active {
+      background: var(--gold);
+      color: #0b1220;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(237, 197, 0, 0.32);
+    }
+
+    /* Zodiac Signs Dropdown Menu */
+    .design-dropdown-wrapper {
+      position: relative;
+      display: inline-flex;
+      z-index: 105;
+    }
+
+    .design-tab-dropdown {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding-right: 12px;
+    }
+
+    .dropdown-chevron {
+      transition: transform 0.22s ease;
+      opacity: 0.75;
+      flex-shrink: 0;
+    }
+
+    .design-dropdown-wrapper.is-open .dropdown-chevron {
+      transform: rotate(180deg);
+    }
+
+    .zodiac-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      padding: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(115px, 1fr));
+      gap: 3px;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      min-width: 250px;
+    }
+
+    .design-dropdown-wrapper.is-open .zodiac-dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .ojoturco-dropdown-menu,
+    .fauna-dropdown-menu,
+    .cultura-dropdown-menu,
+    .religioso-dropdown-menu {
+      grid-template-columns: 1fr;
+      min-width: 185px;
+    }
+
+    .zodiac-item {
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #374151;
+      padding: 7px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.16s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .zodiac-item:hover {
+      background: rgba(237, 197, 0, 0.16);
+      color: #0c172a;
+    }
+
+    .zodiac-item.is-selected {
+      background: var(--gold);
+      color: #0b1220;
+      font-weight: 700;
+      box-shadow: 0 1px 4px rgba(237, 197, 0, 0.35);
+    }
+
+    /* Main Showcase Container */
+    main {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      perspective: 1400px;
+      margin: 0 0 16px 0;
+    }
+
+    /* Card Scene Wrapper & Sparkle Canvas */
+    .card-scene-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sparkle-canvas {
+      position: absolute;
+      top: -70px;
+      left: -70px;
+      width: calc(100% + 140px);
+      height: calc(100% + 140px);
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    /* 3D Flip Card Shell */
+    .card-scene {
+      width: min(340px, 86vw);
+      height: calc(min(340px, 86vw) * var(--card-ratio));
+      position: relative;
+      perspective: 1400px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card-scene:active {
+      transform: scale(0.985);
+    }
+
+    .card-flipper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.85s cubic-bezier(0.34, 1.45, 0.45, 1);
+      border-radius: var(--card-radius);
+    }
+
+    .card-scene.is-flipped .card-flipper {
+      transform: rotateY(180deg);
+    }
+
+    /* Card Faces */
+    .card-face {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--card-radius);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      border: none;
+      outline: none;
+      background: var(--navy-card);
+      transition: box-shadow 0.4s ease;
+    }
+
+    .card-scene:hover .card-face {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-face img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card-face-front img.is-changing {
+      opacity: 0.15;
+      transform: scale(0.98);
+    }
+
+    /* Loader Minimalista Elegante para Carga de Diseños */
+    .card-loader-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--card-radius);
+      background: rgba(4, 12, 26, 0.72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease-in-out;
+      border: none;
+      outline: none;
+      box-shadow: inset 0 0 25px rgba(237, 197, 0, 0.08);
+    }
+
+    .card-loader-overlay.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .card-loader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      transform: scale(0.92);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card-loader-overlay.is-active .card-loader-content {
+      transform: scale(1);
+    }
+
+    .gold-minimal-spinner {
+      position: relative;
+      width: 46px;
+      height: 46px;
+    }
+
+    .gold-spinner-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      box-sizing: border-box;
+    }
+
+    .gold-spinner-ring.outer {
+      border-top-color: #EDC500;
+      border-right-color: rgba(237, 197, 0, 0.35);
+      animation: goldSpinOuter 1.1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      filter: drop-shadow(0 0 6px rgba(237, 197, 0, 0.55));
+    }
+
+    .gold-spinner-ring.inner {
+      inset: 7px;
+      border-bottom-color: #FFF275;
+      border-left-color: rgba(255, 242, 117, 0.3);
+      animation: goldSpinInner 0.85s linear infinite reverse;
+    }
+
+    .gold-spinner-gem {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, #FFF8B5 0%, #EDC500 100%);
+      box-shadow: 0 0 10px #EDC500, 0 0 16px rgba(237, 197, 0, 0.8);
+      animation: goldGemPulse 1.4s ease-in-out infinite alternate;
+    }
+
+    @keyframes goldSpinOuter {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes goldSpinInner {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(-360deg); }
+    }
+
+    @keyframes goldGemPulse {
+      0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.7; }
+      100% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+    }
+
+    .card-loader-text {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #EDC500;
+      text-shadow: 0 0 12px rgba(237, 197, 0, 0.5);
+      animation: goldTextBreathe 1.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes goldTextBreathe {
+      0% { opacity: 0.75; }
+      100% { opacity: 1; }
+    }
+
+    /* Capas de Personalización con Foto */
+    .custom-layers-container {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: var(--card-radius);
+    }
+
+    .custom-layer-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Marco blanco visible de referencia */
+    .custom-layer-marco {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      z-index: 2;
+      display: block;
+    }
+
+    .custom-photo-masked {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+      z-index: 3;
+      -webkit-mask-image: url('https://i.imgur.com/qzox0Ie.png');
+      mask-image: url('https://i.imgur.com/qzox0Ie.png');
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
+    .custom-photo-masked.is-dragging {
+      cursor: grabbing;
+    }
+
+    .custom-photo-img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      pointer-events: none;
+      user-select: none;
+      will-change: transform;
+      transition: none !important;
+      transform-origin: 50% 48%;
+      display: block;
+    }
+
+    .photo-upload-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: transparent;
+      cursor: pointer;
+      user-select: none;
+      z-index: 4;
+      transition: opacity 0.2s ease;
+    }
+
+    .photo-minimal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 15px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      color: #1a202c;
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .photo-minimal-badge svg {
+      color: var(--gold-dark);
+      transition: transform 0.2s ease;
+    }
+
+    .photo-upload-placeholder:hover .photo-minimal-badge {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-color: rgba(237, 197, 0, 0.35);
+    }
+
+    .photo-upload-placeholder:hover .photo-minimal-badge svg {
+      transform: scale(1.08);
+    }
+
+    .custom-layer-fg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Lingote de Oro permanente sobre la cara frontal */
+    .gold-bar-overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
+      z-index: 10;
+      display: block;
+      /* Sombra 3D realista que resalta el lingote físico sobre la tarjeta */
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.28));
+    }
+
+    /* Photo controls bar when in custom mode */
+    .photo-controls-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity 0.25s ease, max-height 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.25s ease, margin 0.25s ease;
+      margin: 0;
+    }
+
+    .photo-controls-group.is-visible {
+      opacity: 1;
+      max-height: 60px;
+      pointer-events: auto;
+      transform: translateY(0);
+      margin-top: 2px;
+    }
+
+    .btn-photo-action {
+      background: #ffffff;
+      color: #1f2329;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .btn-photo-action:hover {
+      background: #ffffff;
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-photo-action svg {
+      color: var(--gold-dark);
+    }
+
+    .btn-photo-primary {
+      background: var(--gold);
+      color: #0b1220;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(237, 197, 0, 0.28);
+    }
+
+    .btn-photo-primary:hover {
+      background: #ffd31a;
+      box-shadow: 0 4px 14px rgba(237, 197, 0, 0.45);
+    }
+
+    /* Input minimalista para texto personalizado */
+    .photo-text-input-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      padding: 5px 10px 5px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .photo-text-input-container:focus-within {
+      border-color: rgba(237, 197, 0, 0.7);
+      box-shadow: 0 2px 12px rgba(237, 197, 0, 0.22);
+    }
+
+    .photo-text-input-container svg {
+      color: var(--gold-dark);
+      flex-shrink: 0;
+    }
+
+    .photo-text-input {
+      border: none;
+      outline: none;
+      font-family: 'Unkempt', cursive;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #0b1220;
+      width: 95px;
+      background: transparent;
+      padding: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .photo-text-input::placeholder {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: #94a3b8;
+    }
+
+    .char-limit-badge {
+      font-family: monospace;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #94a3b8;
+      background: rgba(0, 0, 0, 0.04);
+      padding: 2px 6px;
+      border-radius: 999px;
+      user-select: none;
+    }
+
+    /* SVG de texto curvado sobre la parte superior del marco */
+    .custom-curved-text-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 6;
+      overflow: visible;
+    }
+
+    .curved-custom-text {
+      font-family: 'Unkempt', cursive;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: 1.5px;
+      fill: #ffffff;
+      paint-order: stroke fill;
+      stroke: rgba(6, 17, 36, 0.7);
+      stroke-width: 3.5px;
+      stroke-linejoin: round;
+      pointer-events: auto;
+      cursor: pointer;
+      user-select: none;
+      filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+      transition: fill 0.2s ease, filter 0.2s ease;
+    }
+
+    .curved-custom-text:hover {
+      fill: #fff6cc;
+      filter: drop-shadow(0 2px 8px rgba(255, 212, 26, 0.5));
+    }
+
+    .card-face-front {
+      z-index: 2;
+      transform: rotateY(0deg);
+    }
+
+    .card-face-back {
+      transform: rotateY(180deg);
+      z-index: 1;
+    }
+
+    /* Subtle luxury metallic light reflection over card */
+    .card-sheen {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      background: linear-gradient(
+        115deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.12) 45%,
+        rgba(237, 197, 0, 0.18) 50%,
+        rgba(255, 255, 255, 0.12) 55%,
+        transparent 75%
+      );
+      opacity: 0.45;
+      mix-blend-mode: overlay;
+      transition: opacity 0.3s ease;
+    }
+
+    /* QR Code Container on Card Back - Sits directly over the template's native white box */
+    .qr-slot-container {
+      position: absolute;
+      left: 49.85%;
+      top: 54.3%;
+      width: 32%;
+      height: 20.31%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.8%;
+      background: transparent; /* No genera recuadro artificial, aprovecha el de la imagen */
+      box-shadow: none;
+      border: none;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .qr-canvas-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-canvas-wrapper canvas,
+    .qr-canvas-wrapper img {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+      image-rendering: pixelated;
+    }
+
+    /* Texto del código QR debajo del cuadro (como en la referencia) */
+    .qr-code-text {
+      position: absolute;
+      left: 49.85%;
+      width: 32%;
+      top: 75.3%;
+      text-align: center;
+      color: #ffffff;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-weight: 700;
+      font-size: calc(min(340px, 86vw) * 0.037);
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      pointer-events: none;
+      line-height: 1.2;
+      user-select: all;
+    }
+
+    /* Floating Hint Pill - Minimalist & Discreet */
+    .hint-pill {
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      color: #8c93a0;
+      letter-spacing: 0.02em;
+      background: #ffffff;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: none;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+    }
+
+    .hint-pill kbd {
+      background: #eeebe3;
+      border-radius: 3px;
+      padding: 0 4px;
+      font-size: 0.68rem;
+      font-family: inherit;
+      color: #222;
+    }
+
+    /* Controls Bar */
+    .controls-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+      width: 100%;
+    }
+
+    .button-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Main Flip Button - Minimalist Gold / Yellow, Compact */
+    .btn-action {
+      background: var(--gold);
+      color: #0b1220;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(237, 197, 0, 0.25);
+      transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .btn-action:hover {
+      background: #ffd31a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(237, 197, 0, 0.45);
+    }
+
+    .btn-action:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 4px rgba(237, 197, 0, 0.2);
+    }
+
+    .btn-action svg {
+      transition: transform 0.5s cubic-bezier(0.34, 1.45, 0.45, 1);
+    }
+
+    .btn-action:hover svg {
+      transform: rotate(180deg);
+    }
+
+    /* Secondary Button: New QR - Minimalist White, Compact, No Yellow Border */
+    .btn-secondary {
+      background: #ffffff;
+      color: #2f343d;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.22s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #ffffff;
+      color: #0b1220;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-secondary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-secondary svg {
+      color: var(--gold-dark);
+      transition: transform 0.35s ease;
+    }
+
+    .btn-secondary:hover svg {
+      transform: rotate(90deg);
+    }
+
+    /* Botón Descargar Word - Estilo refinado con acento azul Word */
+    .btn-word-download {
+      color: #1e3a8a;
+      border: 1px solid rgba(30, 58, 138, 0.15);
+      background: #ffffff;
+      font-weight: 600;
+    }
+
+    .btn-word-download:hover {
+      background: #f8fafc;
+      color: #172554;
+      border-color: rgba(30, 58, 138, 0.3);
+      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-word-download svg {
+      color: #2563eb !important;
+      transition: transform 0.25s ease !important;
+    }
+
+    .btn-word-download:hover svg {
+      transform: translateY(-1px) scale(1.08) !important;
+    }
+
+    .btn-word-download.is-loading {
+      opacity: 0.7;
+      pointer-events: none;
+      cursor: wait;
+    }
+
+    /* Code & Serial Badge Details - Compact */
+    .serial-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.71rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .serial-tag {
+      font-family: monospace;
+      font-weight: 600;
+      font-size: 0.71rem;
+      color: #0c172a;
+      background: rgba(237, 197, 0, 0.15);
+      border: none;
+      padding: 3px 8px;
+      border-radius: 5px;
+    }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px 24px;
+      }
+      h1 {
+        font-size: 1.35rem;
+      }
+      .card-scene {
+        width: 82vw;
+      }
+      .button-group {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background minimalism elements -->
+  <div class="bg-grid"></div>
+  <div class="corner-mark corner-top-left"></div>
+  <div class="corner-mark corner-top-right"></div>
+  <div class="corner-mark corner-bottom-left"></div>
+  <div class="corner-mark corner-bottom-right"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="badge-status">
+      <span class="dot-gold"></span>
+      <span>Edición Personalizada • 24K</span>
+    </div>
+    <h1>Personaliza tu Lingote</h1>
+    <p class="subtitle" id="headerSubtitle">Diseño Machu Picchu</p>
+
+    <!-- Selector de Diseños Minimalista -->
+    <div class="design-tabs" role="tablist" aria-label="Seleccionar diseño de lingote">
+      <button class="design-tab is-active" data-design="machupicchu" id="tab-machupicchu" type="button" role="tab" aria-selected="true">
+        <span>Machu Picchu</span>
+      </button>
+      <!-- Dropdown Religioso -->
+      <div class="design-dropdown-wrapper" id="religiosoDropdownWrapper">
+        <button class="design-tab design-tab-dropdown" id="tab-religioso" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="religiosoBtnLabel">Religioso</span>
+          <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="zodiac-dropdown-menu religioso-dropdown-menu" id="religiosoMenu" role="menu">
+          <button class="zodiac-item religioso-item" data-design="santarosa" type="button" role="menuitem"><span>Santa Rosa</span></button>
+          <button class="zodiac-item religioso-item" data-design="senordelosmilagros" type="button" role="menuitem"><span>Señor de los Milagros</span></button>
+        </div>
+      </div>
+      <!-- Dropdown Fauna Peruana -->
+      <div class="design-dropdown-wrapper" id="faunaDropdownWrapper">
+        <button class="design-tab design-tab-dropdown" id="tab-fauna" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="faunaBtnLabel">Fauna Peruana</span>
+          <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="zodiac-dropdown-menu fauna-dropdown-menu" id="faunaMenu" role="menu">
+          <button class="zodiac-item fauna-item" data-design="vicuna" type="button" role="menuitem"><span>Vicuña</span></button>
+          <button class="zodiac-item fauna-item" data-design="llama" type="button" role="menuitem"><span>Llama</span></button>
+          <button class="zodiac-item fauna-item" data-design="cuy" type="button" role="menuitem"><span>Cuy</span></button>
+          <button class="zodiac-item fauna-item" data-design="pinguino" type="button" role="menuitem"><span>Pingüino</span></button>
+          <button class="zodiac-item fauna-item" data-design="puma" type="button" role="menuitem"><span>Puma</span></button>
+          <button class="zodiac-item fauna-item" data-design="gallitodelasrocas" type="button" role="menuitem"><span>Gallito de las Rocas</span></button>
+        </div>
+      </div>
+      <!-- Dropdown Cultura Andina -->
+      <div class="design-dropdown-wrapper" id="culturaDropdownWrapper">
+        <button class="design-tab design-tab-dropdown" id="tab-cultura" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="culturaBtnLabel">Cultura Andina</span>
+          <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="zodiac-dropdown-menu cultura-dropdown-menu" id="culturaMenu" role="menu">
+          <button class="zodiac-item cultura-item" data-design="tumi" type="button" role="menuitem"><span>Tumi</span></button>
+          <button class="zodiac-item cultura-item" data-design="diosinti" type="button" role="menuitem"><span>Dios Inti</span></button>
+        </div>
+      </div>
+      <!-- Dropdown Ojos Turcos -->
+      <div class="design-dropdown-wrapper" id="ojoturcoDropdownWrapper">
+        <button class="design-tab design-tab-dropdown" id="tab-ojoturco" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="ojoturcoBtnLabel">Ojos Turcos</span>
+          <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="zodiac-dropdown-menu ojoturco-dropdown-menu" id="ojoturcoMenu" role="menu">
+          <button class="zodiac-item ojoturco-item" data-design="ojoturcorojo" type="button" role="menuitem"><span>Ojo Turco Rojo</span></button>
+          <button class="zodiac-item ojoturco-item" data-design="ojoturcoazul" type="button" role="menuitem"><span>Ojo Turco Azul</span></button>
+          <button class="zodiac-item ojoturco-item" data-design="ojoturcorosa" type="button" role="menuitem"><span>Ojo Turco Rosa</span></button>
+          <button class="zodiac-item ojoturco-item" data-design="ojoturcoverde" type="button" role="menuitem"><span>Ojo Turco Verde</span></button>
+        </div>
+      </div>
+      <!-- Dropdown Signos Zodiacales -->
+      <div class="design-dropdown-wrapper" id="zodiacDropdownWrapper">
+        <button class="design-tab design-tab-dropdown" id="tab-zodiac" type="button" aria-haspopup="true" aria-expanded="false">
+          <span id="zodiacBtnLabel">Signos Zodiacales</span>
+          <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="zodiac-dropdown-menu" id="zodiacMenu" role="menu">
+          <button class="zodiac-item" data-design="aries" type="button" role="menuitem"><span>Aries</span></button>
+          <button class="zodiac-item" data-design="tauro" type="button" role="menuitem"><span>Tauro</span></button>
+          <button class="zodiac-item" data-design="geminis" type="button" role="menuitem"><span>Géminis</span></button>
+          <button class="zodiac-item" data-design="cancer" type="button" role="menuitem"><span>Cáncer</span></button>
+          <button class="zodiac-item" data-design="leo" type="button" role="menuitem"><span>Leo</span></button>
+          <button class="zodiac-item" data-design="virgo" type="button" role="menuitem"><span>Virgo</span></button>
+          <button class="zodiac-item" data-design="libra" type="button" role="menuitem"><span>Libra</span></button>
+          <button class="zodiac-item" data-design="escorpio" type="button" role="menuitem"><span>Escorpio</span></button>
+          <button class="zodiac-item" data-design="sagitario" type="button" role="menuitem"><span>Sagitario</span></button>
+          <button class="zodiac-item" data-design="capricornio" type="button" role="menuitem"><span>Capricornio</span></button>
+          <button class="zodiac-item" data-design="acuario" type="button" role="menuitem"><span>Acuario</span></button>
+          <button class="zodiac-item" data-design="piscis" type="button" role="menuitem"><span>Piscis</span></button>
+        </div>
+      </div>
+      <button class="design-tab" data-design="custom" id="tab-custom" type="button" role="tab" aria-selected="false">
+        <span>Con Foto</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main interactive 3D Card -->
+  <main>
+    <div class="card-scene-wrapper">
+      <canvas id="sparkleCanvas" class="sparkle-canvas"></canvas>
+      <div class="card-scene" id="cardScene" title="Haz clic para girar la tarjeta">
+        <div class="card-flipper" id="cardFlipper">
+          
+          <!-- CARA FRONTAL (Vicuña / Santa Rosa / Machu Picchu / Con Foto) -->
+          <div class="card-face card-face-front">
+            <!-- Imagen estándar para colecciones -->
+            <img id="cardFrontImg" src="https://i.imgur.com/dd7Z61t.png" alt="Lingote de Oro Machu Picchu - Frente" crossorigin="anonymous" />
+
+            <!-- Capas para Personalización con Foto -->
+            <div id="customLayersContainer" class="custom-layers-container" style="display: none;">
+              <!-- Capa 1: Fondo1 (capa de atrás) -->
+              <img class="custom-layer-bg" src="https://i.imgur.com/TU6Wbh3.png" alt="Fondo Personalizado" crossorigin="anonymous" />
+
+              <!-- Capa 2: Marcofoto1 visible (marco blanco de referencia antes de cargar la foto) -->
+              <img id="customMarcoImg" class="custom-layer-marco" src="https://i.imgur.com/qzox0Ie.png" alt="Marco de Foto" crossorigin="anonymous" />
+
+              <!-- Capa 3: Contenedor con máscara para la foto del usuario -->
+              <div id="customPhotoMasked" class="custom-photo-masked" title="Arrastra para encuadrar la foto • Rueda del mouse para zoom">
+                <img id="userCustomPhoto" class="custom-photo-img" src="" alt="Foto Subida" style="display: none;" />
+                
+                <!-- Placeholder interactivo minimalista sobre el marco antes de cargar foto -->
+                <div id="photoPlaceholder" class="photo-upload-placeholder" title="Haz clic para subir tu foto">
+                  <div class="photo-minimal-badge">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    <span>Subir foto</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Capa 4: Capa Última (capaultima1 con textos, sellos y logos) -->
+              <img class="custom-layer-fg" src="https://i.imgur.com/Gj0punC.png" alt="Detalles Frontales" crossorigin="anonymous" />
+
+              <!-- Capa 5: Texto personalizado curvado bordeando el marco de la foto -->
+              <svg id="customCurvedTextSvg" class="custom-curved-text-svg" viewBox="0 0 650 1024" aria-hidden="true">
+                <defs>
+                  <path id="photoTopCurve" d="M 325,140 C 395,58 530,58 600,175" fill="none" />
+                </defs>
+                <text class="curved-custom-text" title="Haz clic para editar el texto">
+                  <textPath id="curvedTextPath" href="#photoTopCurve" startOffset="50%" text-anchor="middle">Texto Aquí</textPath>
+                </text>
+              </svg>
+            </div>
+
+            <!-- Lingote de Oro físico (superpuesto permanentemente al frente en todos los diseños) -->
+            <img id="goldBarOverlay" class="gold-bar-overlay" src="https://i.imgur.com/HyXuKqf.png" alt="Barra de Lingote de Oro 24K" crossorigin="anonymous" />
+
+            <div class="card-sheen"></div>
+          </div>
+
+        <!-- CARA TRASERA (Lingote de Oro + QR) -->
+        <div class="card-face card-face-back">
+          <img id="cardBackImg" src="https://i.imgur.com/zvj9fEU.png" alt="Lingote de Oro 24K - Reverso" crossorigin="anonymous" />
+          <div class="card-sheen"></div>
+
+          <!-- ESPACIO NATIVO DEL CÓDIGO QR SOBRE EL CUADRO DE LA PLANTILLA -->
+          <div class="qr-slot-container" id="qrContainer" title="Código QR Oficial">
+            <div class="qr-canvas-wrapper" id="qrcode"></div>
+          </div>
+
+          <!-- TEXTO DEL CÓDIGO QR DEBAJO DEL CUADRO -->
+          <div class="qr-code-text" id="qrCodeText">1N3112606.xx</div>
+        </div>
+
+        <!-- Loader Minimalista Elegante de Carga de Diseños -->
+        <div class="card-loader-overlay" id="cardLoaderOverlay" aria-hidden="true">
+          <div class="card-loader-content">
+            <div class="gold-minimal-spinner">
+              <div class="gold-spinner-ring outer"></div>
+              <div class="gold-spinner-ring inner"></div>
+              <div class="gold-spinner-gem"></div>
+            </div>
+            <div class="card-loader-text" id="cardLoaderText">Cargando diseño...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Indicador contextual -->
+    <div class="hint-pill" id="hintPill">
+      <span id="hintPillText">Tip: Haz clic en la tarjeta o presiona</span>
+      <kbd id="hintPillKbd">F</kbd>
+      <span id="hintPillTail">para girar</span>
+    </div>
+  </main>
+
+  <!-- Controles y Botones -->
+  <div class="controls-wrapper">
+    <!-- Grupo de botones principales -->
+    <div class="button-group">
+      <!-- Botón principal para girar (Amarillo oro, compacto) -->
+      <button class="btn-action" id="btnFlip" aria-label="Girar tarjeta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.19"/>
+        </svg>
+        <span id="btnFlipText">Girar tarjeta</span>
+      </button>
+
+      <!-- Botón para descargar plantilla Word lista para imprimir -->
+      <button class="btn-secondary btn-word-download" id="btnDownloadWord" title="Descargar plantilla Word oficial con 4 tarjetas de 8.5 x 5.4 cm listas para imprimir">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="12" y1="18" x2="12" y2="12"></line>
+          <polyline points="9 15 12 18 15 15"></polyline>
+        </svg>
+        <span id="btnDownloadWordText">Descargar Plantilla Word</span>
+      </button>
+    </div>
+
+    <!-- Controles específicos para el modo personalizado con foto -->
+    <div id="photoControlsGroup" class="photo-controls-group">
+      <input type="file" id="photoFileInput" accept="image/*" style="display: none;" />
+      
+      <button class="btn-photo-action btn-photo-primary" id="btnUploadPhoto" type="button" title="Seleccionar foto de tus archivos">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <span id="btnUploadText">Subir foto</span>
+      </button>
+
+      <button class="btn-photo-action" id="btnZoomOut" type="button" title="Alejar foto (-)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <line x1="8" y1="11" x2="14" y2="11"></line>
+        </svg>
+      </button>
+
+      <button class="btn-photo-action" id="btnZoomIn" type="button" title="Acercar foto (+)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <line x1="11" y1="8" x2="11" y2="14"></line>
+          <line x1="8" y1="11" x2="14" y2="11"></line>
+        </svg>
+      </button>
+
+      <button class="btn-photo-action" id="btnResetPhoto" type="button" title="Centrar encuadre">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+        <span>Centrar</span>
+      </button>
+
+      <!-- Input de texto personalizado curvado (máx 12 caracteres) -->
+      <div class="photo-text-input-container" title="Escribe un texto personalizado para la parte superior de la foto (máx 12 letras)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 7 4 4 20 4 20 7"></polyline>
+          <line x1="9" y1="20" x2="15" y2="20"></line>
+          <line x1="12" y1="4" x2="12" y2="20"></line>
+        </svg>
+        <input 
+          type="text" 
+          id="customPhotoTextInput" 
+          class="photo-text-input" 
+          placeholder="Texto aquí..." 
+          maxlength="12" 
+          value="Texto Aquí" 
+          autocomplete="off" 
+          spellcheck="false"
+        />
+        <span class="char-limit-badge" id="charLimitBadge">10/12</span>
+      </div>
+    </div>
+
+    <!-- Detalle de serial verificado -->
+    <div class="serial-display">
+      <span>Código Único:</span>
+      <span class="serial-tag" id="serialTag">1N3112606.xx</span>
+    </div>
+  </div>
+
+
+  <!-- Scripts generadores (Soporte local y CDN en la nube) -->
+  <script src="assets/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="assets/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="assets/docx_template.js"></script>
+  <script>
+    // Elements
+    const cardScene = document.getElementById('cardScene');
+    const cardFrontImg = document.getElementById('cardFrontImg');
+    const cardBackImg = document.getElementById('cardBackImg');
+    const headerSubtitle = document.getElementById('headerSubtitle');
+    const designTabs = document.querySelectorAll('.design-tab');
+    const btnFlip = document.getElementById('btnFlip');
+    const btnFlipText = document.getElementById('btnFlipText');
+    const btnDownloadWord = document.getElementById('btnDownloadWord');
+    const btnDownloadWordText = document.getElementById('btnDownloadWordText');
+    const qrContainer = document.getElementById('qrContainer');
+    const qrcodeDiv = document.getElementById('qrcode');
+    const qrCodeText = document.getElementById('qrCodeText');
+    const serialTag = document.getElementById('serialTag');
+    const sparkleCanvas = document.getElementById('sparkleCanvas');
+    const sparkleCtx = sparkleCanvas.getContext('2d');
+    const hintPillText = document.getElementById('hintPillText');
+    const hintPillKbd = document.getElementById('hintPillKbd');
+    const hintPillTail = document.getElementById('hintPillTail');
+    const cardLoaderOverlay = document.getElementById('cardLoaderOverlay');
+    const cardLoaderText = document.getElementById('cardLoaderText');
+
+    // Elementos del modo personalizado con foto y lingote frontal
+    const goldBarOverlay = document.getElementById('goldBarOverlay');
+    const customLayersContainer = document.getElementById('customLayersContainer');
+    const customMarcoImg = document.getElementById('customMarcoImg');
+    const customPhotoMasked = document.getElementById('customPhotoMasked');
+    const userCustomPhoto = document.getElementById('userCustomPhoto');
+    const photoPlaceholder = document.getElementById('photoPlaceholder');
+    const photoControlsGroup = document.getElementById('photoControlsGroup');
+    const photoFileInput = document.getElementById('photoFileInput');
+    const btnUploadPhoto = document.getElementById('btnUploadPhoto');
+    const btnUploadText = document.getElementById('btnUploadText');
+    const btnZoomIn = document.getElementById('btnZoomIn');
+    const btnZoomOut = document.getElementById('btnZoomOut');
+    const btnResetPhoto = document.getElementById('btnResetPhoto');
+    const customPhotoTextInput = document.getElementById('customPhotoTextInput');
+    const curvedTextPath = document.getElementById('curvedTextPath');
+    const charLimitBadge = document.getElementById('charLimitBadge');
+
+    // Elementos del selector de Fauna Peruana (desplegable)
+    const faunaDropdownWrapper = document.getElementById('faunaDropdownWrapper');
+    const tabFauna = document.getElementById('tab-fauna');
+    const faunaBtnLabel = document.getElementById('faunaBtnLabel');
+    const faunaItems = document.querySelectorAll('.fauna-item');
+
+    // Elementos del selector de Signos Zodiacales (desplegable)
+    const zodiacDropdownWrapper = document.getElementById('zodiacDropdownWrapper');
+    const tabZodiac = document.getElementById('tab-zodiac');
+    const zodiacBtnLabel = document.getElementById('zodiacBtnLabel');
+    const zodiacItems = document.querySelectorAll('#zodiacMenu .zodiac-item');
+
+    // Elementos del selector de Ojos Turcos (desplegable)
+    const ojoturcoDropdownWrapper = document.getElementById('ojoturcoDropdownWrapper');
+    const tabOjoturco = document.getElementById('tab-ojoturco');
+    const ojoturcoBtnLabel = document.getElementById('ojoturcoBtnLabel');
+    const ojoturcoItems = document.querySelectorAll('.ojoturco-item');
+
+    // Elementos del selector de Cultura Andina (desplegable)
+    const culturaDropdownWrapper = document.getElementById('culturaDropdownWrapper');
+    const tabCultura = document.getElementById('tab-cultura');
+    const culturaBtnLabel = document.getElementById('culturaBtnLabel');
+    const culturaItems = document.querySelectorAll('.cultura-item');
+
+    // Elementos del selector Religioso (desplegable)
+    const religiosoDropdownWrapper = document.getElementById('religiosoDropdownWrapper');
+    const tabReligioso = document.getElementById('tab-religioso');
+    const religiosoBtnLabel = document.getElementById('religiosoBtnLabel');
+    const religiosoItems = document.querySelectorAll('.religioso-item');
+
+    let isFlipped = false;
+    let qrInstance = null;
+    let currentDesign = 'machupicchu';
+    let sparkleParticles = [];
+    let sparkleAnimId = null;
+
+    // Estado del modo personalizado con foto
+    let photoZoom = 1.0;
+    let photoPanX = 0;
+    let photoPanY = 0;
+    let isDraggingPhoto = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let initialPanX = 0;
+    let initialPanY = 0;
+    let dragDistance = 0;
+    let hasCustomPhoto = false;
+
+    // URLs oficiales en la nube (Imgur) para todos los assets del proyecto
+    const CLOUD_ASSETS = {
+      // Signos Zodiacales
+      acuario_front: 'https://i.imgur.com/DUz82lo.png',
+      aries_front: 'https://i.imgur.com/uuslgQO.png',
+      cancer_front: 'https://i.imgur.com/ZeUk9qG.png',
+      capricornio_front: 'https://i.imgur.com/QOpW1Fi.png',
+      escorpio_front: 'https://i.imgur.com/kEA43fg.png',
+      geminis_front: 'https://i.imgur.com/a4OkIBP.png',
+      leo_front: 'https://i.imgur.com/RoEtoG7.png',
+      libra_front: 'https://i.imgur.com/4xoGk2z.png',
+      piscis_front: 'https://i.imgur.com/DTw7dyj.png',
+      sagitario_front: 'https://i.imgur.com/qeKRaXt.png',
+      tauro_front: 'https://i.imgur.com/fR5heFP.png',
+      virgo_front: 'https://i.imgur.com/YTSDhJT.png',
+
+      // Cultura Andina, Fauna Peruana, Religioso y Monumentos
+      diosinti_front: 'https://i.imgur.com/z7QaQUD.png',
+      cuy_front: 'https://i.imgur.com/skPcWlx.png',
+      gallitodelasrocas_front: 'https://i.imgur.com/xfFDQRq.png',
+      llama_front: 'https://i.imgur.com/ThkMJPv.png',
+      machupicchu_front: 'https://i.imgur.com/dd7Z61t.png',
+      pinguino_front: 'https://i.imgur.com/NnsRfuv.png',
+      puma_front: 'https://i.imgur.com/BdNat2n.png',
+      santarosa_front: 'https://i.imgur.com/13OvY9k.png',
+      senordelosmilagros_front: 'https://i.imgur.com/vZrOQsG.png',
+      tumi_front: 'https://i.imgur.com/GPwEjGu.png',
+      vicuna_front: 'https://i.imgur.com/5WUvPu0.png',
+
+      // Ojos Turcos (frente y dorso)
+      ojoturcoazul_front: 'https://i.imgur.com/rgU9TFa.png',
+      ojoturcoazul_back: 'https://i.imgur.com/umT2bS4.png',
+      ojoturcorojo_front: 'https://i.imgur.com/IJII680.png',
+      ojoturcorojo_back: 'https://i.imgur.com/CQsjlsn.png',
+      ojoturcorosa_front: 'https://i.imgur.com/L6Yt7Gn.png',
+      ojoturcorosa_back: 'https://i.imgur.com/2yL8KKi.png',
+      ojoturcoverde_front: 'https://i.imgur.com/jzRzFna.png',
+      ojoturcoverde_back: 'https://i.imgur.com/MYKVPLJ.png',
+
+      // Capas para personalización con foto
+      lingote_overlay: 'https://i.imgur.com/HyXuKqf.png',
+      custom_capa_ultima: 'https://i.imgur.com/Gj0punC.png',
+      custom_marco: 'https://i.imgur.com/qzox0Ie.png',
+      custom_fondo: 'https://i.imgur.com/TU6Wbh3.png',
+
+      // Fondo general trasero (default)
+      vicuna_back: 'https://i.imgur.com/zvj9fEU.png',
+      general_back: 'https://i.imgur.com/zvj9fEU.png'
+    };
+
+    // Colecciones de lingotes disponibles
+    const DESIGNS = {
+      vicuna: {
+        name: 'Vicuña',
+        src: CLOUD_ASSETS.vicuna_front,
+        subtitle: 'Diseño Vicuña',
+        alt: 'Lingote de Oro Vicuña - Frente',
+        isFauna: true
+      },
+      llama: {
+        name: 'Llama',
+        src: CLOUD_ASSETS.llama_front,
+        subtitle: 'Diseño Llama',
+        alt: 'Lingote de Oro Llama - Frente',
+        isFauna: true
+      },
+      santarosa: {
+        name: 'Santa Rosa de Lima',
+        src: CLOUD_ASSETS.santarosa_front,
+        subtitle: 'Diseño Santa Rosa de Lima',
+        alt: 'Lingote de Oro Santa Rosa de Lima - Frente',
+        isReligioso: true
+      },
+      senordelosmilagros: {
+        name: 'Señor de los Milagros',
+        src: CLOUD_ASSETS.senordelosmilagros_front,
+        subtitle: 'Diseño Señor de los Milagros',
+        alt: 'Lingote de Oro Señor de los Milagros - Frente',
+        isReligioso: true
+      },
+      machupicchu: {
+        name: 'Machu Picchu',
+        src: CLOUD_ASSETS.machupicchu_front,
+        subtitle: 'Diseño Machu Picchu',
+        alt: 'Lingote de Oro Machu Picchu - Frente'
+      },
+      cuy: {
+        name: 'Cuy Andino',
+        src: CLOUD_ASSETS.cuy_front,
+        subtitle: 'Diseño Cuy Andino',
+        alt: 'Lingote de Oro Cuy Andino - Frente',
+        isFauna: true
+      },
+      pinguino: {
+        name: 'Pingüino de Humboldt',
+        src: CLOUD_ASSETS.pinguino_front,
+        subtitle: 'Diseño Pingüino de Humboldt',
+        alt: 'Lingote de Oro Pingüino de Humboldt - Frente',
+        isFauna: true
+      },
+      puma: {
+        name: 'Puma Andino',
+        src: CLOUD_ASSETS.puma_front,
+        subtitle: 'Diseño Puma Andino',
+        alt: 'Lingote de Oro Puma Andino - Frente',
+        isFauna: true
+      },
+      tumi: {
+        name: 'Tumi',
+        src: CLOUD_ASSETS.tumi_front,
+        subtitle: 'Diseño Tumi',
+        alt: 'Lingote de Oro Tumi - Frente',
+        isCultura: true
+      },
+      diosinti: {
+        name: 'Dios Inti',
+        src: CLOUD_ASSETS.diosinti_front,
+        subtitle: 'Diseño Dios Inti',
+        alt: 'Lingote de Oro Dios Inti - Frente',
+        isCultura: true
+      },
+      gallitodelasrocas: {
+        name: 'Gallito de las Rocas',
+        src: CLOUD_ASSETS.gallitodelasrocas_front,
+        subtitle: 'Diseño Gallito de las Rocas',
+        alt: 'Lingote de Oro Gallito de las Rocas - Frente',
+        isFauna: true
+      },
+      ojoturcorojo: {
+        name: 'Ojo Turco Rojo',
+        src: CLOUD_ASSETS.ojoturcorojo_front,
+        backSrc: CLOUD_ASSETS.ojoturcorojo_back,
+        backKey: 'ojoturcorojo_back',
+        subtitle: 'Diseño Ojo Turco Rojo',
+        alt: 'Lingote de Oro Ojo Turco Rojo - Frente',
+        isOjoTurco: true
+      },
+      ojoturcoazul: {
+        name: 'Ojo Turco Azul',
+        src: CLOUD_ASSETS.ojoturcoazul_front,
+        backSrc: CLOUD_ASSETS.ojoturcoazul_back,
+        backKey: 'ojoturcoazul_back',
+        subtitle: 'Diseño Ojo Turco Azul',
+        alt: 'Lingote de Oro Ojo Turco Azul - Frente',
+        isOjoTurco: true
+      },
+      ojoturcorosa: {
+        name: 'Ojo Turco Rosa',
+        src: CLOUD_ASSETS.ojoturcorosa_front,
+        backSrc: CLOUD_ASSETS.ojoturcorosa_back,
+        backKey: 'ojoturcorosa_back',
+        subtitle: 'Diseño Ojo Turco Rosa',
+        alt: 'Lingote de Oro Ojo Turco Rosa - Frente',
+        isOjoTurco: true
+      },
+      ojoturcoverde: {
+        name: 'Ojo Turco Verde',
+        src: CLOUD_ASSETS.ojoturcoverde_front,
+        backSrc: CLOUD_ASSETS.ojoturcoverde_back,
+        backKey: 'ojoturcoverde_back',
+        subtitle: 'Diseño Ojo Turco Verde',
+        alt: 'Lingote de Oro Ojo Turco Verde - Frente',
+        isOjoTurco: true
+      },
+      leo: {
+        name: 'Signo Leo',
+        src: CLOUD_ASSETS.leo_front,
+        subtitle: 'Diseño Signo Leo',
+        alt: 'Lingote de Oro Signo Leo - Frente',
+        isZodiac: true
+      },
+      aries: {
+        name: 'Signo Aries',
+        src: CLOUD_ASSETS.aries_front,
+        subtitle: 'Diseño Signo Aries',
+        alt: 'Lingote de Oro Signo Aries - Frente',
+        isZodiac: true
+      },
+      tauro: {
+        name: 'Signo Tauro',
+        src: CLOUD_ASSETS.tauro_front,
+        subtitle: 'Diseño Signo Tauro',
+        alt: 'Lingote de Oro Signo Tauro - Frente',
+        isZodiac: true
+      },
+      geminis: {
+        name: 'Signo Géminis',
+        src: CLOUD_ASSETS.geminis_front,
+        subtitle: 'Diseño Signo Géminis',
+        alt: 'Lingote de Oro Signo Géminis - Frente',
+        isZodiac: true
+      },
+      cancer: {
+        name: 'Signo Cáncer',
+        src: CLOUD_ASSETS.cancer_front,
+        subtitle: 'Diseño Signo Cáncer',
+        alt: 'Lingote de Oro Signo Cáncer - Frente',
+        isZodiac: true
+      },
+      virgo: {
+        name: 'Signo Virgo',
+        src: CLOUD_ASSETS.virgo_front,
+        subtitle: 'Diseño Signo Virgo',
+        alt: 'Lingote de Oro Signo Virgo - Frente',
+        isZodiac: true
+      },
+      libra: {
+        name: 'Signo Libra',
+        src: CLOUD_ASSETS.libra_front,
+        subtitle: 'Diseño Signo Libra',
+        alt: 'Lingote de Oro Signo Libra - Frente',
+        isZodiac: true
+      },
+      escorpio: {
+        name: 'Signo Escorpio',
+        src: CLOUD_ASSETS.escorpio_front,
+        subtitle: 'Diseño Signo Escorpio',
+        alt: 'Lingote de Oro Signo Escorpio - Frente',
+        isZodiac: true
+      },
+      sagitario: {
+        name: 'Signo Sagitario',
+        src: CLOUD_ASSETS.sagitario_front,
+        subtitle: 'Diseño Signo Sagitario',
+        alt: 'Lingote de Oro Signo Sagitario - Frente',
+        isZodiac: true
+      },
+      capricornio: {
+        name: 'Signo Capricornio',
+        src: CLOUD_ASSETS.capricornio_front,
+        subtitle: 'Diseño Signo Capricornio',
+        alt: 'Lingote de Oro Signo Capricornio - Frente',
+        isZodiac: true
+      },
+      acuario: {
+        name: 'Signo Acuario',
+        src: CLOUD_ASSETS.acuario_front,
+        subtitle: 'Diseño Signo Acuario',
+        alt: 'Lingote de Oro Signo Acuario - Frente',
+        isZodiac: true
+      },
+      piscis: {
+        name: 'Signo Piscis',
+        src: CLOUD_ASSETS.piscis_front,
+        subtitle: 'Diseño Signo Piscis',
+        alt: 'Lingote de Oro Signo Piscis - Frente',
+        isZodiac: true
+      }
+    };
+
+    // Toggle Flip Function
+    function toggleCardFlip() {
+      isFlipped = !isFlipped;
+      if (isFlipped) {
+        cardScene.classList.add('is-flipped');
+        btnFlipText.textContent = 'Ver frente';
+      } else {
+        cardScene.classList.remove('is-flipped');
+        btnFlipText.textContent = 'Girar tarjeta';
+      }
+      playSubtleSound();
+    }
+
+    // Regla de SKU fijo con consecutivo xx:
+    // Prefijo fijo: 1N311
+    // Año 2026 (26) y Mes Junio (06) -> 2606
+    // Punto: .
+    // Consecutivo: xx
+    function getRandomSerial() {
+      const fixedPrefix = "1N3112606";
+      return `${fixedPrefix}.xx`;
+    }
+
+    // Render QR Code con estilo idéntico a la plantilla de referencia
+    function generateNewQRCode(specificCode) {
+      const serial = specificCode || getRandomSerial();
+      
+      // Actualizar texto debajo del cuadro y en la etiqueta
+      qrCodeText.textContent = serial;
+      serialTag.textContent = serial;
+
+      qrcodeDiv.innerHTML = '';
+
+      if (typeof QRCode !== 'undefined') {
+        qrInstance = new QRCode(qrcodeDiv, {
+          text: serial,
+          width: 200,
+          height: 200,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        const img = document.createElement('img');
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=000000&data=${encodeURIComponent(serial)}`;
+        img.alt = 'QR Code ' + serial;
+        qrcodeDiv.appendChild(img);
+      }
+    }
+
+    // Canvas Sparkle Particle Engine ("Chispitas elegantes")
+    function resizeSparkleCanvas() {
+      const rect = sparkleCanvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      sparkleCanvas.width = rect.width * dpr;
+      sparkleCanvas.height = rect.height * dpr;
+      sparkleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener('resize', resizeSparkleCanvas);
+    setTimeout(resizeSparkleCanvas, 60);
+
+    function drawSparkleStar(ctx, cx, cy, spikes, outerRadius, innerRadius) {
+      let rot = (Math.PI / 2) * 3;
+      let x = cx;
+      let y = cy;
+      const step = Math.PI / spikes;
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - outerRadius);
+      for (let i = 0; i < spikes; i++) {
+        x = cx + Math.cos(rot) * outerRadius;
+        y = cy + Math.sin(rot) * outerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+
+        x = cx + Math.cos(rot) * innerRadius;
+        y = cy + Math.sin(rot) * innerRadius;
+        ctx.lineTo(x, y);
+        rot += step;
+      }
+      ctx.lineTo(cx, cy - outerRadius);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function triggerSparkles() {
+      resizeSparkleCanvas();
+      const rect = sparkleCanvas.getBoundingClientRect();
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+
+      // Colores de destello oro y diamante
+      const goldPalette = ['#ffffff', '#edc500', '#ffe866', '#fff5b8', '#ffcf12'];
+      const totalSparkles = 46;
+
+      for (let i = 0; i < totalSparkles; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        // Radio inicial alrededor del lingote
+        const rx = 50 + Math.random() * 110;
+        const ry = 80 + Math.random() * 170;
+        const speed = 1.6 + Math.random() * 3.4;
+        const size = 3 + Math.random() * 7;
+        const maxLife = 40 + Math.floor(Math.random() * 35);
+
+        const randType = Math.random();
+        const type = randType > 0.4 ? 'star' : (randType > 0.18 ? 'diamond' : 'dot');
+
+        sparkleParticles.push({
+          x: cx + Math.cos(angle) * (rx * 0.75),
+          y: cy + Math.sin(angle) * (ry * 0.75),
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.4,
+          color: goldPalette[Math.floor(Math.random() * goldPalette.length)],
+          size: size,
+          type: type,
+          life: 0,
+          maxLife: maxLife,
+          rotation: Math.random() * Math.PI,
+          vRot: (Math.random() - 0.5) * 0.14
+        });
+      }
+
+      playSparkleChime();
+
+      if (!sparkleAnimId) {
+        animateSparkles();
+      }
+    }
+
+    function animateSparkles() {
+      const rect = sparkleCanvas.getBoundingClientRect();
+      sparkleCtx.clearRect(0, 0, rect.width, rect.height);
+
+      for (let i = sparkleParticles.length - 1; i >= 0; i--) {
+        const p = sparkleParticles[i];
+        p.life++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= 0.95;
+        p.vy *= 0.95;
+        p.rotation += p.vRot;
+
+        const progress = p.life / p.maxLife;
+        const alpha = progress < 0.2 ? (progress / 0.2) : Math.max(0, 1 - (progress - 0.2) / 0.8);
+        const curSize = p.size * (1 - progress * 0.35);
+
+        if (alpha <= 0 || p.life >= p.maxLife) {
+          sparkleParticles.splice(i, 1);
+          continue;
+        }
+
+        sparkleCtx.save();
+        sparkleCtx.globalAlpha = alpha;
+        sparkleCtx.fillStyle = p.color;
+        sparkleCtx.shadowColor = '#edc500';
+        sparkleCtx.shadowBlur = p.type === 'star' ? 9 : 4;
+        sparkleCtx.translate(p.x, p.y);
+        sparkleCtx.rotate(p.rotation);
+
+        if (p.type === 'star') {
+          drawSparkleStar(sparkleCtx, 0, 0, 4, curSize, curSize * 0.32);
+        } else if (p.type === 'diamond') {
+          sparkleCtx.beginPath();
+          sparkleCtx.moveTo(0, -curSize);
+          sparkleCtx.lineTo(curSize * 0.6, 0);
+          sparkleCtx.lineTo(0, curSize);
+          sparkleCtx.lineTo(-curSize * 0.6, 0);
+          sparkleCtx.closePath();
+          sparkleCtx.fill();
+        } else {
+          sparkleCtx.beginPath();
+          sparkleCtx.arc(0, 0, curSize * 0.5, 0, Math.PI * 2);
+          sparkleCtx.fill();
+        }
+        sparkleCtx.restore();
+      }
+
+      if (sparkleParticles.length > 0) {
+        sparkleAnimId = requestAnimationFrame(animateSparkles);
+      } else {
+        sparkleAnimId = null;
+        sparkleCtx.clearRect(0, 0, rect.width, rect.height);
+      }
+    }
+
+    // Actualizar posición y escala de la foto del usuario
+    function updatePhotoTransform() {
+      if (!userCustomPhoto) return;
+      userCustomPhoto.style.transform = `translate(${photoPanX}px, ${photoPanY}px) scale(${photoZoom})`;
+    }
+
+    // Cargar y procesar la foto seleccionada
+    function handlePhotoFile(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        userCustomPhoto.src = e.target.result;
+        userCustomPhoto.style.display = 'block';
+        if (customMarcoImg) customMarcoImg.style.display = 'none';
+        if (photoPlaceholder) photoPlaceholder.style.display = 'none';
+        if (goldBarOverlay) goldBarOverlay.style.display = 'block';
+        hasCustomPhoto = true;
+        photoZoom = 1.0;
+        photoPanX = 0;
+        photoPanY = 0;
+        updatePhotoTransform();
+        if (btnUploadText) btnUploadText.textContent = 'Cambiar foto';
+        triggerSparkles();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Eventos para subir archivo
+    if (btnUploadPhoto) {
+      btnUploadPhoto.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photoFileInput.click();
+      });
+    }
+
+    if (photoPlaceholder) {
+      photoPlaceholder.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photoFileInput.click();
+      });
+    }
+
+    if (photoFileInput) {
+      photoFileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (file) handlePhotoFile(file);
+      });
+    }
+
+    // Soporte para arrastrar archivo desde el explorador hacia la tarjeta
+    ['dragenter', 'dragover'].forEach(evt => {
+      cardScene.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    });
+
+    cardScene.addEventListener('drop', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        if (currentDesign !== 'custom') {
+          switchDesign('custom');
+        }
+        handlePhotoFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // Botones de Zoom y Centrado
+    if (btnZoomIn) {
+      btnZoomIn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photoZoom = Math.min(3.8, +(photoZoom + 0.15).toFixed(2));
+        updatePhotoTransform();
+      });
+    }
+
+    if (btnZoomOut) {
+      btnZoomOut.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photoZoom = Math.max(0.35, +(photoZoom - 0.15).toFixed(2));
+        updatePhotoTransform();
+      });
+    }
+
+    if (btnResetPhoto) {
+      btnResetPhoto.addEventListener('click', (e) => {
+        e.stopPropagation();
+        photoZoom = 1.0;
+        photoPanX = 0;
+        photoPanY = 0;
+        updatePhotoTransform();
+        triggerSparkles();
+      });
+    }
+
+    // Zoom con rueda del mouse sobre el área de la foto
+    if (customPhotoMasked) {
+      customPhotoMasked.addEventListener('wheel', (e) => {
+        if (!hasCustomPhoto) return;
+        e.preventDefault();
+        const delta = e.deltaY < 0 ? 0.08 : -0.08;
+        photoZoom = Math.max(0.35, Math.min(3.8, +(photoZoom + delta).toFixed(2)));
+        updatePhotoTransform();
+      }, { passive: false });
+
+      // Arrastrar y encuadrar la foto (Mouse y Touch)
+      function onPhotoPointerDown(e) {
+        if (!hasCustomPhoto) return;
+        if (e.button !== undefined && e.button !== 0) return;
+
+        isDraggingPhoto = true;
+        dragDistance = 0;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        dragStartX = clientX;
+        dragStartY = clientY;
+        initialPanX = photoPanX;
+        initialPanY = photoPanY;
+        customPhotoMasked.classList.add('is-dragging');
+        e.preventDefault();
+      }
+
+      function onPhotoPointerMove(e) {
+        if (!isDraggingPhoto) return;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const deltaX = clientX - dragStartX;
+        const deltaY = clientY - dragStartY;
+        dragDistance = Math.hypot(deltaX, deltaY);
+        photoPanX = initialPanX + deltaX;
+        photoPanY = initialPanY + deltaY;
+        updatePhotoTransform();
+      }
+
+      function onPhotoPointerUp() {
+        if (!isDraggingPhoto) return;
+        isDraggingPhoto = false;
+        customPhotoMasked.classList.remove('is-dragging');
+      }
+
+      customPhotoMasked.addEventListener('mousedown', onPhotoPointerDown);
+      window.addEventListener('mousemove', onPhotoPointerMove);
+      window.addEventListener('mouseup', onPhotoPointerUp);
+
+      customPhotoMasked.addEventListener('touchstart', onPhotoPointerDown, { passive: false });
+      window.addEventListener('touchmove', onPhotoPointerMove, { passive: true });
+      window.addEventListener('touchend', onPhotoPointerUp);
+    }
+
+    // Sincronización en tiempo real del texto personalizado curvado
+    if (customPhotoTextInput && curvedTextPath) {
+      customPhotoTextInput.addEventListener('input', (e) => {
+        let val = e.target.value;
+        if (val.length > 12) {
+          val = val.substring(0, 12);
+          e.target.value = val;
+        }
+        curvedTextPath.textContent = val;
+        if (charLimitBadge) {
+          charLimitBadge.textContent = `${val.length}/12`;
+        }
+      });
+
+      const curvedCustomText = document.querySelector('.curved-custom-text');
+      if (curvedCustomText) {
+        curvedCustomText.addEventListener('click', (e) => {
+          e.stopPropagation();
+          customPhotoTextInput.focus();
+          customPhotoTextInput.select();
+        });
+      }
+    }
+
+    let designSwitchCounter = 0;
+
+    // Helper asíncrono para precargar imágenes de la nube sin bloqueos
+    function preloadImageAsync(src) {
+      return new Promise((resolve) => {
+        if (!src) return resolve(null);
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        if (img.complete && img.naturalWidth > 0) {
+          return resolve(img);
+        }
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+    }
+
+    // Precarga automática inteligente en segundo plano de todos los diseños
+    function prefetchCloudAssets() {
+      const urls = Object.values(CLOUD_ASSETS);
+      let idx = 0;
+      function next() {
+        if (idx >= urls.length) return;
+        const url = urls[idx++];
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = img.onerror = () => {
+          setTimeout(next, 50);
+        };
+        img.src = url;
+      }
+      next();
+    }
+
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(prefetchCloudAssets);
+    } else {
+      setTimeout(prefetchCloudAssets, 1000);
+    }
+
+    // Cambio de diseño de lingote
+    function switchDesign(designKey) {
+      if (designKey === 'custom') {
+        currentDesign = 'custom';
+
+        // Actualizar pestañas
+        designTabs.forEach(tab => {
+          const isActive = tab.getAttribute('data-design') === 'custom';
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Limpiar estado de zodiaco
+        if (tabZodiac) tabZodiac.classList.remove('is-active');
+        if (zodiacBtnLabel) zodiacBtnLabel.textContent = 'Signos Zodiacales';
+        if (zodiacItems) zodiacItems.forEach(item => item.classList.remove('is-selected'));
+        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
+
+        // Limpiar estado de Fauna Peruana
+        if (tabFauna) tabFauna.classList.remove('is-active');
+        if (faunaBtnLabel) faunaBtnLabel.textContent = 'Fauna Peruana';
+        if (faunaItems) faunaItems.forEach(item => item.classList.remove('is-selected'));
+        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
+
+        // Limpiar estado de Ojos Turcos
+        if (tabOjoturco) tabOjoturco.classList.remove('is-active');
+        if (ojoturcoBtnLabel) ojoturcoBtnLabel.textContent = 'Ojos Turcos';
+        if (ojoturcoItems) ojoturcoItems.forEach(item => item.classList.remove('is-selected'));
+        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
+
+        // Limpiar estado de Cultura Andina
+        if (tabCultura) tabCultura.classList.remove('is-active');
+        if (culturaBtnLabel) culturaBtnLabel.textContent = 'Cultura Andina';
+        if (culturaItems) culturaItems.forEach(item => item.classList.remove('is-selected'));
+        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
+
+        // Limpiar estado de Religioso
+        if (tabReligioso) tabReligioso.classList.remove('is-active');
+        if (religiosoBtnLabel) religiosoBtnLabel.textContent = 'Religioso';
+        if (religiosoItems) religiosoItems.forEach(item => item.classList.remove('is-selected'));
+        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
+
+        // Actualizar subtítulo
+        if (headerSubtitle) {
+          headerSubtitle.textContent = 'Diseño Personalizado con Foto';
+        }
+
+        // Si la tarjeta está de espaldas, voltearla al frente
+        if (isFlipped) {
+          toggleCardFlip();
+        }
+
+        // Mostrar capas personalizadas y controles de foto
+        if (cardLoaderOverlay) cardLoaderOverlay.classList.remove('is-active');
+        cardFrontImg.classList.remove('is-changing');
+        cardFrontImg.style.display = 'none';
+        if (cardBackImg) cardBackImg.src = CLOUD_ASSETS.vicuna_back;
+        customLayersContainer.style.display = 'block';
+        photoControlsGroup.classList.add('is-visible');
+
+        // Gestionar visibilidad de marco, placeholder y lingote según si ya hay foto cargada
+        if (hasCustomPhoto) {
+          if (customMarcoImg) customMarcoImg.style.display = 'none';
+          if (photoPlaceholder) photoPlaceholder.style.display = 'none';
+          if (userCustomPhoto) userCustomPhoto.style.display = 'block';
+          if (goldBarOverlay) goldBarOverlay.style.display = 'block';
+        } else {
+          if (customMarcoImg) customMarcoImg.style.display = 'block';
+          if (photoPlaceholder) photoPlaceholder.style.display = 'flex';
+          if (userCustomPhoto) userCustomPhoto.style.display = 'none';
+          if (goldBarOverlay) goldBarOverlay.style.display = 'none'; // Se oculta hasta que el usuario suba su foto
+        }
+
+        // Actualizar píldora de ayuda
+        if (hintPillText && hintPillKbd && hintPillTail) {
+          hintPillText.textContent = 'Arrastra para encuadrar •';
+          hintPillKbd.textContent = 'Rueda / Zoom';
+          hintPillTail.textContent = 'para ajustar';
+        }
+
+        triggerSparkles();
+        return;
+      }
+
+      if (!DESIGNS[designKey]) return;
+
+      currentDesign = designKey;
+      const data = DESIGNS[designKey];
+
+      // Mostrar siempre el lingote en los diseños estándar
+      if (goldBarOverlay) goldBarOverlay.style.display = 'block';
+
+      // Actualizar botones de pestaña
+      designTabs.forEach(tab => {
+        const isActive = tab.getAttribute('data-design') === designKey;
+        tab.classList.toggle('is-active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      // Actualizar estado del botón desplegable de Fauna Peruana
+      if (data.isFauna) {
+        if (tabFauna) tabFauna.classList.add('is-active');
+        const shortName = data.name.replace(' Andino', '').replace(' de Humboldt', '');
+        if (faunaBtnLabel) faunaBtnLabel.textContent = `Fauna: ${shortName}`;
+        if (faunaItems) {
+          faunaItems.forEach(item => {
+            const isMatch = item.getAttribute('data-design') === designKey;
+            item.classList.toggle('is-selected', isMatch);
+          });
+        }
+      } else {
+        if (tabFauna) tabFauna.classList.remove('is-active');
+        if (faunaBtnLabel) faunaBtnLabel.textContent = 'Fauna Peruana';
+        if (faunaItems) {
+          faunaItems.forEach(item => item.classList.remove('is-selected'));
+        }
+      }
+      if (faunaDropdownWrapper) {
+        faunaDropdownWrapper.classList.remove('is-open');
+      }
+
+      // Actualizar estado del botón desplegable de Signos Zodiacales
+      if (data.isZodiac) {
+        if (tabZodiac) tabZodiac.classList.add('is-active');
+        if (zodiacBtnLabel) zodiacBtnLabel.textContent = data.name;
+        if (zodiacItems) {
+          zodiacItems.forEach(item => {
+            const isMatch = item.getAttribute('data-design') === designKey;
+            item.classList.toggle('is-selected', isMatch);
+          });
+        }
+      } else {
+        if (tabZodiac) tabZodiac.classList.remove('is-active');
+        if (zodiacBtnLabel) zodiacBtnLabel.textContent = 'Signos Zodiacales';
+        if (zodiacItems) {
+          zodiacItems.forEach(item => item.classList.remove('is-selected'));
+        }
+      }
+      if (zodiacDropdownWrapper) {
+        zodiacDropdownWrapper.classList.remove('is-open');
+      }
+
+      // Actualizar estado del botón desplegable de Ojos Turcos
+      if (data.isOjoTurco) {
+        if (tabOjoturco) tabOjoturco.classList.add('is-active');
+        if (ojoturcoBtnLabel) ojoturcoBtnLabel.textContent = data.name;
+        if (ojoturcoItems) {
+          ojoturcoItems.forEach(item => {
+            const isMatch = item.getAttribute('data-design') === designKey;
+            item.classList.toggle('is-selected', isMatch);
+          });
+        }
+      } else {
+        if (tabOjoturco) tabOjoturco.classList.remove('is-active');
+        if (ojoturcoBtnLabel) ojoturcoBtnLabel.textContent = 'Ojos Turcos';
+        if (ojoturcoItems) {
+          ojoturcoItems.forEach(item => item.classList.remove('is-selected'));
+        }
+      }
+      if (ojoturcoDropdownWrapper) {
+        ojoturcoDropdownWrapper.classList.remove('is-open');
+      }
+
+      // Actualizar estado del botón desplegable de Cultura Andina
+      if (data.isCultura) {
+        if (tabCultura) tabCultura.classList.add('is-active');
+        if (culturaBtnLabel) culturaBtnLabel.textContent = `Cultura: ${data.name}`;
+        if (culturaItems) {
+          culturaItems.forEach(item => {
+            const isMatch = item.getAttribute('data-design') === designKey;
+            item.classList.toggle('is-selected', isMatch);
+          });
+        }
+      } else {
+        if (tabCultura) tabCultura.classList.remove('is-active');
+        if (culturaBtnLabel) culturaBtnLabel.textContent = 'Cultura Andina';
+        if (culturaItems) {
+          culturaItems.forEach(item => item.classList.remove('is-selected'));
+        }
+      }
+      if (culturaDropdownWrapper) {
+        culturaDropdownWrapper.classList.remove('is-open');
+      }
+
+      // Actualizar estado del botón desplegable Religioso
+      if (data.isReligioso) {
+        if (tabReligioso) tabReligioso.classList.add('is-active');
+        const shortName = data.name === 'Señor de los Milagros' ? 'Sr. de los Milagros' : data.name;
+        if (religiosoBtnLabel) religiosoBtnLabel.textContent = `Religioso: ${shortName}`;
+        if (religiosoItems) {
+          religiosoItems.forEach(item => {
+            const isMatch = item.getAttribute('data-design') === designKey;
+            item.classList.toggle('is-selected', isMatch);
+          });
+        }
+      } else {
+        if (tabReligioso) tabReligioso.classList.remove('is-active');
+        if (religiosoBtnLabel) religiosoBtnLabel.textContent = 'Religioso';
+        if (religiosoItems) {
+          religiosoItems.forEach(item => item.classList.remove('is-selected'));
+        }
+      }
+      if (religiosoDropdownWrapper) {
+        religiosoDropdownWrapper.classList.remove('is-open');
+      }
+
+      // Actualizar subtítulo
+      if (headerSubtitle) {
+        headerSubtitle.textContent = data.subtitle;
+      }
+
+      // Ocultar capas personalizadas y mostrar imagen estándar
+      cardFrontImg.style.display = 'block';
+      customLayersContainer.style.display = 'none';
+      photoControlsGroup.classList.remove('is-visible');
+
+      // Restaurar píldora de ayuda
+      if (hintPillText && hintPillKbd && hintPillTail) {
+        hintPillText.textContent = 'Tip: Haz clic en la tarjeta o presiona';
+        hintPillKbd.textContent = 'F';
+        hintPillTail.textContent = 'para girar';
+      }
+
+      // Si la tarjeta está de espaldas, voltearla al frente para mostrar el nuevo diseño
+      if (isFlipped) {
+        toggleCardFlip();
+      }
+
+      // Transición fluida con Loader Minimalista Elegante
+      const thisSwitchId = ++designSwitchCounter;
+      const targetFrontSrc = data.src;
+      const targetBackSrc = (data && data.backSrc) ? data.backSrc : CLOUD_ASSETS.vicuna_back;
+
+      // Mostrar loader elegante minimalista con el nombre de la colección
+      if (cardLoaderText) {
+        cardLoaderText.textContent = `Cargando ${data.name}...`;
+      }
+      if (cardLoaderOverlay) {
+        cardLoaderOverlay.classList.add('is-active');
+      }
+      cardFrontImg.classList.add('is-changing');
+
+      // Pre-cargar imágenes requeridas de forma asíncrona
+      Promise.all([
+        preloadImageAsync(targetFrontSrc),
+        preloadImageAsync(targetBackSrc)
+      ]).then(() => {
+        if (thisSwitchId !== designSwitchCounter) return;
+
+        cardFrontImg.src = targetFrontSrc;
+        cardFrontImg.alt = data.alt;
+        if (cardBackImg) {
+          cardBackImg.src = targetBackSrc;
+        }
+
+        setTimeout(() => {
+          if (thisSwitchId !== designSwitchCounter) return;
+          cardFrontImg.classList.remove('is-changing');
+          if (cardLoaderOverlay) {
+            cardLoaderOverlay.classList.remove('is-active');
+          }
+          triggerSparkles();
+        }, 50);
+      }).catch(() => {
+        if (thisSwitchId !== designSwitchCounter) return;
+        cardFrontImg.src = targetFrontSrc;
+        if (cardBackImg) cardBackImg.src = targetBackSrc;
+        cardFrontImg.classList.remove('is-changing');
+        if (cardLoaderOverlay) {
+          cardLoaderOverlay.classList.remove('is-active');
+        }
+      });
+    }
+
+    // Eventos en botones de diseño estándar
+    designTabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        const designKey = tab.getAttribute('data-design');
+        if (!designKey) return; // botones desplegables no tienen data-design
+        e.stopPropagation();
+        switchDesign(designKey);
+      });
+    });
+
+    // Control del menú desplegable Religioso
+    if (tabReligioso && religiosoDropdownWrapper) {
+      tabReligioso.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
+        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
+        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
+        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
+        religiosoDropdownWrapper.classList.toggle('is-open');
+      });
+    }
+
+    if (religiosoItems) {
+      religiosoItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const designKey = item.getAttribute('data-design');
+          switchDesign(designKey);
+        });
+      });
+    }
+
+    // Control del menú desplegable de Fauna Peruana
+    if (tabFauna && faunaDropdownWrapper) {
+      tabFauna.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
+        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
+        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
+        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
+        faunaDropdownWrapper.classList.toggle('is-open');
+      });
+    }
+
+    if (faunaItems) {
+      faunaItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const designKey = item.getAttribute('data-design');
+          switchDesign(designKey);
+        });
+      });
+    }
+
+    // Control del menú desplegable de Cultura Andina
+    if (tabCultura && culturaDropdownWrapper) {
+      tabCultura.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
+        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
+        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
+        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
+        culturaDropdownWrapper.classList.toggle('is-open');
+      });
+    }
+
+    if (culturaItems) {
+      culturaItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const designKey = item.getAttribute('data-design');
+          switchDesign(designKey);
+        });
+      });
+    }
+
+    // Control del menú desplegable de Signos Zodiacales
+    if (tabZodiac && zodiacDropdownWrapper) {
+      tabZodiac.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
+        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
+        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
+        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
+        zodiacDropdownWrapper.classList.toggle('is-open');
+      });
+    }
+
+    if (zodiacItems) {
+      zodiacItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const designKey = item.getAttribute('data-design');
+          switchDesign(designKey);
+        });
+      });
+    }
+
+    // Control del menú desplegable de Ojos Turcos
+    if (tabOjoturco && ojoturcoDropdownWrapper) {
+      tabOjoturco.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
+        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
+        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
+        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
+        ojoturcoDropdownWrapper.classList.toggle('is-open');
+      });
+    }
+
+    if (ojoturcoItems) {
+      ojoturcoItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const designKey = item.getAttribute('data-design');
+          switchDesign(designKey);
+        });
+      });
+    }
+
+    // Cerrar los desplegables si se hace clic fuera de ellos
+    window.addEventListener('click', (e) => {
+      if (religiosoDropdownWrapper && !religiosoDropdownWrapper.contains(e.target)) {
+        religiosoDropdownWrapper.classList.remove('is-open');
+      }
+      if (faunaDropdownWrapper && !faunaDropdownWrapper.contains(e.target)) {
+        faunaDropdownWrapper.classList.remove('is-open');
+      }
+      if (culturaDropdownWrapper && !culturaDropdownWrapper.contains(e.target)) {
+        culturaDropdownWrapper.classList.remove('is-open');
+      }
+      if (zodiacDropdownWrapper && !zodiacDropdownWrapper.contains(e.target)) {
+        zodiacDropdownWrapper.classList.remove('is-open');
+      }
+      if (ojoturcoDropdownWrapper && !ojoturcoDropdownWrapper.contains(e.target)) {
+        ojoturcoDropdownWrapper.classList.remove('is-open');
+      }
+    });
+
+    // Event Listeners
+    btnFlip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleCardFlip();
+    });
+
+    cardScene.addEventListener('click', () => {
+      // Si el usuario acaba de arrastrar la foto, evitar girar la tarjeta
+      if (dragDistance > 6) {
+        dragDistance = 0;
+        return;
+      }
+      // En modo personalizado viendo el frente, evitar giros accidentales al tocar la foto
+      if (currentDesign === 'custom' && !isFlipped) {
+        return;
+      }
+      toggleCardFlip();
+    });
+
+    // Keyboard Shortcuts (F to flip, 1-8 for designs)
+    window.addEventListener('keydown', (e) => {
+      // Evitar atajos si el usuario está escribiendo en un input
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) {
+        return;
+      }
+
+      if (e.key.toLowerCase() === 'f') {
+        e.preventDefault();
+        toggleCardFlip();
+      } else if (e.key === '1') {
+        switchDesign('vicuna');
+      } else if (e.key === '2') {
+        switchDesign('santarosa');
+      } else if (e.key === '3') {
+        switchDesign('machupicchu');
+      } else if (e.key === '4') {
+        switchDesign('cuy');
+      } else if (e.key === '5') {
+        switchDesign('pinguino');
+      } else if (e.key === '6') {
+        switchDesign('puma');
+      } else if (e.key === '7') {
+        switchDesign('leo');
+      } else if (e.key === '8') {
+        switchDesign('custom');
+      } else if (currentDesign === 'custom' && hasCustomPhoto) {
+        if (e.key === '+' || e.key === '=') {
+          photoZoom = Math.min(3.8, +(photoZoom + 0.15).toFixed(2));
+          updatePhotoTransform();
+        } else if (e.key === '-' || e.key === '_') {
+          photoZoom = Math.max(0.35, +(photoZoom - 0.15).toFixed(2));
+          updatePhotoTransform();
+        } else if (e.key === '0') {
+          photoZoom = 1.0;
+          photoPanX = 0;
+          photoPanY = 0;
+          updatePhotoTransform();
+        }
+      }
+    });
+
+    // Elegant Subtle 3D Tilt Effect on Mouse Move
+    let bounds;
+    function updateBounds() {
+      bounds = cardScene.getBoundingClientRect();
+    }
+    window.addEventListener('resize', updateBounds);
+    updateBounds();
+
+    cardScene.addEventListener('mouseenter', updateBounds);
+    cardScene.addEventListener('mousemove', (e) => {
+      if (isDraggingPhoto) {
+        cardScene.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        return;
+      }
+      if (!bounds) updateBounds();
+      const mouseX = e.clientX - bounds.left;
+      const mouseY = e.clientY - bounds.top;
+      const xPct = (mouseX / bounds.width) - 0.5;
+      const yPct = (mouseY / bounds.height) - 0.5;
+
+      const tiltX = -yPct * 8; // subtle max 8 deg
+      const tiltY = xPct * 8;
+
+      cardScene.style.transform = `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    cardScene.addEventListener('mouseleave', () => {
+      cardScene.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    });
+
+    // Audio Context compartido
+    let sharedAudioCtx = null;
+    function getAudioCtx() {
+      if (!sharedAudioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) sharedAudioCtx = new AudioContext();
+      }
+      if (sharedAudioCtx && sharedAudioCtx.state === 'suspended') {
+        sharedAudioCtx.resume();
+      }
+      return sharedAudioCtx;
+    }
+
+    // Efecto de audio: Giro de tarjeta
+    function playSubtleSound() {
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(520, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(840, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.04, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.09);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.09);
+      } catch (err) {}
+    }
+
+    // Efecto de audio: Campanilla cristalina de chispitas
+    function playSparkleChime() {
+      try {
+        const ctx = getAudioCtx();
+        if (!ctx) return;
+        const chord = [1046.5, 1318.5, 1567.98]; // C6, E6, G6
+        chord.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.035);
+          gain.gain.setValueAtTime(0.022, ctx.currentTime + idx * 0.035);
+          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + idx * 0.035 + 0.28);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + idx * 0.035);
+          osc.stop(ctx.currentTime + idx * 0.035 + 0.29);
+        });
+      } catch (err) {}
+    }
+
+    // --- GENERADOR DE PLANTILLA WORD OFICIAL (8.5 cm x 5.4 cm - 4 LINGOTES) ---
+    function getAssetSrc(keyOrSrc) {
+      if (typeof CLOUD_ASSETS !== 'undefined' && CLOUD_ASSETS[keyOrSrc]) {
+        return CLOUD_ASSETS[keyOrSrc];
+      }
+      if (window.CARD_ASSETS && window.CARD_ASSETS[keyOrSrc]) {
+        return window.CARD_ASSETS[keyOrSrc];
+      }
+      return keyOrSrc;
+    }
+
+    function ensureImageLoaded(imgOrKeyOrSrc) {
+      return new Promise((resolve, reject) => {
+        if (!imgOrKeyOrSrc) return reject(new Error('Fuente de imagen vacía'));
+        if (typeof imgOrKeyOrSrc !== 'string') {
+          if (imgOrKeyOrSrc.complete && imgOrKeyOrSrc.naturalWidth > 0) return resolve(imgOrKeyOrSrc);
+          imgOrKeyOrSrc.onload = () => resolve(imgOrKeyOrSrc);
+          imgOrKeyOrSrc.onerror = () => reject(new Error('Error cargando elemento de imagen'));
+          return;
+        }
+        const src = getAssetSrc(imgOrKeyOrSrc);
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('Error cargando imagen: ' + imgOrKeyOrSrc));
+        img.src = src;
+      });
+    }
+
+    // Trazado de texto curvado sobre canvas acompañando el arco de la foto
+    function drawCurvedTextOnCanvas(ctx, text) {
+      if (!text) return;
+      const P0 = { x: 325, y: 140 };
+      const P1 = { x: 395, y: 58 };
+      const P2 = { x: 530, y: 58 };
+      const P3 = { x: 600, y: 175 };
+
+      function ptAt(t) {
+        const it = 1 - t;
+        const it2 = it * it;
+        const it3 = it2 * it;
+        const t2 = t * t;
+        const t3 = t2 * t;
+        return {
+          x: it3 * P0.x + 3 * it2 * t * P1.x + 3 * it * t2 * P2.x + t3 * P3.x,
+          y: it3 * P0.y + 3 * it2 * t * P1.y + 3 * it * t2 * P2.y + t3 * P3.y
+        };
+      }
+
+      function derivAt(t) {
+        const it = 1 - t;
+        return {
+          dx: 3 * it * it * (P1.x - P0.x) + 6 * it * t * (P2.x - P1.x) + 3 * t * t * (P3.x - P2.x),
+          dy: 3 * it * it * (P1.y - P0.y) + 6 * it * t * (P2.y - P1.y) + 3 * t * t * (P3.y - P2.y)
+        };
+      }
+
+      ctx.save();
+      ctx.font = "bold 26px 'Unkempt', cursive, sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "rgba(6, 17, 36, 0.75)";
+      ctx.lineWidth = 3.5;
+      ctx.lineJoin = "round";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "alphabetic";
+
+      const charWidths = [];
+      let totalWidth = 0;
+      for (let i = 0; i < text.length; i++) {
+        const w = ctx.measureText(text[i]).width + 1.5;
+        charWidths.push(w);
+        totalWidth += w;
+      }
+
+      const arcLen = 330;
+      let curDist = (arcLen - totalWidth) / 2;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const w = charWidths[i];
+        const centerDist = curDist + w / 2;
+        const t = Math.max(0.02, Math.min(0.98, centerDist / arcLen));
+        const pt = ptAt(t);
+        const deriv = derivAt(t);
+        const angle = Math.atan2(deriv.dy, deriv.dx);
+
+        ctx.save();
+        ctx.translate(pt.x, pt.y);
+        ctx.rotate(angle);
+        ctx.strokeText(char, 0, 0);
+        ctx.fillText(char, 0, 0);
+        ctx.restore();
+
+        curDist += w;
+      }
+      ctx.restore();
+    }
+
+    // Renderizar cara frontal en resolución completa 650x1024
+    async function renderFrontCardBase64() {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 650;
+      canvas.height = 1024;
+      const ctx = canvas.getContext('2d');
+
+      if (currentDesign !== 'custom') {
+        const frontSrc = (DESIGNS[currentDesign] && DESIGNS[currentDesign].src) || getAssetSrc(`${currentDesign}_front`);
+        const frontImg = await ensureImageLoaded(frontSrc);
+        ctx.drawImage(frontImg, 0, 0, 650, 1024);
+
+        const lingoteImg = await ensureImageLoaded(CLOUD_ASSETS.lingote_overlay);
+        ctx.drawImage(lingoteImg, 0, 0, 650, 1024);
+      } else {
+        // Fondo base personalizado
+        const fondoImg = await ensureImageLoaded(CLOUD_ASSETS.custom_fondo);
+        ctx.drawImage(fondoImg, 0, 0, 650, 1024);
+
+        if (hasCustomPhoto && userCustomPhoto && userCustomPhoto.src) {
+          const marcoImg = await ensureImageLoaded(CLOUD_ASSETS.custom_marco);
+          const photoCanvas = document.createElement('canvas');
+          photoCanvas.width = 650;
+          photoCanvas.height = 1024;
+          const pCtx = photoCanvas.getContext('2d');
+
+          const cardW = cardScene.clientWidth || 340;
+          const scaleRatio = 650 / cardW;
+          const scaledPanX = photoPanX * scaleRatio;
+          const scaledPanY = photoPanY * scaleRatio;
+          const originX = 650 * 0.50;
+          const originY = 1024 * 0.48;
+
+          pCtx.save();
+          pCtx.translate(originX + scaledPanX, originY + scaledPanY);
+          pCtx.scale(photoZoom, photoZoom);
+          pCtx.translate(-originX, -originY);
+
+          const nw = userCustomPhoto.naturalWidth || userCustomPhoto.width || 650;
+          const nh = userCustomPhoto.naturalHeight || userCustomPhoto.height || 1024;
+          const imgRatio = nw / nh;
+          const targetRatio = 650 / 1024;
+          let sw, sh, sx, sy;
+          if (imgRatio > targetRatio) {
+            sh = nh;
+            sw = sh * targetRatio;
+            sx = (nw - sw) / 2;
+            sy = 0;
+          } else {
+            sw = nw;
+            sh = sw / targetRatio;
+            sx = 0;
+            sy = (nh - sh) / 2;
+          }
+          pCtx.drawImage(userCustomPhoto, sx, sy, sw, sh, 0, 0, 650, 1024);
+          pCtx.restore();
+
+          // Máscara precisa con la silueta de custom_marco
+          pCtx.globalCompositeOperation = 'destination-in';
+          pCtx.drawImage(marcoImg, 0, 0, 650, 1024);
+
+          ctx.drawImage(photoCanvas, 0, 0);
+        } else {
+          const marcoImg = await ensureImageLoaded(CLOUD_ASSETS.custom_marco);
+          ctx.drawImage(marcoImg, 0, 0, 650, 1024);
+        }
+
+        const capaUltimaImg = await ensureImageLoaded(CLOUD_ASSETS.custom_capa_ultima);
+        ctx.drawImage(capaUltimaImg, 0, 0, 650, 1024);
+
+        const customText = (customPhotoTextInput ? customPhotoTextInput.value : 'Texto Aquí') || '';
+        drawCurvedTextOnCanvas(ctx, customText);
+
+        if (hasCustomPhoto) {
+          const lingoteImg = await ensureImageLoaded(CLOUD_ASSETS.lingote_overlay);
+          ctx.drawImage(lingoteImg, 0, 0, 650, 1024);
+        }
+      }
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.96);
+      return dataUrl.split(',')[1];
+    }
+
+    // Renderizar cara trasera con QR y código serial en 650x1024 (retorna base64 estampado)
+    async function renderBackCardBase64(serialCode) {
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 650;
+      canvas.height = 1024;
+      const ctx = canvas.getContext('2d');
+
+      // 1. Estampar fondo de la tarjeta trasera (soporta reverso personalizado si el diseño lo incluye)
+      const backSrc = (DESIGNS[currentDesign] && DESIGNS[currentDesign].backSrc) 
+        ? DESIGNS[currentDesign].backSrc 
+        : CLOUD_ASSETS.vicuna_back;
+      const backImg = await ensureImageLoaded(backSrc);
+      ctx.drawImage(backImg, 0, 0, 650, 1024);
+
+      // 2. Generar y estampar código QR con el mismo tamaño y margen que la vista normal (Imagen 2)
+      // Cuadro blanco en 650x1024: Centro (428, 660). Tamaño del QR: 156x156 para dejar un margen blanco equilibrado.
+      const qrSize = 156;
+      const qrX = 428 - Math.round(qrSize / 2); // 350
+      const qrY = 660 - Math.round(qrSize / 2); // 582
+
+      let qrSource = null;
+      if (qrcodeDiv) {
+        const liveCanvas = qrcodeDiv.querySelector('canvas');
+        if (liveCanvas && liveCanvas.width > 0) {
+          qrSource = liveCanvas;
+        } else {
+          const liveImg = qrcodeDiv.querySelector('img');
+          if (liveImg && liveImg.complete && liveImg.naturalWidth > 0) {
+            qrSource = liveImg;
+          }
+        }
+      }
+
+      if (qrSource) {
+        ctx.drawImage(qrSource, qrX, qrY, qrSize, qrSize);
+      } else {
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.left = '-9999px';
+        tempDiv.style.top = '-9999px';
+        document.body.appendChild(tempDiv);
+
+        new QRCode(tempDiv, {
+          text: serialCode,
+          width: 200,
+          height: 200,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+
+        await new Promise(r => setTimeout(r, 60));
+
+        let tempCanvas = tempDiv.querySelector('canvas');
+        let tempImg = tempDiv.querySelector('img');
+
+        if (tempCanvas) {
+          ctx.drawImage(tempCanvas, qrX, qrY, qrSize, qrSize);
+        } else if (tempImg && tempImg.src) {
+          const loadedQr = await ensureImageLoaded(tempImg.src);
+          ctx.drawImage(loadedQr, qrX, qrY, qrSize, qrSize);
+        }
+        document.body.removeChild(tempDiv);
+      }
+
+      // 3. Estampar texto del código de serie debajo del cuadro blanco
+      ctx.save();
+      if ('letterSpacing' in ctx) {
+        ctx.letterSpacing = "0.04em";
+      }
+      ctx.font = "bold 22px 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.shadowColor = "rgba(0, 0, 0, 0.75)";
+      ctx.shadowBlur = 4;
+      ctx.shadowOffsetY = 2;
+      ctx.fillText(serialCode, 428, 786);
+      ctx.restore();
+
+      const dataUrl = canvas.toDataURL('image/png');
+      return dataUrl.split(',')[1];
+    }
+
+    // Descarga de la plantilla Word oficial (1 copia: Frente y Reverso a 8.5 x 5.4 cm)
+    async function downloadWordTemplate() {
+      const btn = document.getElementById('btnDownloadWord');
+      const btnText = document.getElementById('btnDownloadWordText');
+      const originalText = btnText ? btnText.textContent : 'Descargar Plantilla Word';
+
+      try {
+        if (btn) btn.classList.add('is-loading');
+        if (btnText) btnText.textContent = 'Generando docx...';
+
+        if (!window.DOCX_TEMPLATE_BASE64) {
+          window.DOCX_TEMPLATE_BASE64 = "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";
+        }
+
+        if (typeof JSZip === 'undefined' || !window.DOCX_TEMPLATE_BASE64) {
+          throw new Error('La plantilla o biblioteca de Word no se ha cargado correctamente.');
+        }
+
+        const zip = await JSZip.loadAsync(window.DOCX_TEMPLATE_BASE64, { base64: true });
+
+        // 1. Renderizar frente y reverso únicos en alta resolución (base64 directo)
+        const frontBase64 = await renderFrontCardBase64();
+        const currentSerial = (qrCodeText && qrCodeText.textContent.trim()) || '1N3112606.xx';
+        const backBase64 = await renderBackCardBase64(currentSerial);
+
+        // 2. Sustituir en la estructura OpenXML oficial (Frente: image2.jpeg, Dorso: image5.png)
+        zip.file('word/media/image2.jpeg', frontBase64, { base64: true });
+        zip.file('word/media/image5.png', backBase64, { base64: true });
+
+        // 3. Compilar archivo .docx
+        const docxBlob = await zip.generateAsync({
+          type: 'blob',
+          mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        });
+
+        // 4. Descargar automáticamente
+        const designName = (currentDesign === 'custom' ? 'CON_FOTO' : currentDesign).toUpperCase();
+        const fileName = `PLANTILLA_LINGOTE_${designName}_8.5x5.4cm.docx`;
+        const url = URL.createObjectURL(docxBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1500);
+
+        triggerSparkles();
+        if (btnText) btnText.textContent = '¡Descargado!';
+        setTimeout(() => {
+          if (btnText) btnText.textContent = originalText;
+        }, 2200);
+
+      } catch (err) {
+        console.error('Error al exportar plantilla Word:', err);
+        alert('No se pudo generar la plantilla Word: ' + err.message);
+        if (btnText) btnText.textContent = originalText;
+      } finally {
+        if (btn) btn.classList.remove('is-loading');
+      }
+    }
+
+    if (btnDownloadWord) {
+      btnDownloadWord.addEventListener('click', (e) => {
+        e.stopPropagation();
+        downloadWordTemplate();
+      });
+    }
+
+    // Initialize QR code with SKU: 1N3112606.xx
+    generateNewQRCode("1N3112606.xx");
+  </script>
+</body>
+</html>

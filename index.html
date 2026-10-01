@@ -159,12 +159,14 @@
       flex-wrap: wrap;
       gap: 6px;
       background: #ffffff;
-      padding: 4px;
+      padding: 5px 8px;
       border-radius: 999px;
-      border: none;
+      border: 1px solid rgba(0, 0, 0, 0.05);
       box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
       margin-top: 6px;
       max-width: 95vw;
+      position: relative;
+      z-index: 105;
     }
 
     .design-tab {
@@ -197,11 +199,15 @@
       box-shadow: 0 2px 8px rgba(237, 197, 0, 0.32);
     }
 
-    /* Zodiac Signs Dropdown Menu */
+    /* Category & Zodiac Signs Dropdown Menus */
     .design-dropdown-wrapper {
       position: relative;
       display: inline-flex;
-      z-index: 105;
+      z-index: 1;
+    }
+
+    .design-dropdown-wrapper.is-open {
+      z-index: 99999 !important;
     }
 
     .design-tab-dropdown {
@@ -226,18 +232,21 @@
       top: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%) translateY(-6px);
-      background: #ffffff;
+      background: #ffffff !important;
+      background-color: #ffffff !important;
+      border: 1px solid #e2e8f0;
       border-radius: 14px;
-      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.22), 0 2px 10px rgba(0, 0, 0, 0.1);
       padding: 6px;
       display: grid;
       grid-template-columns: repeat(2, minmax(115px, 1fr));
       gap: 3px;
-      z-index: 9999;
+      z-index: 99999;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-      min-width: 250px;
+      min-width: 245px;
+      isolation: isolate;
     }
 
     .design-dropdown-wrapper.is-open .zodiac-dropdown-menu {
@@ -1041,6 +1050,26 @@
 
 
     /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .design-tabs {
+        border-radius: 18px;
+        padding: 8px 10px;
+        gap: 6px;
+        width: 100%;
+        max-width: 380px;
+      }
+      .design-tab {
+        padding: 6px 11px;
+        font-size: 0.73rem;
+      }
+      .zodiac-dropdown-menu {
+        max-width: calc(100vw - 28px);
+        max-height: 55vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 16px 12px 24px;
@@ -2380,15 +2409,53 @@
       });
     });
 
+    // Función unificada para alternar y auto-posicionar desplegables en móviles y pantallas reducidas
+    function toggleDropdownMenu(wrapper) {
+      if (!wrapper) return;
+      const allWrappers = [
+        religiosoDropdownWrapper,
+        faunaDropdownWrapper,
+        culturaDropdownWrapper,
+        zodiacDropdownWrapper,
+        ojoturcoDropdownWrapper
+      ].filter(Boolean);
+
+      const willOpen = !wrapper.classList.contains('is-open');
+
+      allWrappers.forEach(w => {
+        w.classList.remove('is-open');
+        const m = w.querySelector('.zodiac-dropdown-menu');
+        if (m) {
+          m.style.left = '';
+          m.style.right = '';
+          m.style.transform = '';
+        }
+      });
+
+      if (willOpen) {
+        wrapper.classList.add('is-open');
+        const menu = wrapper.querySelector('.zodiac-dropdown-menu');
+        if (menu) {
+          const rect = menu.getBoundingClientRect();
+          const pad = 12;
+          if (rect.right > window.innerWidth - pad) {
+            menu.style.left = 'auto';
+            menu.style.right = '0';
+            menu.style.transform = 'translateY(0)';
+          } else if (rect.left < pad) {
+            menu.style.left = '0';
+            menu.style.right = 'auto';
+            menu.style.transform = 'translateY(0)';
+          }
+        }
+      }
+    }
+
     // Control del menú desplegable Religioso
     if (tabReligioso && religiosoDropdownWrapper) {
       tabReligioso.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
-        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
-        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
-        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
-        religiosoDropdownWrapper.classList.toggle('is-open');
+        toggleDropdownMenu(religiosoDropdownWrapper);
       });
     }
 
@@ -2406,11 +2473,7 @@
     if (tabFauna && faunaDropdownWrapper) {
       tabFauna.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
-        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
-        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
-        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
-        faunaDropdownWrapper.classList.toggle('is-open');
+        toggleDropdownMenu(faunaDropdownWrapper);
       });
     }
 
@@ -2428,11 +2491,7 @@
     if (tabCultura && culturaDropdownWrapper) {
       tabCultura.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
-        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
-        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
-        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
-        culturaDropdownWrapper.classList.toggle('is-open');
+        toggleDropdownMenu(culturaDropdownWrapper);
       });
     }
 
@@ -2450,11 +2509,7 @@
     if (tabZodiac && zodiacDropdownWrapper) {
       tabZodiac.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
-        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
-        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
-        if (ojoturcoDropdownWrapper) ojoturcoDropdownWrapper.classList.remove('is-open');
-        zodiacDropdownWrapper.classList.toggle('is-open');
+        toggleDropdownMenu(zodiacDropdownWrapper);
       });
     }
 
@@ -2472,11 +2527,7 @@
     if (tabOjoturco && ojoturcoDropdownWrapper) {
       tabOjoturco.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (religiosoDropdownWrapper) religiosoDropdownWrapper.classList.remove('is-open');
-        if (faunaDropdownWrapper) faunaDropdownWrapper.classList.remove('is-open');
-        if (culturaDropdownWrapper) culturaDropdownWrapper.classList.remove('is-open');
-        if (zodiacDropdownWrapper) zodiacDropdownWrapper.classList.remove('is-open');
-        ojoturcoDropdownWrapper.classList.toggle('is-open');
+        toggleDropdownMenu(ojoturcoDropdownWrapper);
       });
     }
 
@@ -2492,20 +2543,24 @@
 
     // Cerrar los desplegables si se hace clic fuera de ellos
     window.addEventListener('click', (e) => {
-      if (religiosoDropdownWrapper && !religiosoDropdownWrapper.contains(e.target)) {
-        religiosoDropdownWrapper.classList.remove('is-open');
-      }
-      if (faunaDropdownWrapper && !faunaDropdownWrapper.contains(e.target)) {
-        faunaDropdownWrapper.classList.remove('is-open');
-      }
-      if (culturaDropdownWrapper && !culturaDropdownWrapper.contains(e.target)) {
-        culturaDropdownWrapper.classList.remove('is-open');
-      }
-      if (zodiacDropdownWrapper && !zodiacDropdownWrapper.contains(e.target)) {
-        zodiacDropdownWrapper.classList.remove('is-open');
-      }
-      if (ojoturcoDropdownWrapper && !ojoturcoDropdownWrapper.contains(e.target)) {
-        ojoturcoDropdownWrapper.classList.remove('is-open');
+      const allWrappers = [
+        religiosoDropdownWrapper,
+        faunaDropdownWrapper,
+        culturaDropdownWrapper,
+        zodiacDropdownWrapper,
+        ojoturcoDropdownWrapper
+      ].filter(Boolean);
+
+      if (!allWrappers.some(w => w.contains(e.target))) {
+        allWrappers.forEach(w => {
+          w.classList.remove('is-open');
+          const m = w.querySelector('.zodiac-dropdown-menu');
+          if (m) {
+            m.style.left = '';
+            m.style.right = '';
+            m.style.transform = '';
+          }
+        });
       }
     });
 

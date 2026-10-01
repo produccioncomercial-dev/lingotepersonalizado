@@ -640,6 +640,7 @@
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.28));
     }
 
+
     /* Photo controls bar when in custom mode */
     .photo-controls-group {
       display: flex;
@@ -658,7 +659,7 @@
 
     .photo-controls-group.is-visible {
       opacity: 1;
-      max-height: 60px;
+      max-height: 120px;
       pointer-events: auto;
       transform: translateY(0);
       margin-top: 2px;
@@ -783,12 +784,25 @@
       cursor: pointer;
       user-select: none;
       filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
-      transition: fill 0.2s ease, filter 0.2s ease;
+      transition: fill 0.25s ease, stroke 0.25s ease, filter 0.25s ease;
     }
 
     .curved-custom-text:hover {
       fill: #fff6cc;
       filter: drop-shadow(0 2px 8px rgba(255, 212, 26, 0.5));
+    }
+
+    /* Variante azul cuando el fondo es amarillo */
+    .curved-custom-text.text-blue {
+      fill: #01122e !important;
+      stroke: rgba(255, 255, 255, 0.85) !important;
+      stroke-width: 3px !important;
+      filter: drop-shadow(0 2px 5px rgba(1, 18, 46, 0.25)) !important;
+    }
+
+    .curved-custom-text.text-blue:hover {
+      fill: #0c234a !important;
+      filter: drop-shadow(0 2px 8px rgba(1, 18, 46, 0.45)) !important;
     }
 
     .card-face-front {
@@ -872,6 +886,12 @@
       pointer-events: none;
       line-height: 1.2;
       user-select: all;
+      transition: color 0.25s ease;
+    }
+
+    .qr-code-text.sku-blue {
+      color: #01122e !important;
+      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.4) !important;
     }
 
     /* Floating Hint Pill - Minimalist & Discreet */
@@ -1211,9 +1231,9 @@
             <!-- Capas para Personalización con Foto -->
             <div id="customLayersContainer" class="custom-layers-container" style="display: none;">
               <!-- Capa 1: Fondo1 (capa de atrás) -->
-              <img class="custom-layer-bg" src="https://i.imgur.com/TU6Wbh3.png" alt="Fondo Personalizado" crossorigin="anonymous" />
+              <img id="customBgImg" class="custom-layer-bg" src="https://i.imgur.com/TU6Wbh3.png" alt="Fondo Personalizado" crossorigin="anonymous" />
 
-              <!-- Capa 2: Marcofoto1 visible (marco blanco de referencia antes de cargar la foto) -->
+              <!-- Capa 2: Marcofoto visible (marco blanco de referencia antes de cargar la foto) -->
               <img id="customMarcoImg" class="custom-layer-marco" src="https://i.imgur.com/qzox0Ie.png" alt="Marco de Foto" crossorigin="anonymous" />
 
               <!-- Capa 3: Contenedor con máscara para la foto del usuario -->
@@ -1232,13 +1252,14 @@
                 </div>
               </div>
 
-              <!-- Capa 4: Capa Última (capaultima1 con textos, sellos y logos) -->
-              <img class="custom-layer-fg" src="https://i.imgur.com/Gj0punC.png" alt="Detalles Frontales" crossorigin="anonymous" />
+              <!-- Capa 4: Capa Frontal (títulos, sellos y logos; cambia según el marco) -->
+              <img id="customFgImg" class="custom-layer-fg" src="https://i.imgur.com/Gj0punC.png" alt="Detalles Frontales" crossorigin="anonymous" />
 
               <!-- Capa 5: Texto personalizado curvado bordeando el marco de la foto -->
               <svg id="customCurvedTextSvg" class="custom-curved-text-svg" viewBox="0 0 650 1024" aria-hidden="true">
                 <defs>
                   <path id="photoTopCurve" d="M 325,140 C 395,58 530,58 600,175" fill="none" />
+                  <path id="photoOvalCurve" d="M 41,361 C 69,284 116,221 175,182" fill="none" />
                 </defs>
                 <text class="curved-custom-text" title="Haz clic para editar el texto">
                   <textPath id="curvedTextPath" href="#photoTopCurve" startOffset="50%" text-anchor="middle">Texto Aquí</textPath>
@@ -1324,6 +1345,23 @@
           <line x1="12" y1="3" x2="12" y2="15"></line>
         </svg>
         <span id="btnUploadText">Subir foto</span>
+      </button>
+
+      <!-- Botón para alternar marco al tocar -->
+      <button class="btn-photo-action" id="btnToggleFrame" type="button" title="Tocar para alternar entre marco Estándar y Ovalado">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="12" cy="12" rx="9" ry="6"></ellipse>
+        </svg>
+        <span>Marco: <b id="btnFrameName">Estándar</b></span>
+      </button>
+
+      <!-- Botón para alternar color de fondo al tocar -->
+      <button class="btn-photo-action" id="btnToggleBg" type="button" title="Tocar para alternar entre fondo Azul y Amarillo">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9V3z" fill="currentColor"></path>
+        </svg>
+        <span>Fondo: <b id="btnBgName">Azul</b></span>
       </button>
 
       <button class="btn-photo-action" id="btnZoomOut" type="button" title="Alejar foto (-)">
@@ -1426,6 +1464,15 @@
     const customPhotoTextInput = document.getElementById('customPhotoTextInput');
     const curvedTextPath = document.getElementById('curvedTextPath');
     const charLimitBadge = document.getElementById('charLimitBadge');
+    const customFgImg = document.getElementById('customFgImg');
+    const customCurvedTextSvg = document.getElementById('customCurvedTextSvg');
+    const photoTextInputContainer = document.querySelector('.photo-text-input-container');
+    const btnToggleFrame = document.getElementById('btnToggleFrame');
+    const btnFrameName = document.getElementById('btnFrameName');
+    const btnToggleBg = document.getElementById('btnToggleBg');
+    const btnBgName = document.getElementById('btnBgName');
+    const customBgImg = document.getElementById('customBgImg');
+
 
     // Elementos del selector de Fauna Peruana (desplegable)
     const faunaDropdownWrapper = document.getElementById('faunaDropdownWrapper');
@@ -1474,6 +1521,8 @@
     let initialPanY = 0;
     let dragDistance = 0;
     let hasCustomPhoto = false;
+    let currentCustomFrame = 'marco1'; // 'marco1' (Estándar) o 'marco2' (Ovalado)
+    let currentCustomBg = 'azul'; // 'azul' (Azul Oscuro Oficial) o 'amarillo' (Amarillo Inticash)
 
     // URLs oficiales en la nube (Imgur) para todos los assets del proyecto
     const CLOUD_ASSETS = {
@@ -1514,11 +1563,21 @@
       ojoturcoverde_front: 'https://i.imgur.com/jzRzFna.png',
       ojoturcoverde_back: 'https://i.imgur.com/MYKVPLJ.png',
 
-      // Capas para personalización con foto
+      // Capas para personalización con foto - Fondo Azul (Default)
       lingote_overlay: 'https://i.imgur.com/HyXuKqf.png',
       custom_capa_ultima: 'https://i.imgur.com/Gj0punC.png',
       custom_marco: 'https://i.imgur.com/qzox0Ie.png',
       custom_fondo: 'https://i.imgur.com/TU6Wbh3.png',
+
+      // Capas para personalización con foto - Marco 2 (Ovalado - Fondo Azul)
+      custom_marco2: 'https://i.imgur.com/58b3Vcw.png',
+      custom_capa2_oval: 'https://i.imgur.com/rxup2Eq.png',
+
+      // Variación Fondo Amarillo para personalización con foto
+      custom_fondo_amarillo: 'https://i.imgur.com/WJvvQMK.png',
+      custom_back_amarillo: 'https://i.imgur.com/9ncAFOd.png',
+      custom_capa2_amarillo_std: 'https://i.imgur.com/7TbPIg2.png',
+      custom_capa2_amarillo_oval: 'https://i.imgur.com/I3av1B5.png',
 
       // Fondo general trasero (default)
       vicuna_back: 'https://i.imgur.com/zvj9fEU.png',
@@ -1932,6 +1991,7 @@
         photoPanX = 0;
         photoPanY = 0;
         updatePhotoTransform();
+        setCustomFrame(currentCustomFrame || 'marco1');
         if (btnUploadText) btnUploadText.textContent = 'Cambiar foto';
         triggerSparkles();
       };
@@ -2006,6 +2066,123 @@
         triggerSparkles();
       });
     }
+
+    // Actualización sincronizada de todas las capas para Personalización con Foto
+    function updateCustomLayers() {
+      const isOval = (currentCustomFrame === 'marco2');
+      const isYellow = (currentCustomBg === 'amarillo');
+
+      const marcoUrl = isOval ? CLOUD_ASSETS.custom_marco2 : CLOUD_ASSETS.custom_marco;
+      
+      let capaUrl;
+      if (isYellow) {
+        capaUrl = isOval ? CLOUD_ASSETS.custom_capa2_amarillo_oval : CLOUD_ASSETS.custom_capa2_amarillo_std;
+      } else {
+        capaUrl = isOval ? CLOUD_ASSETS.custom_capa2_oval : CLOUD_ASSETS.custom_capa_ultima;
+      }
+
+      const fondoUrl = isYellow ? CLOUD_ASSETS.custom_fondo_amarillo : CLOUD_ASSETS.custom_fondo;
+      const backUrl = isYellow ? CLOUD_ASSETS.custom_back_amarillo : CLOUD_ASSETS.vicuna_back;
+
+      // 1. Imagen de fondo frontal (Capa 1)
+      if (customBgImg) {
+        customBgImg.src = fondoUrl;
+      }
+
+      // 2. Fondo de la cara trasera y color del texto SKU
+      if (cardBackImg) {
+        cardBackImg.src = backUrl;
+      }
+      if (qrCodeText) {
+        qrCodeText.classList.toggle('sku-blue', isYellow);
+      }
+
+      // 3. Imagen visible del marco (placeholder antes de foto)
+      if (customMarcoImg) {
+        customMarcoImg.src = marcoUrl;
+      }
+
+      // 4. Máscara CSS para la foto (clases específicas y propiedad inline con important)
+      if (customPhotoMasked) {
+        if (isOval) {
+          customPhotoMasked.classList.remove('frame-marco1', 'frame-standard');
+          customPhotoMasked.classList.add('frame-marco2', 'frame-oval');
+        } else {
+          customPhotoMasked.classList.remove('frame-marco2', 'frame-oval');
+          customPhotoMasked.classList.add('frame-marco1', 'frame-standard');
+        }
+        customPhotoMasked.style.setProperty('-webkit-mask-image', `url('${marcoUrl}')`, 'important');
+        customPhotoMasked.style.setProperty('mask-image', `url('${marcoUrl}')`, 'important');
+      }
+
+      // 5. Capa 2 (títulos, sellos y logos frontales)
+      if (customFgImg) {
+        customFgImg.src = capaUrl;
+      }
+
+      // 6. Texto curvado: adaptar la curva y color según el marco y fondo activo
+      if (customCurvedTextSvg) {
+        customCurvedTextSvg.style.display = 'block';
+      }
+      if (photoTextInputContainer) {
+        photoTextInputContainer.style.display = 'inline-flex';
+      }
+      if (curvedTextPath) {
+        curvedTextPath.setAttribute('href', isOval ? '#photoOvalCurve' : '#photoTopCurve');
+      }
+      const curvedCustomText = document.querySelector('.curved-custom-text');
+      if (curvedCustomText) {
+        curvedCustomText.classList.toggle('text-blue', isYellow);
+      }
+
+      // 7. Textos de interfaz y botones
+      if (btnFrameName) {
+        btnFrameName.textContent = isOval ? 'Ovalado' : 'Estándar';
+      }
+      if (btnBgName) {
+        btnBgName.textContent = isYellow ? 'Amarillo' : 'Azul';
+      }
+
+      // 8. Efecto visual táctil
+      updatePhotoTransform();
+      triggerSparkles();
+    }
+
+    function setCustomFrame(frameId) {
+      currentCustomFrame = frameId;
+      updateCustomLayers();
+    }
+
+    function toggleCustomFrame() {
+      const nextFrame = (currentCustomFrame === 'marco1') ? 'marco2' : 'marco1';
+      setCustomFrame(nextFrame);
+    }
+
+    function setCustomBg(bgId) {
+      currentCustomBg = bgId;
+      updateCustomLayers();
+    }
+
+    function toggleCustomBg() {
+      const nextBg = (currentCustomBg === 'amarillo') ? 'azul' : 'amarillo';
+      setCustomBg(nextBg);
+    }
+
+    // Listeners para cambiar marco y color de fondo al tocar
+    if (btnToggleFrame) {
+      btnToggleFrame.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCustomFrame();
+      });
+    }
+
+    if (btnToggleBg) {
+      btnToggleBg.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCustomBg();
+      });
+    }
+
 
     // Zoom con rueda del mouse sobre el área de la foto
     if (customPhotoMasked) {
@@ -2181,9 +2358,9 @@
         if (cardLoaderOverlay) cardLoaderOverlay.classList.remove('is-active');
         cardFrontImg.classList.remove('is-changing');
         cardFrontImg.style.display = 'none';
-        if (cardBackImg) cardBackImg.src = CLOUD_ASSETS.vicuna_back;
         customLayersContainer.style.display = 'block';
         photoControlsGroup.classList.add('is-visible');
+        updateCustomLayers();
 
         // Gestionar visibilidad de marco, placeholder y lingote según si ya hay foto cargada
         if (hasCustomPhoto) {
@@ -2340,6 +2517,9 @@
       cardFrontImg.style.display = 'block';
       customLayersContainer.style.display = 'none';
       photoControlsGroup.classList.remove('is-visible');
+      if (qrCodeText) qrCodeText.classList.remove('sku-blue');
+      const curvedCustomText = document.querySelector('.curved-custom-text');
+      if (curvedCustomText) curvedCustomText.classList.remove('text-blue');
 
       // Restaurar píldora de ayuda
       if (hintPillText && hintPillKbd && hintPillTail) {
@@ -2732,18 +2912,38 @@
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => resolve(img);
-        img.onerror = () => reject(new Error('Error cargando imagen: ' + imgOrKeyOrSrc));
+        img.onerror = () => {
+          const LOCAL_FALLBACKS = {
+            'https://i.imgur.com/WJvvQMK.png': 'assets/custom_fondo_amarillo.png',
+            'https://i.imgur.com/9ncAFOd.png': 'assets/custom_back_amarillo.png',
+            'https://i.imgur.com/7TbPIg2.png': 'assets/custom_capa2_amarillo_std.png',
+            'https://i.imgur.com/I3av1B5.png': 'assets/custom_capa2_amarillo_oval.png',
+            'https://i.imgur.com/58b3Vcw.png': 'assets/custom_marco2.png',
+            'https://i.imgur.com/rxup2Eq.png': 'assets/custom_capa2_oval.png',
+            'https://i.imgur.com/qzox0Ie.png': 'assets/custom_marco.png',
+            'https://i.imgur.com/Gj0punC.png': 'assets/custom_capa_ultima.png',
+            'https://i.imgur.com/TU6Wbh3.png': 'assets/custom_fondo.png',
+            'https://i.imgur.com/HyXuKqf.png': 'assets/lingote_overlay.png',
+            'https://i.imgur.com/zvj9fEU.png': 'assets/vicuna_back.jpg'
+          };
+          if (LOCAL_FALLBACKS[src] && !img.dataset.hasFallenBack) {
+            img.dataset.hasFallenBack = 'true';
+            img.src = LOCAL_FALLBACKS[src];
+          } else {
+            reject(new Error('Error cargando imagen: ' + imgOrKeyOrSrc));
+          }
+        };
         img.src = src;
       });
     }
 
-    // Trazado de texto curvado sobre canvas acompañando el arco de la foto
-    function drawCurvedTextOnCanvas(ctx, text) {
+    // Trazado de texto curvado sobre canvas acompañando el arco de la foto (Marco Estándar u Ovalado y Fondo Azul o Amarillo)
+    function drawCurvedTextOnCanvas(ctx, text, isOval = false, isYellow = false) {
       if (!text) return;
-      const P0 = { x: 325, y: 140 };
-      const P1 = { x: 395, y: 58 };
-      const P2 = { x: 530, y: 58 };
-      const P3 = { x: 600, y: 175 };
+      const P0 = isOval ? { x: 41, y: 361 } : { x: 325, y: 140 };
+      const P1 = isOval ? { x: 69, y: 284 } : { x: 395, y: 58 };
+      const P2 = isOval ? { x: 116, y: 221 } : { x: 530, y: 58 };
+      const P3 = isOval ? { x: 175, y: 182 } : { x: 600, y: 175 };
 
       function ptAt(t) {
         const it = 1 - t;
@@ -2767,9 +2967,15 @@
 
       ctx.save();
       ctx.font = "bold 26px 'Unkempt', cursive, sans-serif";
-      ctx.fillStyle = "#ffffff";
-      ctx.strokeStyle = "rgba(6, 17, 36, 0.75)";
-      ctx.lineWidth = 3.5;
+      if (isYellow) {
+        ctx.fillStyle = "#01122e";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+        ctx.lineWidth = 3.0;
+      } else {
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "rgba(6, 17, 36, 0.75)";
+        ctx.lineWidth = 3.5;
+      }
       ctx.lineJoin = "round";
       ctx.textAlign = "center";
       ctx.textBaseline = "alphabetic";
@@ -2782,7 +2988,7 @@
         totalWidth += w;
       }
 
-      const arcLen = 330;
+      const arcLen = isOval ? 258 : 330;
       let curDist = (arcLen - totalWidth) / 2;
 
       for (let i = 0; i < text.length; i++) {
@@ -2817,6 +3023,10 @@
       canvas.height = 1024;
       const ctx = canvas.getContext('2d');
 
+      // Pre-llenar con fondo blanco por seguridad (para evitar cualquier transparencia negra en JPEG)
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 650, 1024);
+
       if (currentDesign !== 'custom') {
         const frontSrc = (DESIGNS[currentDesign] && DESIGNS[currentDesign].src) || getAssetSrc(`${currentDesign}_front`);
         const frontImg = await ensureImageLoaded(frontSrc);
@@ -2825,18 +3035,32 @@
         const lingoteImg = await ensureImageLoaded(CLOUD_ASSETS.lingote_overlay);
         ctx.drawImage(lingoteImg, 0, 0, 650, 1024);
       } else {
-        // Fondo base personalizado
-        const fondoImg = await ensureImageLoaded(CLOUD_ASSETS.custom_fondo);
+        const isOval = (currentCustomFrame === 'marco2');
+        const isYellow = (currentCustomBg === 'amarillo');
+        const activeFondoSrc = isYellow ? CLOUD_ASSETS.custom_fondo_amarillo : CLOUD_ASSETS.custom_fondo;
+        const activeMarcoSrc = isOval ? CLOUD_ASSETS.custom_marco2 : CLOUD_ASSETS.custom_marco;
+        
+        let activeCapa2Src;
+        if (isYellow) {
+          activeCapa2Src = isOval ? CLOUD_ASSETS.custom_capa2_amarillo_oval : CLOUD_ASSETS.custom_capa2_amarillo_std;
+        } else {
+          activeCapa2Src = isOval ? CLOUD_ASSETS.custom_capa2_oval : CLOUD_ASSETS.custom_capa_ultima;
+        }
+
+        // 1. Fondo base personalizado
+        const fondoImg = await ensureImageLoaded(activeFondoSrc);
         ctx.drawImage(fondoImg, 0, 0, 650, 1024);
 
+        // 2. Foto del usuario enmascarada con el marco (o silueta del marco si aún no subió foto)
         if (hasCustomPhoto && userCustomPhoto && userCustomPhoto.src) {
-          const marcoImg = await ensureImageLoaded(CLOUD_ASSETS.custom_marco);
+          const loadedUserPhoto = await ensureImageLoaded(userCustomPhoto);
+          const marcoImg = await ensureImageLoaded(activeMarcoSrc);
           const photoCanvas = document.createElement('canvas');
           photoCanvas.width = 650;
           photoCanvas.height = 1024;
           const pCtx = photoCanvas.getContext('2d');
 
-          const cardW = cardScene.clientWidth || 340;
+          const cardW = (cardScene && cardScene.clientWidth) ? cardScene.clientWidth : 340;
           const scaleRatio = 650 / cardW;
           const scaledPanX = photoPanX * scaleRatio;
           const scaledPanY = photoPanY * scaleRatio;
@@ -2848,8 +3072,8 @@
           pCtx.scale(photoZoom, photoZoom);
           pCtx.translate(-originX, -originY);
 
-          const nw = userCustomPhoto.naturalWidth || userCustomPhoto.width || 650;
-          const nh = userCustomPhoto.naturalHeight || userCustomPhoto.height || 1024;
+          const nw = loadedUserPhoto.naturalWidth || loadedUserPhoto.width || 650;
+          const nh = loadedUserPhoto.naturalHeight || loadedUserPhoto.height || 1024;
           const imgRatio = nw / nh;
           const targetRatio = 650 / 1024;
           let sw, sh, sx, sy;
@@ -2864,29 +3088,30 @@
             sx = 0;
             sy = (nh - sh) / 2;
           }
-          pCtx.drawImage(userCustomPhoto, sx, sy, sw, sh, 0, 0, 650, 1024);
+          pCtx.drawImage(loadedUserPhoto, sx, sy, sw, sh, 0, 0, 650, 1024);
           pCtx.restore();
 
-          // Máscara precisa con la silueta de custom_marco
+          // Máscara precisa con la silueta del marco activo
           pCtx.globalCompositeOperation = 'destination-in';
           pCtx.drawImage(marcoImg, 0, 0, 650, 1024);
 
           ctx.drawImage(photoCanvas, 0, 0);
         } else {
-          const marcoImg = await ensureImageLoaded(CLOUD_ASSETS.custom_marco);
+          const marcoImg = await ensureImageLoaded(activeMarcoSrc);
           ctx.drawImage(marcoImg, 0, 0, 650, 1024);
         }
 
-        const capaUltimaImg = await ensureImageLoaded(CLOUD_ASSETS.custom_capa_ultima);
+        // 3. Capa 2 / Frontal (sellos, textos y orla)
+        const capaUltimaImg = await ensureImageLoaded(activeCapa2Src);
         ctx.drawImage(capaUltimaImg, 0, 0, 650, 1024);
 
+        // 4. Texto personalizado curvado (azul si fondo amarillo, blanco si fondo azul)
         const customText = (customPhotoTextInput ? customPhotoTextInput.value : 'Texto Aquí') || '';
-        drawCurvedTextOnCanvas(ctx, customText);
+        drawCurvedTextOnCanvas(ctx, customText, isOval, isYellow);
 
-        if (hasCustomPhoto) {
-          const lingoteImg = await ensureImageLoaded(CLOUD_ASSETS.lingote_overlay);
-          ctx.drawImage(lingoteImg, 0, 0, 650, 1024);
-        }
+        // 5. Lingote físico permanente
+        const lingoteImg = await ensureImageLoaded(CLOUD_ASSETS.lingote_overlay);
+        ctx.drawImage(lingoteImg, 0, 0, 650, 1024);
       }
 
       const dataUrl = canvas.toDataURL('image/jpeg', 0.96);
@@ -2904,10 +3129,20 @@
       canvas.height = 1024;
       const ctx = canvas.getContext('2d');
 
+      // Pre-llenar con fondo blanco por seguridad
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, 650, 1024);
+
       // 1. Estampar fondo de la tarjeta trasera (soporta reverso personalizado si el diseño lo incluye)
-      const backSrc = (DESIGNS[currentDesign] && DESIGNS[currentDesign].backSrc) 
-        ? DESIGNS[currentDesign].backSrc 
-        : CLOUD_ASSETS.vicuna_back;
+      const isYellowBg = (currentDesign === 'custom' && currentCustomBg === 'amarillo');
+      let backSrc;
+      if (isYellowBg) {
+        backSrc = CLOUD_ASSETS.custom_back_amarillo;
+      } else if (DESIGNS[currentDesign] && DESIGNS[currentDesign].backSrc) {
+        backSrc = DESIGNS[currentDesign].backSrc;
+      } else {
+        backSrc = CLOUD_ASSETS.vicuna_back;
+      }
       const backImg = await ensureImageLoaded(backSrc);
       ctx.drawImage(backImg, 0, 0, 650, 1024);
 
@@ -2968,12 +3203,18 @@
         ctx.letterSpacing = "0.04em";
       }
       ctx.font = "bold 22px 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif";
-      ctx.fillStyle = "#ffffff";
+      ctx.fillStyle = isYellowBg ? "#01122e" : "#ffffff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.shadowColor = "rgba(0, 0, 0, 0.75)";
-      ctx.shadowBlur = 4;
-      ctx.shadowOffsetY = 2;
+      if (!isYellowBg) {
+        ctx.shadowColor = "rgba(0, 0, 0, 0.75)";
+        ctx.shadowBlur = 4;
+        ctx.shadowOffsetY = 2;
+      } else {
+        ctx.shadowColor = "transparent";
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+      }
       ctx.fillText(serialCode, 428, 786);
       ctx.restore();
 

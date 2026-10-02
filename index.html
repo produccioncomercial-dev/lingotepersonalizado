@@ -126,13 +126,8 @@
       height: 7px;
       border-radius: 50%;
       background: var(--gold);
-      box-shadow: 0 0 8px var(--gold);
-      animation: pulse-gold 2.5s infinite ease-in-out;
-    }
-
-    @keyframes pulse-gold {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.35); opacity: 0.65; }
+      box-shadow: none;
+      display: inline-block;
     }
 
     h1 {
@@ -1381,9 +1376,9 @@
       width: min(450px, 94vw);
       max-height: 90vh;
       overflow-y: auto;
-      border-radius: 16px;
-      box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.22);
-      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.22);
+      border: none;
       padding: 22px 24px;
       transform: scale(0.96) translateY(8px);
       transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -1436,9 +1431,9 @@
       align-items: center;
       justify-content: space-between;
       background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 10px 14px;
+      border: none;
+      border-radius: 12px;
+      padding: 11px 14px;
       margin-bottom: 16px;
     }
 
@@ -1472,17 +1467,6 @@
       font-size: 0.72rem;
       color: var(--gold-dark);
       font-weight: 600;
-    }
-
-    .order-product-pill {
-      font-size: 0.66rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(237, 197, 0, 0.16);
-      color: #856f00;
     }
 
     .order-form {
@@ -1523,33 +1507,33 @@
       font-family: inherit;
       font-size: 0.82rem;
       color: #0f172a;
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      border: none;
       border-radius: 10px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       outline: none;
-      transition: all 0.2s ease;
+      transition: background 0.2s ease;
       width: 100%;
     }
 
     .form-input:focus, .form-select:focus {
-      border-color: #EDC500;
-      box-shadow: 0 0 0 3px rgba(237, 197, 0, 0.22);
+      background: #e2e8f0;
+      box-shadow: none;
     }
 
     .input-with-prefix {
       display: flex;
       align-items: center;
-      border: 1px solid #cbd5e1;
+      border: none;
       border-radius: 10px;
       overflow: hidden;
-      background: #ffffff;
-      transition: all 0.2s ease;
+      background: #f1f5f9;
+      transition: background 0.2s ease;
     }
 
     .input-with-prefix:focus-within {
-      border-color: #EDC500;
-      box-shadow: 0 0 0 3px rgba(237, 197, 0, 0.22);
+      background: #e2e8f0;
+      box-shadow: none;
     }
 
     .phone-prefix {
@@ -1557,17 +1541,23 @@
       font-weight: 600;
       color: #64748b;
       padding: 0 10px;
-      background: #f1f5f9;
+      background: transparent;
       height: 100%;
       display: flex;
       align-items: center;
-      border-right: 1px solid #cbd5e1;
+      border: none;
     }
 
     .input-with-prefix .form-input {
+      background: transparent !important;
       border: none;
       border-radius: 0;
-      padding: 8px 10px;
+      padding: 9px 10px;
+    }
+
+    .input-with-prefix .form-input:focus {
+      background: transparent !important;
+      box-shadow: none;
     }
 
     .btn-submit-order {
@@ -1578,22 +1568,22 @@
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.02em;
-      padding: 11px 18px;
+      padding: 12px 18px;
       border-radius: 10px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
+      border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      box-shadow: none;
       transition: all 0.2s ease;
     }
 
     .btn-submit-order:hover {
       background: #ffd31a;
       transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.09);
+      box-shadow: none;
     }
 
     .btn-submit-order:active {
@@ -1610,8 +1600,8 @@
     .btn-submit-order.is-ready {
       background: #10b981 !important;
       color: #ffffff !important;
-      border-color: #059669 !important;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+      border: none !important;
+      box-shadow: none !important;
     }
 
     .btn-submit-spinner {
@@ -1640,13 +1630,13 @@
     .order-status-msg.is-error {
       background: #ffe4e6;
       color: #be123c;
-      border: 1px solid #fecdd3;
+      border: none;
     }
 
     .order-status-msg.is-success {
       background: #f0fdf4;
       color: #15803d;
-      border: 1px solid #bbf7d0;
+      border: none;
     }
 
     /* Code & Serial Badge Details - Compact */
@@ -2065,7 +2055,7 @@
 
         <!-- CARA TRASERA (Lingote de Oro + QR) -->
         <div class="card-face card-face-back">
-          <img id="cardBackImg" src="https://i.imgur.com/zvj9fEU.png" alt="Lingote de Oro 24K - Reverso" crossorigin="anonymous" />
+          <img id="cardBackImg" src="https://i.imgur.com/4zUl2FB.png" alt="Lingote de Oro 24K - Reverso" crossorigin="anonymous" />
           <div class="card-sheen"></div>
 
           <!-- ESPACIO NATIVO DEL CÓDIGO QR SOBRE EL CUADRO DE LA PLANTILLA -->
@@ -2275,7 +2265,6 @@
             <span class="order-product-specs">• Oro Puro 24K (1g)</span>
           </div>
         </div>
-        <div class="order-product-pill">Personalizado</div>
       </div>
 
       <!-- Formulario de contacto -->
@@ -2477,13 +2466,13 @@
 
       // Ojos Turcos (frente y dorso)
       ojoturcoazul_front: 'https://i.imgur.com/rgU9TFa.png',
-      ojoturcoazul_back: 'https://i.imgur.com/umT2bS4.png',
+      ojoturcoazul_back: 'https://i.imgur.com/nCBepcw.png',
       ojoturcorojo_front: 'https://i.imgur.com/IJII680.png',
-      ojoturcorojo_back: 'https://i.imgur.com/CQsjlsn.png',
+      ojoturcorojo_back: 'https://i.imgur.com/qrp1Qv5.png',
       ojoturcorosa_front: 'https://i.imgur.com/L6Yt7Gn.png',
-      ojoturcorosa_back: 'https://i.imgur.com/2yL8KKi.png',
+      ojoturcorosa_back: 'https://i.imgur.com/rksck9H.png',
       ojoturcoverde_front: 'https://i.imgur.com/jzRzFna.png',
-      ojoturcoverde_back: 'https://i.imgur.com/MYKVPLJ.png',
+      ojoturcoverde_back: 'https://i.imgur.com/AsGYTs5.png',
 
       // Capas para personalización con foto - Fondo Azul (Default)
       lingote_overlay: 'https://i.imgur.com/HyXuKqf.png',
@@ -2497,13 +2486,13 @@
 
       // Variación Fondo Amarillo para personalización con foto
       custom_fondo_amarillo: 'https://i.imgur.com/WJvvQMK.png',
-      custom_back_amarillo: 'https://i.imgur.com/9ncAFOd.png',
+      custom_back_amarillo: 'https://i.imgur.com/2Z0rRnb.png',
       custom_capa2_amarillo_std: 'https://i.imgur.com/7TbPIg2.png',
       custom_capa2_amarillo_oval: 'https://i.imgur.com/I3av1B5.png',
 
       // Fondo general trasero (default)
-      vicuna_back: 'https://i.imgur.com/zvj9fEU.png',
-      general_back: 'https://i.imgur.com/zvj9fEU.png'
+      vicuna_back: 'https://i.imgur.com/4zUl2FB.png',
+      general_back: 'https://i.imgur.com/4zUl2FB.png'
     };
 
     // Colecciones de lingotes disponibles
@@ -4076,6 +4065,7 @@
         img.onerror = () => {
           const LOCAL_FALLBACKS = {
             'https://i.imgur.com/WJvvQMK.png': 'assets/custom_fondo_amarillo.png',
+            'https://i.imgur.com/2Z0rRnb.png': 'assets/custom_back_amarillo.png',
             'https://i.imgur.com/9ncAFOd.png': 'assets/custom_back_amarillo.png',
             'https://i.imgur.com/7TbPIg2.png': 'assets/custom_capa2_amarillo_std.png',
             'https://i.imgur.com/I3av1B5.png': 'assets/custom_capa2_amarillo_oval.png',
@@ -4085,6 +4075,7 @@
             'https://i.imgur.com/Gj0punC.png': 'assets/custom_capa_ultima.png',
             'https://i.imgur.com/TU6Wbh3.png': 'assets/custom_fondo.png',
             'https://i.imgur.com/HyXuKqf.png': 'assets/lingote_overlay.png',
+            'https://i.imgur.com/4zUl2FB.png': 'assets/vicuna_back.jpg',
             'https://i.imgur.com/zvj9fEU.png': 'assets/vicuna_back.jpg'
           };
           if (LOCAL_FALLBACKS[src] && !img.dataset.hasFallenBack) {

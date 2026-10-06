@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Personaliza tu Lingote 24K - Inticash | Colección Vicuña</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -512,34 +515,22 @@
     }
 
     .price-main {
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
-      margin: 2px 0 6px 0;
+      display: none !important;
     }
 
     .price-currency {
-      font-family: 'Cinzel', serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: #334155;
-      letter-spacing: 0.02em;
+      display: none !important;
     }
 
     .price-amount {
-      font-family: 'Cinzel', serif;
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: #0b1220;
-      letter-spacing: -0.01em;
-      line-height: 1;
+      display: none !important;
     }
 
     .price-details {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      margin-top: 2px;
+      margin-top: 8px;
     }
 
     .price-feature {
@@ -557,22 +548,13 @@
     }
 
     @media (max-width: 899px) {
-      .price-main {
-        margin: 0;
-      }
-      .price-amount {
-        font-size: 1.75rem;
-      }
-      .price-currency {
-        font-size: 1.05rem;
-      }
       .price-details {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         gap: 4px 12px;
-        margin-top: 2px;
+        margin-top: 4px;
       }
       .price-feature {
         font-size: 0.68rem;
@@ -1457,10 +1439,7 @@
     }
 
     .order-product-price {
-      font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #0b1220;
+      display: none !important;
     }
 
     .order-product-specs {
@@ -2218,7 +2197,8 @@
         <span class="price-dot"></span>
         <span>Edición 24K • 1g</span>
       </div>
-      <div class="price-main">
+      <!-- Oculto: Precio -->
+      <div class="price-main" style="display: none !important;">
         <span class="price-currency">S/</span>
         <span class="price-amount">599</span>
       </div>
@@ -2261,8 +2241,8 @@
         <div class="order-product-info">
           <span class="order-product-subtitle" id="orderModalDesignName">Diseño: Machu Picchu</span>
           <div class="order-product-meta">
-            <span class="order-product-price">S/ 599</span>
-            <span class="order-product-specs">• Oro Puro 24K (1g)</span>
+            <span class="order-product-price" style="display: none !important;">S/ 599</span>
+            <span class="order-product-specs">Oro Puro 24K (1g)</span>
           </div>
         </div>
       </div>

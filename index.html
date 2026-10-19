@@ -515,22 +515,34 @@
     }
 
     .price-main {
-      display: none !important;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin: 2px 0 6px 0;
     }
 
     .price-currency {
-      display: none !important;
+      font-family: 'Cinzel', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #334155;
+      letter-spacing: 0.02em;
     }
 
     .price-amount {
-      display: none !important;
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0b1220;
+      letter-spacing: -0.01em;
+      line-height: 1;
     }
 
     .price-details {
       display: flex;
       flex-direction: column;
       gap: 4px;
-      margin-top: 8px;
+      margin-top: 2px;
     }
 
     .price-feature {
@@ -548,13 +560,22 @@
     }
 
     @media (max-width: 899px) {
+      .price-main {
+        margin: 0;
+      }
+      .price-amount {
+        font-size: 1.75rem;
+      }
+      .price-currency {
+        font-size: 1.05rem;
+      }
       .price-details {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         gap: 4px 12px;
-        margin-top: 4px;
+        margin-top: 2px;
       }
       .price-feature {
         font-size: 0.68rem;
@@ -1439,7 +1460,10 @@
     }
 
     .order-product-price {
-      display: none !important;
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #0b1220;
     }
 
     .order-product-specs {
@@ -2197,8 +2221,7 @@
         <span class="price-dot"></span>
         <span>Edición 24K • 1g</span>
       </div>
-      <!-- Oculto: Precio -->
-      <div class="price-main" style="display: none !important;">
+      <div class="price-main">
         <span class="price-currency">S/</span>
         <span class="price-amount">599</span>
       </div>
@@ -2241,8 +2264,8 @@
         <div class="order-product-info">
           <span class="order-product-subtitle" id="orderModalDesignName">Diseño: Machu Picchu</span>
           <div class="order-product-meta">
-            <span class="order-product-price" style="display: none !important;">S/ 599</span>
-            <span class="order-product-specs">Oro Puro 24K (1g)</span>
+            <span class="order-product-price">S/ 599</span>
+            <span class="order-product-specs">• Oro Puro 24K (1g)</span>
           </div>
         </div>
       </div>
